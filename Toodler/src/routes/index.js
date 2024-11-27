@@ -9,6 +9,7 @@ import ModifyBoard from '../views/ModifyBoard';
 import Boards from '../views/Boards';
 import AddBoard from '../views/AddBoard'
 import DeleteBoard from '../views/DeleteBoard'
+import ListsAndTasks from '../views/ListsAndTasks';
 
 
 const Routes = () => (
@@ -19,6 +20,7 @@ const Routes = () => (
             <Stack.Screen name="Boards" component={Boards} />
             <Stack.Screen name="DeleteBoard" component={DeleteBoard} />
         <Stack.Screen name="AddBoard" component={AddBoard} />
+        <Stack.Screen name="ListsAndTasks" component={ListsAndTasks} />
 
             
         </Stack.Navigator>

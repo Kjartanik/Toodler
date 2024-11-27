@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image } from 'react-native';
-import { getBoards, addBoard, deleteBoard, updateBoard } from '../services/dataService.js';
-
-
+import { getBoards, addBoard, deleteBoard } from '../services/dataService.js';
 
 const homeScreen = ({ navigation }) => {
     const [boards, setBoards] = useState([]);
 
-    
     // Fetch boards when the component mounts
     useEffect(() => {
         const fetchedBoards = getBoards(); // Fetch boards from dataService
@@ -20,7 +17,6 @@ const homeScreen = ({ navigation }) => {
         setBoards((prevBoards) => [...prevBoards, addedBoard]); // Update local state with the new board
     };
 
-
     // Handle deleting a board
     const handleDeleteBoard = (boardId) => {
         deleteBoard(boardId); // Call deleteBoard from dataService
@@ -32,7 +28,7 @@ const homeScreen = ({ navigation }) => {
         <TouchableOpacity
             key={board.id}
             style={styles.boardCard}
-            onPress={() => navigation.navigate('BoardCard', { boardId: board.id })} // Navigate to the board details screen
+            onPress={() => navigation.navigate('ListsAndTasks', { boardId: board.id })} // Navigate to ListsAndTasks
         >
             <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
             <Text style={styles.boardTitle}>{board.name}</Text>
@@ -54,7 +50,7 @@ const homeScreen = ({ navigation }) => {
             />
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('AddBoard', { addBoard : handleAddBoard})} // Navigate to AddBoard screen
+                onPress={() => navigation.navigate('AddBoard', { addBoard: handleAddBoard })} // Navigate to AddBoard screen
             >
                 <Text style={styles.buttonText}>Add Board</Text>
             </TouchableOpacity>
