@@ -70,6 +70,9 @@ const ListsAndTasks = ({ navigation, route }) => {
                 keyExtractor={(list) => list.id.toString()}
                 renderItem={renderList} // Use renderList to render each list
             />
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Add list</Text>    
+            </TouchableOpacity>
         </View>
     );
 };
@@ -79,6 +82,19 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         padding: 10,
+    },
+    button: {
+        backgroundColor: 'grey',
+        padding: 15,
+        borderRadius: 5,
+        alignItems: 'center',
+        marginTop: 10,
+        marginBottom: 20,
+    },
+    buttonText: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        color: '#000',
     },
     boardHeader: {
         marginBottom: 20,
