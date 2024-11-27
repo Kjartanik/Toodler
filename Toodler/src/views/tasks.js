@@ -35,23 +35,37 @@ const Tasks = ({ navigation, route }) => {
         </View>
     );
 
+   // Render each task
+   const renderTask = ({ item: task }) => (
+    <Text style={styles.task}>
+        {task.name} - {task.isFinished ? 'done' : 'not done'}
+    </Text>
+);
+
     // Render tasks for list
     useEffect(() => {
         const fetchedTasks = getTasksForList(list.id)
         setTasks(fetchedTasks);
     }, [list.id]);
 
-
     return (
         <View style={styles.container}>
-        {/* Render the board details */}
-        {renderBoard()}
-        {renderList()}
-        </View>
-    )
+            {/* Render the board details */}
+            {renderBoard()}
 
-    
+            {/* Render the list title */}
+            {renderList()}
+
+            {/* Render tasks below the list title */}
+            <FlatList
+                data={tasks}
+                keyExtractor={(task) => task.id.toString()}
+                renderItem={renderTask}
+            />
+        </View>
+    );
 };
+    
 
 const styles = StyleSheet.create({
     container: {
@@ -73,8 +87,11 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
     },
+    boardDescription: {
+        fontSize: 15,
+    },
     listContainer: {
-        marginBottom: 20,
+        marginBottom: 10,
         padding: 10,
         borderRadius: 5,
         backgroundColor: '#f9f9f9',
@@ -82,7 +99,6 @@ const styles = StyleSheet.create({
     listTitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        padding: 10,
         color: '#fff',
     },
     task: {
@@ -90,10 +106,6 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         paddingLeft: 20,
     },
-    boardDescription: {
-        fontSize: 15,
-    },
 });
-
 
 export default Tasks;

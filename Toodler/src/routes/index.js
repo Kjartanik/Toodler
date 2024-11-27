@@ -10,7 +10,7 @@ import Boards from '../views/Boards';
 import AddBoard from '../views/AddBoard'
 import DeleteBoard from '../views/DeleteBoard'
 import ListsAndTasks from '../views/ListsAndTasks';
-import Tasks from '../views/Tasks';
+import Tasks from '../views/tasks';
 
 
 const Routes = () => (
