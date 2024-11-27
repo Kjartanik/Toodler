@@ -21,8 +21,8 @@ const ListsAndTasks = ({ route }) => {
         </View>
     );
 
-    // Render each list with its tasks
-    const renderList = ({ item: list }) => {
+     // Render each list with its tasks
+     const renderList = ({ item: list }) => {
         const tasks = getTasksForList(list.id); // Fetch tasks for this list
 
         return (
@@ -31,7 +31,11 @@ const ListsAndTasks = ({ route }) => {
                 <FlatList
                     data={tasks}
                     keyExtractor={(task) => task.id.toString()}
-                    renderItem={({ item }) => <Text style={styles.task}>{item.name}</Text>}
+                    renderItem={({ item: task }) => (
+                        <Text style={styles.task}>
+                            {task.name} - {task.isFinished ? 'done' : 'not done'}
+                        </Text>
+                    )}
                 />
             </View>
         );
