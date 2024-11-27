@@ -27,6 +27,7 @@ const Boards = ({ navigation }) => {
         navigation.navigate('ModifyBoard', {
             boardId: board.id,
             currentBoardName: board.name,
+            currentBoardDescription: board.description,
             currentThumbnailPhoto: board.thumbnailPhoto,
             modifyBoard: handleModifyBoard,
         });

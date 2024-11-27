@@ -6,12 +6,13 @@ import * as ImagePicker from 'expo-image-picker';
 
 
 export default function ModifyBoard({ navigation, route }) {
-    const {boardId, currentBoardName, currentThumbnailPhoto, modifyBoard } = route.params; // Get modifyBoard function and board details
+    const {boardId, currentBoardName, currentBoardDescription,currentThumbnailPhoto, modifyBoard } = route.params; // Get modifyBoard function and board details
     const [boardName, setBoardName] = useState(currentBoardName); // Initialize with current name
+    const [boardDescription, setBoardDescription] = useState(currentBoardDescription);
     const [thumbnailPhoto, setThumbnailPhoto] = useState(currentThumbnailPhoto); // Initialize with current thumbnail
   
     const handleModifyBoard = () => {
-        if (boardName.trim() === '' || !thumbnailPhoto) {
+        if (boardName.trim() === '') {
             alert('Please fill in all fields!');
             return;
         }
@@ -20,6 +21,7 @@ export default function ModifyBoard({ navigation, route }) {
         modifyBoard({
             id: boardId, // Keep the same ID
             name: boardName,
+            description: boardDescription,
             thumbnailPhoto,
         });
     
@@ -59,6 +61,12 @@ export default function ModifyBoard({ navigation, route }) {
                 placeholder="Board Name"
                 value={boardName}
                 onChangeText={setBoardName}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Board Description"
+                value={boardDescription}
+                onChangeText={setBoardDescription}
             />
             <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
                 <Text style={styles.imagePickerText}>

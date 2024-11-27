@@ -18,8 +18,8 @@ export default function AddBoard({ navigation, route }) {
         addBoard({
             id: Date.now(),  //TODO: breyta í board.length + 1
             name: boardName,
-            thumbnailPhoto,
             description: boardDescription,
+            thumbnailPhoto,
         });
 
         navigation.goBack(); // navigate back to the Boards screen
