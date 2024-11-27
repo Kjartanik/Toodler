@@ -28,7 +28,7 @@ const homeScreen = ({ navigation }) => {
         <TouchableOpacity
             key={board.id}
             style={styles.boardCard}
-            onPress={() => navigation.navigate('ListsAndTasks', { boardId: board.id })} // Navigate to ListsAndTasks
+            onPress={() => navigation.navigate('ListsAndTasks', {board})} // Navigate to ListsAndTasks
         >
             <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
             <Text style={styles.boardTitle}>{board.name}</Text>

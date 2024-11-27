@@ -1,21 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { getListsForBoard, getTasksForList } from '../services/dataService'; // Import from the service layer
+import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import { getListsForBoard, getTasksForList } from '../services/dataService';
 
 const ListsAndTasks = ({ route }) => {
-  const { boardId } = route.params; // Get the board ID from navigation parameters
+  const { board } = route.params; // Get the board object from navigation parameters
   const [lists, setLists] = useState([]); // State to store lists
 
+  // Fetch lists when the component mounts or board ID changes
   useEffect(() => {
-    const fetchedLists = getListsForBoard(boardId); // Fetch lists for the given board
+    const fetchedLists = getListsForBoard(board.id); // Fetch lists for the given board
     setLists(fetchedLists); // Update state with the fetched lists
-  }, [boardId]); // Re-fetch lists if boardId changes
+  }, [board.id]);
 
+  // Render the board details
+  const renderBoard = () => (
+    <View style={styles.boardHeader}>
+      <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
+      <Text style={styles.boardTitle}>{board.name}</Text>
+    </View>
+  );
+
+  // Render each list with its tasks
   const renderList = ({ item: list }) => {
     const tasks = getTasksForList(list.id); // Fetch tasks for this list
 
     return (
-      // TODO: Rendera boardið með
       <View style={styles.listContainer}>
         <Text style={[styles.listTitle, { backgroundColor: list.color }]}>{list.name}</Text>
         <FlatList
@@ -29,6 +38,10 @@ const ListsAndTasks = ({ route }) => {
 
   return (
     <View style={styles.container}>
+      {/* Render the board details */}
+      {renderBoard()}
+
+      {/* Render the lists and tasks */}
       <FlatList
         data={lists}
         keyExtractor={(list) => list.id.toString()}
@@ -43,6 +56,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 10,
+  },
+  boardHeader: {
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  boardTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
   },
   listContainer: {
     marginBottom: 20,
