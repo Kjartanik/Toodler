@@ -31,6 +31,7 @@ const ModifyBoard = ({ navigation, route }) => {
             onNavigateBack(updatedBoard); // Notify the parent screen about the update
         }
         navigation.goBack(); // Return to the previous screen
+        navigation.goBack();
     };
 
     if (loading) {
