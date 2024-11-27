@@ -9,13 +9,13 @@ import ListsAndTasks from '../views/ListsAndTasks';
 const Stack = createStackNavigator();
 
 const AppRoutes = () => (
-  <Stack.Navigator>
-    <Stack.Screen name="Boards" component={Boards} />
-    <Stack.Screen name="AddBoard" component={AddBoard} />
-    <Stack.Screen name="ModifyBoard" component={ModifyBoard} />
-    <Stack.Screen name="DeleteBoard" component={DeleteBoard} />
-    <Stack.Screen name="ListsAndTasks" component={ListsAndTasks} />
-  </Stack.Navigator>
+    <Stack.Navigator>
+        <Stack.Screen name="Boards" component={Boards} />
+        <Stack.Screen name="AddBoard" component={AddBoard} />
+        <Stack.Screen name="ModifyBoard" component={ModifyBoard} />
+        <Stack.Screen name="DeleteBoard" component={DeleteBoard} />
+        <Stack.Screen name="ListsAndTasks" component={ListsAndTasks} />
+    </Stack.Navigator>
 );
 
 export default AppRoutes;

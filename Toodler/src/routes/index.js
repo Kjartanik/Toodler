@@ -19,8 +19,8 @@ const Routes = () => (
             <Stack.Screen name="ModifyBoard" component={ModifyBoard} />
             <Stack.Screen name="Boards" component={Boards} />
             <Stack.Screen name="DeleteBoard" component={DeleteBoard} />
-        <Stack.Screen name="AddBoard" component={AddBoard} />
-        <Stack.Screen name="ListsAndTasks" component={ListsAndTasks} />
+            <Stack.Screen name="AddBoard" component={AddBoard} />
+            <Stack.Screen name="ListsAndTasks" component={ListsAndTasks} />
 
             
         </Stack.Navigator>
