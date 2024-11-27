@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image } from 'react-native';
-import { getBoards, addBoard, deleteBoard } from '../services/dataService.js';
-import BoardCard from '../components/BoardCard';
+import { getBoards, addBoard, deleteBoard } from '../../services/dataService.js';
+import BoardCard from '../../components/BoardCard';
 
 const HomeScreen = ({ navigation }) => {
     const [boards, setBoards] = useState([]);

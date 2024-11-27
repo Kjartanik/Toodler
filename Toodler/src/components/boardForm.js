@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import styles from '../views/AddBoard/styles'
 
-const BoardForm = ({ initialName = '', initialThumbnail = null, onSubmit, onCancel }) => {
-    const [boardName, setBoardName] = useState(initialName);
-    const [thumbnailPhoto, setThumbnailPhoto] = useState(initialThumbnail);
+const BoardForm = ({ styles, title, onSubmit, onCancel, initialData }) => {
+    const [boardName, setBoardName] = useState(initialData.name || '');
+    const [boardDescription, setBoardDescription] = useState(initialData.description || '');
+    const [thumbnailPhoto, setThumbnailPhoto] = useState(initialData.thumbnailPhoto || null);
 
     const pickImage = async () => {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -28,40 +30,48 @@ const BoardForm = ({ initialName = '', initialThumbnail = null, onSubmit, onCanc
     };
 
     const handleSave = () => {
-        if (boardName.trim() === '' || !thumbnailPhoto) {
-            alert('Please fill in all fields!');
+        if (boardName.trim() === '') {
+            alert('Please fill in the name!');
             return;
         }
-        onSubmit({ name: boardName, thumbnailPhoto });
+        onSubmit({
+            name: boardName,
+            description: boardDescription,
+            thumbnailPhoto,
+        });
     };
 
     return (
-        <View>
+        <View style={styles.container}>
+            <Text style={styles.title}>{title}</Text>
             <TextInput
                 style={styles.input}
                 placeholder="Board Name"
                 value={boardName}
                 onChangeText={setBoardName}
             />
-            <TouchableOpacity style={styles.button} onPress={pickImage}>
-                <Text>{thumbnailPhoto ? 'Change Image' : 'Select Image'}</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Board Description"
+                value={boardDescription}
+                onChangeText={setBoardDescription}
+            />
+            <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
+                <Text style={styles.imagePickerText}>
+                    {thumbnailPhoto ? 'Change Image' : 'Select Image'}
+                </Text>
             </TouchableOpacity>
-            {thumbnailPhoto && <Image source={{ uri: thumbnailPhoto }} style={styles.thumbnail} />}
+            {thumbnailPhoto && (
+                <Image source={{ uri: thumbnailPhoto }} style={styles.thumbnailPreview} />
+            )}
             <TouchableOpacity style={styles.button} onPress={handleSave}>
-                <Text>Save</Text>
+                <Text style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
-                <Text>Cancel</Text>
+                <Text style={styles.cancelButtonText}>Cancel</Text>
             </TouchableOpacity>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    input: { /* Add styles */ },
-    button: { /* Add styles */ },
-    cancelButton: { /* Add styles */ },
-    thumbnail: { /* Add styles */ },
-});
 
 export default BoardForm;
