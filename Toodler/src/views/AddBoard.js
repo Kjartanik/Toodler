@@ -6,11 +6,12 @@ import * as ImagePicker from 'expo-image-picker';
 export default function AddBoard({ navigation, route }) {
     const { addBoard } = route.params;
     const [boardName, setBoardName] = useState('');
+    const [boardDescription, setBoardDescription] = useState('')
     const [thumbnailPhoto, setThumbnailPhoto] = useState(null); // store the selected image URI
 
     const handleSaveBoard = () => {
-        if (boardName.trim() === '' || !thumbnailPhoto) {
-            alert('Please fill in both fields!');
+        if (boardName.trim() === '') {
+            alert('Please fill in name!');
             return;
         }
 
@@ -18,6 +19,7 @@ export default function AddBoard({ navigation, route }) {
             id: Date.now(),  //TODO: breyta í board.length + 1
             name: boardName,
             thumbnailPhoto,
+            description: boardDescription,
         });
 
         navigation.goBack(); // navigate back to the Boards screen
@@ -54,6 +56,12 @@ export default function AddBoard({ navigation, route }) {
                 placeholder="Board Name"
                 value={boardName}
                 onChangeText={setBoardName}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Board Description"
+                value={boardDescription}
+                onChangeText={setBoardDescription}
             />
             <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
                 <Text style={styles.imagePickerText}>

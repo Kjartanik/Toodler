@@ -17,6 +17,7 @@ const ListsAndTasks = ({ route }) => {
         <View style={styles.boardHeader}>
             <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
             <Text style={styles.boardTitle}>{board.name}</Text>
+            <Text style={styles.boardDescription}>{board.description}</Text>
         </View>
     );
 
@@ -87,6 +88,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginVertical: 5,
         paddingLeft: 20,
+    },
+    boardDescription: {
+        fontSize: 15,
     },
 });
 

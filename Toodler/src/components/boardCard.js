@@ -5,6 +5,7 @@ const BoardCard = ({ board, onModify, onDelete, onPress }) => (
     <TouchableOpacity style={styles.card} onPress={onPress}>
         <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
         <Text style={styles.title}>{board.name}</Text>
+        <Text style={styles.description}>{board.description}</Text>
         <TouchableOpacity style={styles.button} onPress={onModify}>
             <Text style={styles.buttonText}>Modify</Text>
         </TouchableOpacity>
@@ -42,6 +43,10 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    description: {
+        marginTop: 5,
+        fontSize: 10,
     },
 });
 
