@@ -1,19 +1,30 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
-const BoardCard = ({ board, onModify, onDelete, onPress }) => (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
-        <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
-        <Text style={styles.title}>{board.name}</Text>
-        <Text style={styles.description}>{board.description}</Text>
-        <TouchableOpacity style={styles.button} onPress={onModify}>
-            <Text style={styles.buttonText}>Modify</Text>
+const BoardCard = ({ board, onDelete, onModify, onPress }) => {
+    return (
+        <TouchableOpacity
+            key={board.id}
+            style={styles.card}
+            onPress={onPress} // Navigate to ListsAndTasks
+        >
+            <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
+            <Text style={styles.title}>{board.name}</Text>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={onDelete}
+            >
+                <Text style={styles.buttonText}>Delete</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={onModify}
+            >
+                <Text style={styles.buttonText}>Modify</Text>
+            </TouchableOpacity>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={onDelete}>
-            <Text style={styles.buttonText}>Delete</Text>
-        </TouchableOpacity>
-    </TouchableOpacity>
-);
+    );
+};
 
 const styles = StyleSheet.create({
     card: {

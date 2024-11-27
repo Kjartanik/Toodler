@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
-import BoardCard from '../components/boardCard';
+import BoardCard from '../components/BoardCard';
 import { addBoard, deleteBoard, getBoardById, updateBoard, updateTask } from '../services/dataService';
 import globalStyles from '../styles/globalStyles';
 import data from '../resources/data.json';
