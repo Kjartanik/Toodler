@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, FlatList, TouchableOpacity } from 'react-native';
-import { getListsForBoard, getTasksForList, updateBoard } from '../../services/dataService';
+import { getListsForBoard, getTasksForList, addListToBoard } from '../../services/dataService';
 import BoardCard from '../../components/BoardCard';
 import styles from './styles';
 
@@ -22,12 +22,10 @@ const Lists = ({ navigation, route }) => {
         setTasks(fetchedTasks);
     }, [board.id]);
 
-    const handleModifyBoard = (updatedBoard) => {
-        // Update the current board state
-        setCurrentBoard(updatedBoard);
-
-        // Optional: If you need to update the board in global storage or services
-        updateBoard(updatedBoard.id, updatedBoard);
+    // Handle adding a new list
+    const handleAddList = (newList) => {
+        const updatedLists = addListToBoard(board.id, updatedLists); // Use addList from dataService
+        setLists(updatedLists); // Update local state with the new board
     };
 
     // Render each list
@@ -67,14 +65,17 @@ const Lists = ({ navigation, route }) => {
                 onPress={() => {}} // Optional action if needed
                 hideActions={true} // Buttons will be hidden
             />
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             {/* Display the lists */}
             <FlatList
                 data={lists}
                 keyExtractor={(list) => list.id.toString()}
                 renderItem={renderList}
             />
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress = {() => navigation.navigate('AddList',{addList: handleAddList})}>
                 <Text style={styles.buttonText}>Add List</Text>
             </TouchableOpacity>
         </View>
