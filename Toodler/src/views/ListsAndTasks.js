@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
 import { getListsForBoard, getTasksForList } from '../services/dataService';
-import data from '../resources/data.json';
+import BoardCard from '../components/BoardCard';
 
 const ListsAndTasks = ({ navigation, route }) => {
     const { board } = route.params; // Get the board object from navigation parameters
@@ -20,16 +20,6 @@ const ListsAndTasks = ({ navigation, route }) => {
         });
         setTasks(fetchedTasks);
     }, [board.id]);
-
-
-    // Render the board details
-    const renderBoard = () => (
-        <View style={styles.boardHeader}>
-            <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
-            <Text style={styles.boardTitle}>{board.name}</Text>
-            <Text style={styles.boardDescription}>{board.description}</Text>
-        </View>
-    );
 
      // Render each list with its tasks
      const renderList = ({ item: list }) => {
@@ -59,10 +49,16 @@ const ListsAndTasks = ({ navigation, route }) => {
         );
     };
 
+
     return (
         <View style={styles.container}>
-            {/* Render the board details */}
-            {renderBoard()}
+            {/* Use BoardCard to display the board */}
+            <BoardCard
+                board={board}
+                onDelete={() => {} /* No delete here */}
+                onModify={() => {} /* No modify here */}
+                onPress={() => {} /* No navigation from here */}
+            />
 
             {/* Render the lists and tasks */}
             <FlatList
@@ -71,11 +67,12 @@ const ListsAndTasks = ({ navigation, route }) => {
                 renderItem={renderList} // Use renderList to render each list
             />
             <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Add list</Text>    
+                <Text style={styles.buttonText}>Add list</Text>
             </TouchableOpacity>
         </View>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {
