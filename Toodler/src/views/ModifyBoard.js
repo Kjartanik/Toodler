@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Image, TextInput, TouchableOpacity } from 'react-native';
 import data from '../resources/data.json';
+import * as ImagePicker from 'expo-image-picker';
+
 
 
 export default function ModifyBoard({ navigation, route }) {
-    const { modifyBoard, boardId, currentBoardName, currentThumbnailPhoto } = route.params; // Get modifyBoard function and board details
+    const {boardId, currentBoardName, currentThumbnailPhoto, modifyBoard } = route.params; // Get modifyBoard function and board details
     const [boardName, setBoardName] = useState(currentBoardName); // Initialize with current name
     const [thumbnailPhoto, setThumbnailPhoto] = useState(currentThumbnailPhoto); // Initialize with current thumbnail
   
@@ -21,17 +23,18 @@ export default function ModifyBoard({ navigation, route }) {
             thumbnailPhoto,
         });
     
-        navigation.goBack(); // Navigate back to the Boards screen
+        navigation.goBack(); // Navigate back to the Home screen
     };
+    
 
     const pickImage = async () => {
-    // Request permission to access the media library
+        // Request permission to access the media library
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== 'granted') {
             alert('Permission to access media library is required!');
             return;
         }
-
+    
         // Launch the image picker
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -39,11 +42,15 @@ export default function ModifyBoard({ navigation, route }) {
             aspect: [4, 3],
             quality: 1,
         });
-
+    
+        // Handle the selected image
         if (!result.canceled && result.assets && result.assets.length > 0) {
             setThumbnailPhoto(result.assets[0].uri); // Update the thumbnail
+        } else {
+            alert('Image selection was canceled or failed.');
         }
     };
+    
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Modify Board</Text>
