@@ -7,22 +7,23 @@ const AddList = ({ navigation, route }) => {
     const { addList } = route.params;
 
     const handleSave = (listData) => {
-        addListToBoard({
+        const newList = {
             ...listData,
-            id: Date.now(), // Generate a unique ID for the new board TODO: breyta þessu í annað en date now! annars kemur identical key error og það getur tvöfaldast
-        });
-        navigation.goBack();
+            id: Date.now(), // Generate a unique ID for the new list
+        };
+        addList(newList); // Call the addList function passed via route params
+        navigation.goBack(); // Navigate back to the Lists screen
     };
 
     return (
         <ListForm
-            styles={styles}
             onSubmit={handleSave}
             onCancel={() => navigation.goBack()}
-            initialData={{ name: '', color: ''}} // TODO: skrá BoardId hjá boardinu sem stateið er í þegar við bætum við nýtt list
+            initialData={{ name: '', color: '#00ff00' }}
             title="Create New List"
         />
     );
 };
 
 export default AddList;
+

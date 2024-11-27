@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, FlatList, TouchableOpacity } from 'react-native';
-import { getListsForBoard, getTasksForList, addListToBoard } from '../../services/dataService';
+import { getListsForBoard, getTasksForList, addListToBoard, deleteList } from '../../services/dataService';
 import BoardCard from '../../components/BoardCard';
 import styles from './styles';
 
 const Lists = ({ navigation, route }) => {
-    const { board } = route.params; // Get the board object from navigation parameters
-    const [lists, setLists] = useState([]); // State to store lists
-    const [tasks, setTasks] = useState({}); // State to store tasks for each list
-    const [currentBoard, setCurrentBoard] = useState(board); // Local state for the board
+    const { board } = route.params;
+    const [lists, setLists] = useState([]);
+    const [tasks, setTasks] = useState({});
 
-    // Fetch lists and tasks when the component mounts or board ID changes
+    // Fetch lists and tasks for the board when the component mounts
     useEffect(() => {
         const fetchedLists = getListsForBoard(board.id);
         setLists(fetchedLists);
@@ -24,14 +23,22 @@ const Lists = ({ navigation, route }) => {
 
     // Handle adding a new list
     const handleAddList = (newList) => {
-        const updatedLists = addListToBoard(board.id, updatedLists); // Use addList from dataService
-        setLists(updatedLists); // Update local state with the new board
+        const updatedList = addListToBoard(board.id, newList); // Add the new list to the board in dataService
+        setLists((prevLists) => [...prevLists, updatedList]); // Update the local state
     };
 
-    // Render each list
-    const renderList = ({ item: list }) => {
-        const listTasks = tasks[list.id] || []; // Retrieve tasks for the list
+    // Handle deleting a list
+    const handleDeleteList = (listId) => {
+        const isDeleted = deleteList(listId);
+        if (isDeleted) {
+            setLists((prevLists) => prevLists.filter((list) => list.id !== listId));
+        } else {
+            alert('Failed to delete the list. Please try again.');
+        }
+    };
 
+    const renderList = ({ item: list }) => {
+        const listTasks = tasks[list.id] || [];
         return (
             <View style={styles.listContainer}>
                 <TouchableOpacity
@@ -51,31 +58,33 @@ const Lists = ({ navigation, route }) => {
                         )}
                     />
                 </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.button, { backgroundColor: 'red', marginTop: 10 }]}
+                    onPress={() => handleDeleteList(list.id)}
+                >
+                    <Text style={styles.buttonText}>Delete List</Text>
+                </TouchableOpacity>
             </View>
         );
     };
 
     return (
         <View style={styles.container}>
-            {/* Display the board header using BoardCard */}
             <BoardCard
                 board={board}
-                onDelete={() => {}} // Not needed in Lists
-                onModify={() => {}} // Not needed in Lists
-                onPress={() => {}} // Optional action if needed
-                hideActions={true} // Buttons will be hidden
+                hideActions={true}
             />
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
-            {/* Display the lists */}
             <FlatList
                 data={lists}
                 keyExtractor={(list) => list.id.toString()}
                 renderItem={renderList}
             />
-            <TouchableOpacity style={styles.button} onPress = {() => navigation.navigate('AddList',{addList: handleAddList})}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() =>
+                    navigation.navigate('AddList', { addList: handleAddList })
+                }
+            >
                 <Text style={styles.buttonText}>Add List</Text>
             </TouchableOpacity>
         </View>

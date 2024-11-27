@@ -6,19 +6,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 10,
     },
-    button: {
-        backgroundColor: 'grey',
-        padding: 15,
-        borderRadius: 5,
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 20,
-    },
-    buttonText: {
-        fontWeight: 'bold',
-        fontSize: 16,
-        color: '#000',
-    },
     boardHeader: {
         marginBottom: 20,
         alignItems: 'center',
@@ -52,6 +39,19 @@ const styles = StyleSheet.create({
     },
     boardDescription: {
         fontSize: 15,
+    },
+    button: {
+        marginTop: 5,
+        padding: 10,
+        width: 100,
+        backgroundColor: 'pink',
+        borderRadius: 5,
+        alignItems: 'center',
+        alignSelf: 'center',
+    },
+    buttonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
     },
 });
 
