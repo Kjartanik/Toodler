@@ -32,7 +32,7 @@ const Tasks = ({ navigation, route }) => {
         </View>
     );
 
-        // Toggle the `isFinished` state for a task
+    // Toggle the `isFinished` state for a task
     const toggleTaskCompletion = (taskId, currentStatus) => {
         // Update the task in the dataService
         const updatedTask = updateTask(taskId, { isFinished: !currentStatus });

@@ -27,16 +27,6 @@ export default [
                 },
             }],
             'quotes': ['error', 'single', {avoidEscape: true}],
-            'new-cap': [
-                'error',
-                {
-                    newIsCap: true, // Constructors must start with an uppercase letter
-                    capIsNew: false, // Allow uppercase functions without `new`
-                    properties: true, // Enforce PascalCase for property constructors
-                },
-            ],
-            camelcase: ['error', { properties: 'never' }],
-
         },
     },
     pluginReact.configs.flat.recommended,
