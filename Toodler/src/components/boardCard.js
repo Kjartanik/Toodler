@@ -6,25 +6,26 @@ const BoardCard = ({ board, onDelete, onModify, onPress }) => {
         <TouchableOpacity
             key={board.id}
             style={styles.card}
-            onPress={onPress} // Navigate to ListsAndTasks
+            onPress={onPress} // Navigate to Lists
         >
             <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
             <Text style={styles.title}>{board.name}</Text>
             <TouchableOpacity
                 style={styles.button}
-                onPress={onDelete}
+                onPress={onDelete} // Call delete action
             >
                 <Text style={styles.buttonText}>Delete</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.button}
-                onPress={onModify}
+                onPress={onModify} // Call modify action
             >
                 <Text style={styles.buttonText}>Modify</Text>
             </TouchableOpacity>
         </TouchableOpacity>
     );
 };
+
 
 const styles = StyleSheet.create({
     card: {
