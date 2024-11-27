@@ -27,12 +27,20 @@ const Tasks = ({ navigation, route }) => {
         </View>
     );
 
+    const renderList = () => (
+        
+        <View style={styles.listContainer}>
+            <Text style={[styles.listTitle, { backgroundColor: list.color }]}>{list.name}</Text>
+
+        </View>
+    );
+
 
     return (
         <View style={styles.container}>
         {/* Render the board details */}
         {renderBoard()}
-
+        {renderList()}
         </View>
     )
 
