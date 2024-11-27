@@ -6,10 +6,10 @@ const Stack = createStackNavigator();
 
 import HomeScreen from '../views/HomeScreen/index';
 import ModifyBoard from '../views/ModifyBoard/index';
-import Boards from '../views/Boards';
-import AddBoard from '../views/AddBoard'
-import Lists from '../views/Lists';
-import Tasks from '../views/tasks';
+import Boards from '../views/Boards/index';
+import AddBoard from '../views/AddBoard/index'
+import Lists from '../views/Lists/index';
+import Tasks from '../views/Tasks/index';
 
 
 const Routes = () => (

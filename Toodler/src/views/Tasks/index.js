@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
-import BoardCard from '../components/BoardCard';
-import { addBoard, deleteBoard, getBoardById, updateBoard, updateTask } from '../services/dataService';
-import globalStyles from '../styles/globalStyles';
-import data from '../resources/data.json';
-import { getListsForBoard, getTasksForList } from '../services/dataService';
+import BoardCard from '../../components/BoardCard';
+import { addBoard, deleteBoard, getBoardById, updateBoard, updateTask } from '../../services/dataService';
+import globalStyles from '../../styles/globalStyles';
+import data from '../../resources/data.json';
+import { getListsForBoard, getTasksForList } from '../../services/dataService';
 import { CheckBox } from 'react-native-elements'; // Use CheckBox from react-native-elements
+import styles from './styles'
 
 
 
@@ -78,54 +79,5 @@ const Tasks = ({ navigation, route }) => {
         </View>
     );
 };
-    
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        padding: 10,
-    },
-    boardHeader: {
-        marginBottom: 20,
-        alignItems: 'center',
-    },
-    image: {
-        width: 100,
-        height: 100,
-        borderRadius: 10,
-        marginBottom: 10,
-    },
-    boardTitle: {
-        fontSize: 22,
-        fontWeight: 'bold',
-    },
-    boardDescription: {
-        fontSize: 15,
-    },
-    listContainer: {
-        marginBottom: 10,
-        padding: 10,
-        borderRadius: 5,
-        backgroundColor: '#f9f9f9',
-    },
-    listTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#fff',
-    },
-    taskContainer: {
-        backgroundColor: 'transparent',
-        borderWidth: 0,
-    },
-    
-    task: {
-        fontSize: 16,
-        marginLeft: 10,
-    },
-    taskCompleted: {
-        textDecorationLine: 'line-through',
-        color: 'gray',
-    },
-});
 
 export default Tasks;
