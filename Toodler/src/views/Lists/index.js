@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, FlatList, TouchableOpacity } from 'react-native';
-import { getListsForBoard, getTasksForList } from '../../services/dataService';
+import { getListsForBoard, getTasksForList, updateBoard } from '../../services/dataService';
 import BoardCard from '../../components/BoardCard';
 import styles from './styles';
 
@@ -8,6 +8,7 @@ const Lists = ({ navigation, route }) => {
     const { board } = route.params; // Get the board object from navigation parameters
     const [lists, setLists] = useState([]); // State to store lists
     const [tasks, setTasks] = useState({}); // State to store tasks for each list
+    const [currentBoard, setCurrentBoard] = useState(board); // Local state for the board
 
     // Fetch lists and tasks when the component mounts or board ID changes
     useEffect(() => {
@@ -15,11 +16,19 @@ const Lists = ({ navigation, route }) => {
         setLists(fetchedLists);
 
         const fetchedTasks = {};
-        fetchedLists.forEach(list => {
+        fetchedLists.forEach((list) => {
             fetchedTasks[list.id] = getTasksForList(list.id);
         });
         setTasks(fetchedTasks);
     }, [board.id]);
+
+    const handleModifyBoard = (updatedBoard) => {
+        // Update the current board state
+        setCurrentBoard(updatedBoard);
+
+        // Optional: If you need to update the board in global storage or services
+        updateBoard(updatedBoard.id, updatedBoard);
+    };
 
     // Render each list
     const renderList = ({ item: list }) => {
@@ -52,23 +61,18 @@ const Lists = ({ navigation, route }) => {
         <View style={styles.container}>
             {/* Display the board header using BoardCard */}
             <BoardCard
-                board={board}
-                onDelete={() => {}}
+                board={currentBoard}
+                onDelete={() => {
+                    // Handle delete if needed
+                }}
                 onModify={() =>
                     navigation.navigate('ModifyBoard', {
-                        boardId: board.id,
-                        currentBoardName: board.name,
-                        currentBoardDescription: board.description,
-                        currentThumbnailPhoto: board.thumbnailPhoto,
+                        boardId: currentBoard.id,
                         modifyBoard: (updatedBoard) => {
-                            // Optional: Update lists or other local state if needed
-                            setLists((prevLists) =>
-                                prevLists.map((list) =>
-                                    list.id === updatedBoard.id ? updatedBoard : list
-                                )
-                            );
+                            handleModifyBoard(updatedBoard);
                         },
-                        onNavigateBack: () => navigation.navigate('Lists', { board }),
+                        onNavigateBack: () =>
+                            navigation.navigate('Lists', { board: currentBoard }),
                     })
                 }
                 onPress={() => {}}

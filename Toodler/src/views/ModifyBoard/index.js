@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator, Alert } from 'react-native';
 import BoardForm from '../../components/BoardForm';
-import { getBoardById, updateBoard} from '../../services/dataService';
+import { getBoardById, updateBoard } from '../../services/dataService';
 
 const ModifyBoard = ({ navigation, route }) => {
-    const { boardId, modifyBoard, onNavigateBack } = route.params; // Destructure parameters
-    const [board, setBoard] = useState(null); // State to store the board details
-    const [loading, setLoading] = useState(true); // Loading indicator
+    const { boardId, modifyBoard } = route.params;
+    const [board, setBoard] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Fetch board details when the component mounts
         const fetchedBoard = getBoardById(boardId);
         if (fetchedBoard) {
             setBoard(fetchedBoard);
         } else {
             Alert.alert('Error', 'Board not found');
-            navigation.goBack(); // Navigate back if board is not found
+            navigation.goBack();
         }
         setLoading(false);
     }, [boardId]);
@@ -23,15 +22,17 @@ const ModifyBoard = ({ navigation, route }) => {
     const handleSave = (boardData) => {
         const updatedBoard = {
             id: boardId,
-            ...boardData, // Include updated name, description, and thumbnailPhoto
+            ...boardData,
         };
 
-        modifyBoard(updatedBoard); // Call the modify function to update the board
-        if (onNavigateBack) {
-            onNavigateBack(updatedBoard); // Notify the parent screen about the update
+        const savedBoard = updateBoard(boardId, updatedBoard);
+
+        if (savedBoard) {
+            modifyBoard(savedBoard); // Notify parent screen
+            navigation.goBack(); // Navigate back
+        } else {
+            Alert.alert('Error', 'Failed to update board');
         }
-        navigation.goBack(); // Return to the previous screen
-        navigation.goBack();
     };
 
     if (loading) {
@@ -48,7 +49,7 @@ const ModifyBoard = ({ navigation, route }) => {
             onSubmit={handleSave}
             onCancel={() => navigation.goBack()}
             initialData={{
-                name: board?.name || '', // Populate with existing data
+                name: board?.name || '',
                 description: board?.description || '',
                 thumbnailPhoto: board?.thumbnailPhoto || null,
             }}

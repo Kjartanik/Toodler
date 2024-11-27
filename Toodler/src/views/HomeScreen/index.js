@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Text, View, FlatList, TouchableOpacity, Image } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { getBoards, addBoard, deleteBoard } from '../../services/dataService.js';
 import BoardCard from '../../components/BoardCard';
 import styles from './styles';
@@ -33,43 +33,46 @@ const HomeScreen = ({ navigation }) => {
         );
     };
 
-   // Render each board using BoardCard
-   const renderBoard = ({ item: board }) => (
-    <BoardCard
-        board={board}
-        onDelete={() => handleDeleteBoard(board.id)}
-        onModify={() =>
-            navigation.navigate('ModifyBoard', {
-                boardId: board.id,
-                currentBoardName: board.name,
-                currentBoardDescription: board.description,
-                currentThumbnailPhoto: board.thumbnailPhoto,
-                modifyBoard: (updatedBoard) => {
-                    handleModifyBoard(updatedBoard);
-                },
-                onNavigateBack: () => navigation.navigate('HomeScreen'),
-            })
-        }
-        onPress={() => navigation.navigate('Lists', { board })}
-    />
-);
-
-return (
-    <View style={styles.container}>
-        <FlatList
-            data={boards}
-            keyExtractor={(board) => board.id.toString()}
-            renderItem={renderBoard}
+    // Render each board using BoardCard
+    const renderBoard = ({ item: board }) => (
+        <BoardCard
+            board={board}
+            onDelete={() => handleDeleteBoard(board.id)}
+            onModify={() =>
+                navigation.navigate('ModifyBoard', {
+                    boardId: board.id,
+                    modifyBoard: (updatedBoard) => {
+                        handleModifyBoard(updatedBoard);
+                    },
+                    onNavigateBack: () => navigation.navigate('HomeScreen'),
+                })
+            }
+            onPress={() =>
+                navigation.navigate('Lists', {
+                    board,
+                    onBoardUpdate: (updatedBoard) => {
+                        handleModifyBoard(updatedBoard);
+                    },
+                })
+            }
         />
-        <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('AddBoard', { addBoard: handleAddBoard })}
-        >
-            <Text style={styles.buttonText}>Add Board</Text>
-        </TouchableOpacity>
-    </View>
-);
-};
+    );
 
+    return (
+        <View style={styles.container}>
+            <FlatList
+                data={boards}
+                keyExtractor={(board) => board.id.toString()}
+                renderItem={renderBoard}
+            />
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate('AddBoard', { addBoard: handleAddBoard })}
+            >
+                <Text style={styles.buttonText}>Add Board</Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
 
 export default HomeScreen;
