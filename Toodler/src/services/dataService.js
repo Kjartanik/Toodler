@@ -21,6 +21,10 @@ export const getTasksForList = (listId) => {
     return data.tasks.filter(task => task.listId === listId);
 };
 
+export const getListById = (listId) => {
+    return data.lists.find(list => list.id === listId);
+}
+
 export const addBoard = (newBoard) => {
     const newId = data.boards.length > 0 ? data.boards[data.boards.length - 1].id + 1 : 1;
     const board = { ...newBoard, id: newId };
