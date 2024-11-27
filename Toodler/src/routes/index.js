@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-import homeScreen from '../views/homeScreen';
+import HomeScreen from '../views/HomeScreen/index';
 import ModifyBoard from '../views/ModifyBoard';
 import Boards from '../views/Boards';
 import AddBoard from '../views/AddBoard'
@@ -15,8 +15,8 @@ import Tasks from '../views/tasks';
 
 const Routes = () => (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName="homeScreen">
-            <Stack.Screen name="homeScreen" component={homeScreen} />
+        <Stack.Navigator initialRouteName="HomeScreen">
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="ModifyBoard" component={ModifyBoard} />
             <Stack.Screen name="Boards" component={Boards} />
             <Stack.Screen name="DeleteBoard" component={DeleteBoard} />
