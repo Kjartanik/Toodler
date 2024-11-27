@@ -1,0 +1,54 @@
+BENCHMARKING:
+trello.com !!! alveg eins og við þurfum að gera nema það er ekki til í appi
+
+KRÖFUR:
+
+Boards - 25%
+- list all Boards - BASIC KOMIÐ
+- create new - Board BASIC KOMIÐ
+- delete Board - BASIC KOMIÐ
+- modify Board - BASIC KOMIÐ
+
+Board - 25%
+- list all lists of Board - BASIC KOMIÐ
+- create new list
+- delete list
+- modify list
+
+Task - 30%
+- list all tasks of a list - BASIC KOMIÐ
+- create new task
+- delete task
+- modify task
+- move task from one list to another 
+
+Extras - 20%
+- share board 
+- copy list (copy lista yfir í annað board)
+- add deadline to task
+- add deadline to list
+- add deadline to board 
+- add priority (A,B,C) to task 
+- order list 
+- percentage done in list (isFinished)
+- user (ID, name, profilePhoto)
+
+
+
+MODELS:
+
+Board
+- name
+- description (optional)
+- thumbnail photo
+
+List 
+- name 
+- color (code representing an optional color of the list)
+- boardID (link to a certain board)
+
+Task
+- name 
+- description 
+- is finished? (boolean determining whether the task has been completed or not)
+- listID (link to a certain list)
