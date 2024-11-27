@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
 import BoardCard from '../components/boardCard';
-import { addBoard, deleteBoard, updateBoard } from '../services/dataService';
+import { addBoard, deleteBoard, getBoardById, updateBoard } from '../services/dataService';
 import globalStyles from '../styles/globalStyles';
 import data from '../resources/data.json';
 import { getListsForBoard, getTasksForList } from '../services/dataService';
 
 
 const Tasks = ({ navigation, route }) => {
-    const { board } = route.params; // Get the board object from navigation parameters
+    const { list } = route.params; // Get the board object from navigation parameters
     const [lists, setLists] = useState([]); // State to store lists
+    const board = getBoardById(list.boardId);
 
         // Fetch lists when the component mounts or board ID changes
     useEffect(() => {
@@ -25,12 +26,44 @@ const Tasks = ({ navigation, route }) => {
             <Text style={styles.boardDescription}>{board.description}</Text>
         </View>
     );
+
+    // Render each list with its tasks
+    const renderList = (boardId) => {
+        
+        const tasks = getTasksForList(list.id); // Fetch tasks for this list
+        
+
+        return (
+            <View style={styles.listContainer}>
+                    <TouchableOpacity
+            key={board.id}
+            style={styles.boardCard}
+            onPress={() => navigation.navigate('Tasks', { board })}
+        >
+                <Text style={[styles.listTitle, { backgroundColor: list.color }]}>{list.name}</Text>
+                <FlatList
+                    data={tasks}
+                    keyExtractor={(task) => task.id.toString()}
+                    renderItem={({ item: task }) => (
+                        <Text style={styles.task}>
+                            {task.name} - {task.isFinished ? 'done' : 'not done'}
+                        </Text>
+                    )}
+                />
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
     return (
         <View style={styles.container}>
         {/* Render the board details */}
         {renderBoard()}
+        {renderList(board)}
         </View>
     )
+
+    
 };
 
 const styles = StyleSheet.create({
