@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image } from 'react-native';
-import { getBoards, createBoard, deleteBoard, updateBoard } from '../services/dataService.js';
+import { getBoards, addBoard, deleteBoard, updateBoard } from '../services/dataService.js';
+
 
 
 const homeScreen = ({ navigation }) => {
     const [boards, setBoards] = useState([]);
 
+    
     // Fetch boards when the component mounts
     useEffect(() => {
         const fetchedBoards = getBoards(); // Fetch boards from dataService
@@ -14,9 +16,10 @@ const homeScreen = ({ navigation }) => {
 
     // Handle adding a new board
     const handleAddBoard = (newBoard) => {
-        addBoard(newBoard); // Call addBoard from dataService
-        setBoards((prevBoards) => [...prevBoards, newBoard]); // Update local state with the new board
+        const addedBoard = addBoard(newBoard); // Use addBoard from dataService
+        setBoards((prevBoards) => [...prevBoards, addedBoard]); // Update local state with the new board
     };
+
 
     // Handle deleting a board
     const handleDeleteBoard = (boardId) => {
@@ -29,7 +32,7 @@ const homeScreen = ({ navigation }) => {
         <TouchableOpacity
             key={board.id}
             style={styles.boardCard}
-            onPress={() => navigation.navigate('Board', { boardId: board.id })} // Navigate to the board details screen
+            onPress={() => navigation.navigate('BoardCard', { boardId: board.id })} // Navigate to the board details screen
         >
             <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
             <Text style={styles.boardTitle}>{board.name}</Text>
@@ -51,7 +54,7 @@ const homeScreen = ({ navigation }) => {
             />
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('AddBoard', { addBoard: handleAddBoard })} // Navigate to AddBoard screen
+                onPress={() => navigation.navigate('AddBoard', { addBoard : handleAddBoard})} // Navigate to AddBoard screen
             >
                 <Text style={styles.buttonText}>Add Board</Text>
             </TouchableOpacity>
