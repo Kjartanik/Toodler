@@ -6,5 +6,7 @@ import globalStyles from '../styles/globalStyles';
 import data from '../resources/data.json';
 
 const Tasks = ({ navigation }) => {
-    
+    return (<Text>Tasks page</Text>)
 }
+
+export default Tasks;

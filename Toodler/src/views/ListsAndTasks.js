@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
 import { getListsForBoard, getTasksForList } from '../services/dataService';
+import data from '../resources/data.json';
 
-const ListsAndTasks = ({ route }) => {
+const ListsAndTasks = ({ navigation, route }) => {
     const { board } = route.params; // Get the board object from navigation parameters
     const [lists, setLists] = useState([]); // State to store lists
 
@@ -23,10 +24,17 @@ const ListsAndTasks = ({ route }) => {
 
      // Render each list with its tasks
      const renderList = ({ item: list }) => {
+    
         const tasks = getTasksForList(list.id); // Fetch tasks for this list
+        
 
         return (
             <View style={styles.listContainer}>
+                    <TouchableOpacity
+            key={board.id}
+            style={styles.boardCard}
+            onPress={() => navigation.navigate('Tasks', { board })}
+        >
                 <Text style={[styles.listTitle, { backgroundColor: list.color }]}>{list.name}</Text>
                 <FlatList
                     data={tasks}
@@ -37,6 +45,7 @@ const ListsAndTasks = ({ route }) => {
                         </Text>
                     )}
                 />
+                </TouchableOpacity>
             </View>
         );
     };
