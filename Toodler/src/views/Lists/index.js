@@ -61,22 +61,13 @@ const Lists = ({ navigation, route }) => {
         <View style={styles.container}>
             {/* Display the board header using BoardCard */}
             <BoardCard
-                board={currentBoard}
-                onDelete={() => {
-                    // Handle delete if needed
-                }}
-                onModify={() =>
-                    navigation.navigate('ModifyBoard', {
-                        boardId: currentBoard.id,
-                        modifyBoard: (updatedBoard) => {
-                            handleModifyBoard(updatedBoard);
-                        },
-                        onNavigateBack: () =>
-                            navigation.navigate('Lists', { board: currentBoard }),
-                    })
-                }
-                onPress={() => {}}
-            />
+    board={board}
+    onDelete={() => {}} // Not needed in Lists
+    onModify={() => {}} // Not needed in Lists
+    onPress={() => {}} // Optional action if needed
+    hideActions={true} // Buttons will be hidden
+/>
+
             {/* Display the lists */}
             <FlatList
                 data={lists}

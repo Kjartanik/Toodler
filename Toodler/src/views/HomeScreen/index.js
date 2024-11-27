@@ -36,26 +36,22 @@ const HomeScreen = ({ navigation }) => {
     // Render each board using BoardCard
     const renderBoard = ({ item: board }) => (
         <BoardCard
-            board={board}
-            onDelete={() => handleDeleteBoard(board.id)}
-            onModify={() =>
-                navigation.navigate('ModifyBoard', {
-                    boardId: board.id,
-                    modifyBoard: (updatedBoard) => {
-                        handleModifyBoard(updatedBoard);
-                    },
-                    onNavigateBack: () => navigation.navigate('HomeScreen'),
-                })
-            }
-            onPress={() =>
-                navigation.navigate('Lists', {
-                    board,
-                    onBoardUpdate: (updatedBoard) => {
-                        handleModifyBoard(updatedBoard);
-                    },
-                })
-            }
-        />
+    board={board}
+    onDelete={() => handleDeleteBoard(board.id)}
+    onModify={() =>
+        navigation.navigate('ModifyBoard', {
+            boardId: board.id,
+            currentBoardName: board.name,
+            currentBoardDescription: board.description,
+            currentThumbnailPhoto: board.thumbnailPhoto,
+            modifyBoard: handleModifyBoard,
+            onNavigateBack: () => navigation.navigate('HomeScreen'),
+        })
+    }
+    onPress={() => navigation.navigate('Lists', { board })}
+    hideActions={false} // Buttons will be displayed
+/>
+
     );
 
     return (

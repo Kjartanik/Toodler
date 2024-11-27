@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
-const BoardCard = ({ board, onDelete, onModify, onPress }) => {
+const BoardCard = ({ board, onDelete, onModify, onPress, hideActions = false }) => {
     return (
         <TouchableOpacity
             key={board.id}
@@ -11,18 +11,22 @@ const BoardCard = ({ board, onDelete, onModify, onPress }) => {
             <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
             <Text style={styles.title}>{board.name}</Text>
             <Text style={styles.description}>{board.description}</Text>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={onDelete} // Call delete action
-            >
-                <Text style={styles.buttonText}>Delete</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={onModify} // Call modify action
-            >
-                <Text style={styles.buttonText}>Modify</Text>
-            </TouchableOpacity>
+            {!hideActions && (
+                <>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={onDelete} // Call delete action
+                    >
+                        <Text style={styles.buttonText}>Delete</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={onModify} // Call modify action
+                    >
+                        <Text style={styles.buttonText}>Modify</Text>
+                    </TouchableOpacity>
+                </>
+            )}
         </TouchableOpacity>
     );
 };
