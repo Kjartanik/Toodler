@@ -10,6 +10,7 @@ const BoardCard = ({ board, onDelete, onModify, onPress }) => {
         >
             <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
             <Text style={styles.title}>{board.name}</Text>
+            <Text style={styles.description}>{board.description}</Text>
             <TouchableOpacity
                 style={styles.button}
                 onPress={onDelete} // Call delete action
