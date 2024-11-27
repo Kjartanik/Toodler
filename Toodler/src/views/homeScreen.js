@@ -23,24 +23,51 @@ const homeScreen = ({ navigation }) => {
         setBoards((prevBoards) => prevBoards.filter((board) => board.id !== boardId)); // Remove board from local state
     };
 
-    // Render each board item
+    const handleModifyBoard = (updatedBoard) => {
+        setBoards((prevBoards) =>
+            prevBoards.map((board) =>
+                board.id === updatedBoard.id ? updatedBoard : board
+            )
+        );
+    };
+    
+
     const renderBoard = (board) => (
         <TouchableOpacity
             key={board.id}
             style={styles.boardCard}
-            onPress={() => navigation.navigate('ListsAndTasks', {board})} // Navigate to ListsAndTasks
+            onPress={() => navigation.navigate('ListsAndTasks', { board })}
         >
             <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
             <Text style={styles.boardTitle}>{board.name}</Text>
             <TouchableOpacity
                 style={styles.deleteButton}
-                onPress={() => handleDeleteBoard(board.id)} // Handle delete
+                onPress={() => handleDeleteBoard(board.id)}
             >
                 <Text style={styles.deleteButtonText}>Delete</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.modifyButton}
+                onPress={() =>
+                    navigation.navigate('ModifyBoard', {
+                        boardId: board.id,
+                        currentBoardName: board.name,
+                        currentThumbnailPhoto: board.thumbnailPhoto,
+                        modifyBoard: (updatedBoard) => {
+                            setBoards((prevBoards) =>
+                                prevBoards.map((b) =>
+                                    b.id === updatedBoard.id ? updatedBoard : b
+                                )
+                            );
+                        },
+                    })
+                }
+            >
+                <Text style={styles.modifyButtonText}>Modify</Text>
+            </TouchableOpacity>
         </TouchableOpacity>
     );
-
+    
     return (
         <View style={styles.container}>
             <FlatList
@@ -101,6 +128,16 @@ const styles = StyleSheet.create({
     },
     deleteButtonText: {
         color: 'white',
+        fontWeight: 'bold',
+    },
+    modifyButton: {
+        marginTop: 10,
+        backgroundColor: 'pink',
+        padding: 5,
+        borderRadius: 5,
+    },
+    modifyButtonText: {
+        color: 'black',
         fontWeight: 'bold',
     },
 });

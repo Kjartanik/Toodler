@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Text } from 'react-native';
-import BoardCard from '../components/BoardCard';
-import { addBoard, deleteBoard, modifyBoard } from '../services/dataService';
+import BoardCard from '../components/boardCard';
+import { addBoard, deleteBoard, updateBoard } from '../services/dataService';
 import globalStyles from '../styles/globalStyles';
 import data from '../resources/data.json';
 
@@ -19,7 +19,7 @@ const Boards = ({ navigation }) => {
     };
 
     const handleModifyBoard = (updatedBoard) => {
-        const updatedBoards = modifyBoard(boards, updatedBoard);
+        const updatedBoards = updateBoard(boards, updatedBoard);
         setBoards(updatedBoards);
     };
 
