@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import styles from '../views/AddBoard/styles'
 
 const BoardForm = ({ styles, title, onSubmit, onCancel, initialData }) => {
     const [boardName, setBoardName] = useState(initialData.name || '');
