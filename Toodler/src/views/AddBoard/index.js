@@ -8,7 +8,7 @@ const AddBoard = ({ navigation, route }) => {
     const handleSave = (boardData) => {
         addBoard({
             ...boardData,
-            id: Date.now(), // Generate a unique ID for the new board
+            id: Date.now(), // Generate a unique ID for the new board TODO: breyta þessu í annað en date now! annars kemur identical key error og það getur tvöfaldast
         });
         navigation.goBack();
     };
