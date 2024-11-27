@@ -9,7 +9,7 @@ import { getListsForBoard, getTasksForList } from '../services/dataService';
 
 const Tasks = ({ navigation, route }) => {
     const { list } = route.params; // Get the board object from navigation parameters
-    const [lists, setLists] = useState([]); // State to store lists
+    const [lists, setTasks] = useState([]); // State to store lists
     const board = getBoardById(list.boardId);
 
     //     // Fetch lists when the component mounts or board ID changes
@@ -27,6 +27,7 @@ const Tasks = ({ navigation, route }) => {
         </View>
     );
 
+<<<<<<< Updated upstream
     const renderList = () => (
         
         <View style={styles.listContainer}>
@@ -35,6 +36,18 @@ const Tasks = ({ navigation, route }) => {
         </View>
     );
 
+=======
+    // Render tasks for list
+    useEffect(() => {
+        const fetchedTasks = getTasksForList(list.id)
+        setTasks(fetchedTasks);
+    }, [list.id]);
+
+    // Render tasks
+    const renderTasks = () => (
+        <View style={styles}
+    );
+>>>>>>> Stashed changes
 
     return (
         <View style={styles.container}>
