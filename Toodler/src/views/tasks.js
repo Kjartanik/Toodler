@@ -9,7 +9,7 @@ import { getListsForBoard, getTasksForList } from '../services/dataService';
 
 const Tasks = ({ navigation, route }) => {
     const { list } = route.params; // Get the board object from navigation parameters
-    const [lists, setTasks] = useState([]); // State to store lists
+    const [tasks, setTasks] = useState([]); // State to store lists
     const board = getBoardById(list.boardId);
 
     //     // Fetch lists when the component mounts or board ID changes
