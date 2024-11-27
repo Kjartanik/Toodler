@@ -27,7 +27,6 @@ const Tasks = ({ navigation, route }) => {
         </View>
     );
 
-<<<<<<< Updated upstream
     const renderList = () => (
         
         <View style={styles.listContainer}>
@@ -36,18 +35,12 @@ const Tasks = ({ navigation, route }) => {
         </View>
     );
 
-=======
     // Render tasks for list
     useEffect(() => {
         const fetchedTasks = getTasksForList(list.id)
         setTasks(fetchedTasks);
     }, [list.id]);
 
-    // Render tasks
-    const renderTasks = () => (
-        <View style={styles}
-    );
->>>>>>> Stashed changes
 
     return (
         <View style={styles.container}>
