@@ -6,12 +6,21 @@ import data from '../resources/data.json';
 const ListsAndTasks = ({ navigation, route }) => {
     const { board } = route.params; // Get the board object from navigation parameters
     const [lists, setLists] = useState([]); // State to store lists
+    const [tasks, setTasks] = useState({}); // State to store tasks for each list
 
     // Fetch lists when the component mounts or board ID changes
     useEffect(() => {
         const fetchedLists = getListsForBoard(board.id); // Fetch lists for the given board
         setLists(fetchedLists); // Update state with the fetched lists
+
+        // Initialize tasks state for each list
+        const fetchedTasks = {};
+        fetchedLists.forEach(list => {
+            fetchedTasks[list.id] = getTasksForList(list.id);
+        });
+        setTasks(fetchedTasks);
     }, [board.id]);
+
 
     // Render the board details
     const renderBoard = () => (
@@ -41,7 +50,7 @@ const ListsAndTasks = ({ navigation, route }) => {
                     keyExtractor={(task) => task.id.toString()}
                     renderItem={({ item: task }) => (
                         <Text style={styles.task}>
-                            {task.name} - {task.isFinished ? 'done' : 'not done'}
+                            {task.name} - {task.isFinished ? 'done' : 'not done'} {/* TODO: uppfæra þetta þegar ýtt á checkbox í Tasks.js eða hægt að checka hér líka? */}
                         </Text>
                     )}
                 />

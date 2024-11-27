@@ -103,15 +103,16 @@ export const deleteTask = (taskId) => {
     return false;
 };
 
-// Service function to update a task
-export const updateTask = (taskId, updatedTask) => {
+// Update a task by ID with updated fields
+export const updateTask = (taskId, updatedFields) => {
     const taskIndex = data.tasks.findIndex(task => task.id === taskId);
     if (taskIndex !== -1) {
-        data.tasks[taskIndex] = { ...data.tasks[taskIndex], ...updatedTask };
+        data.tasks[taskIndex] = { ...data.tasks[taskIndex], ...updatedFields }; // Merge updated fields
         return data.tasks[taskIndex];
     }
-    return null;
+    return null; // Return null if task not found
 };
+
 
 // Service function to move a task to another list
 export const moveTaskToAnotherList = (taskId, newListId) => {

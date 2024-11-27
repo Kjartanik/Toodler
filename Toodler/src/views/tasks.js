@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
 import BoardCard from '../components/boardCard';
-import { addBoard, deleteBoard, getBoardById, updateBoard } from '../services/dataService';
+import { addBoard, deleteBoard, getBoardById, updateBoard, updateTask } from '../services/dataService';
 import globalStyles from '../styles/globalStyles';
 import data from '../resources/data.json';
 import { getListsForBoard, getTasksForList } from '../services/dataService';
+import { CheckBox } from 'react-native-elements'; // Use CheckBox from react-native-elements
+
 
 
 const Tasks = ({ navigation, route }) => {
     const { list } = route.params; // Get the board object from navigation parameters
     const [tasks, setTasks] = useState([]); // State to store lists
     const board = getBoardById(list.boardId);
-
-    //     // Fetch lists when the component mounts or board ID changes
-    // useEffect(() => {
-    //         const fetchedLists = getListsForBoard(board.id); // Fetch lists for the given board
-    //         setLists(fetchedLists); // Update state with the fetched lists
-    //     }, [board.id]);
 
     // Render the board details
     const renderBoard = () => (
@@ -35,12 +31,28 @@ const Tasks = ({ navigation, route }) => {
         </View>
     );
 
-   // Render each task
-   const renderTask = ({ item: task }) => (
-    <Text style={styles.task}>
-        {task.name} - {task.isFinished ? 'done' : 'not done'}
-    </Text>
-);
+        // Toggle the `isFinished` state for a task
+    const toggleTaskCompletion = (taskId, currentStatus) => {
+        // Update the task in the dataService
+        const updatedTask = updateTask(taskId, { isFinished: !currentStatus });
+        if (updatedTask) {
+            // Update the state
+            setTasks(prevTasks =>
+                prevTasks.map(task => (task.id === taskId ? updatedTask : task))
+            );
+        }
+    };
+    
+    const renderTask = ({ item: task }) => (
+        <CheckBox
+            title={task.name}
+            checked={task.isFinished}
+            onPress={() => toggleTaskCompletion(task.id, task.isFinished)}
+            containerStyle={styles.taskContainer}
+            textStyle={task.isFinished && styles.taskCompleted}
+        />
+    );
+    
 
     // Render tasks for list
     useEffect(() => {
@@ -50,13 +62,14 @@ const Tasks = ({ navigation, route }) => {
 
     return (
         <View style={styles.container}>
-            {/* Render the board details */}
-            {renderBoard()}
-
-            {/* Render the list title */}
-            {renderList()}
-
-            {/* Render tasks below the list title */}
+            <View style={styles.boardHeader}>
+                <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
+                <Text style={styles.boardTitle}>{board.name}</Text>
+                <Text style={styles.boardDescription}>{board.description}</Text>
+            </View>
+            <View style={styles.listContainer}>
+                <Text style={[styles.listTitle, { backgroundColor: list.color }]}>{list.name}</Text>
+            </View>
             <FlatList
                 data={tasks}
                 keyExtractor={(task) => task.id.toString()}
@@ -66,7 +79,6 @@ const Tasks = ({ navigation, route }) => {
     );
 };
     
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -101,10 +113,18 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#fff',
     },
+    taskContainer: {
+        backgroundColor: 'transparent',
+        borderWidth: 0,
+    },
+    
     task: {
         fontSize: 16,
-        marginVertical: 5,
-        paddingLeft: 20,
+        marginLeft: 10,
+    },
+    taskCompleted: {
+        textDecorationLine: 'line-through',
+        color: 'gray',
     },
 });
 
