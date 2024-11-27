@@ -33,7 +33,7 @@ const ListsAndTasks = ({ navigation, route }) => {
                     <TouchableOpacity
             key={board.id}
             style={styles.boardCard}
-            onPress={() => navigation.navigate('Tasks', { board })}
+            onPress={() => navigation.navigate('Tasks', { list })}
         >
                 <Text style={[styles.listTitle, { backgroundColor: list.color }]}>{list.name}</Text>
                 <FlatList

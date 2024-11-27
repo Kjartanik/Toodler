@@ -12,11 +12,11 @@ const Tasks = ({ navigation, route }) => {
     const [lists, setLists] = useState([]); // State to store lists
     const board = getBoardById(list.boardId);
 
-        // Fetch lists when the component mounts or board ID changes
-    useEffect(() => {
-            const fetchedLists = getListsForBoard(board.id); // Fetch lists for the given board
-            setLists(fetchedLists); // Update state with the fetched lists
-        }, [board.id]);
+    //     // Fetch lists when the component mounts or board ID changes
+    // useEffect(() => {
+    //         const fetchedLists = getListsForBoard(board.id); // Fetch lists for the given board
+    //         setLists(fetchedLists); // Update state with the fetched lists
+    //     }, [board.id]);
 
     // Render the board details
     const renderBoard = () => (
@@ -27,39 +27,12 @@ const Tasks = ({ navigation, route }) => {
         </View>
     );
 
-    // Render each list with its tasks
-    const renderList = (boardId) => {
-        
-        const tasks = getTasksForList(list.id); // Fetch tasks for this list
-        
-
-        return (
-            <View style={styles.listContainer}>
-                    <TouchableOpacity
-            key={board.id}
-            style={styles.boardCard}
-            onPress={() => navigation.navigate('Tasks', { board })}
-        >
-                <Text style={[styles.listTitle, { backgroundColor: list.color }]}>{list.name}</Text>
-                <FlatList
-                    data={tasks}
-                    keyExtractor={(task) => task.id.toString()}
-                    renderItem={({ item: task }) => (
-                        <Text style={styles.task}>
-                            {task.name} - {task.isFinished ? 'done' : 'not done'}
-                        </Text>
-                    )}
-                />
-                </TouchableOpacity>
-            </View>
-        );
-    };
 
     return (
         <View style={styles.container}>
         {/* Render the board details */}
         {renderBoard()}
-        {renderList(board)}
+
         </View>
     )
 
