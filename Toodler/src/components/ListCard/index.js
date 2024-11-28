@@ -1,15 +1,35 @@
 import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import styles from './styles'
+import styles from './styles.js'
 
 const ListCard = ({ list, tasks, onDelete, onModify, onPress }) => {
+    const toggleTaskCompletion = (taskId, currentStatus) => {
+        // Toggle the task's completion state
+        const taskIndex = tasks.findIndex(task => task.id === taskId);
+        if (taskIndex !== -1) {
+            tasks[taskIndex].isFinished = !currentStatus;
+        }
+    };
+
+    const renderTask = ({ item: task }) => (
+        <View style={styles.taskContainer}>
+            <CheckBox
+                checked={task.isFinished}
+                onPress={() => toggleTaskCompletion(task.id, task.isFinished)}
+                containerStyle={styles.checkBoxContainer}
+                textStyle={task.isFinished && styles.taskCompleted}
+            />
+            <Text style={styles.taskTitle}>{task.name}</Text>
+        </View>
+    );
+
     return (
         <TouchableOpacity
             style={[styles.card, { borderColor: list.color }]}
-            onPress={onPress} // Navigate to Tasks screen
+            onPress={onPress} // Navigate to another screen
         >
-            {/* Icons in the top-right corner */}
             <View style={{ position: 'relative' }}>
                 <View style={styles.iconContainer}>
                     <TouchableOpacity
@@ -36,19 +56,16 @@ const ListCard = ({ list, tasks, onDelete, onModify, onPress }) => {
             {/* List title */}
             <Text style={styles.title}>{list.name}</Text>
 
-            {/* List of tasks */}
+            {/* Task list */}
             <FlatList
                 data={tasks}
                 keyExtractor={(task) => task.id.toString()}
-                renderItem={({ item: task }) => (
-                    <Text style={styles.task}>
-                        {`${task.name} - ${task.isFinished ? 'done' : 'not done'}`}
-                    </Text>
-                )}
+                renderItem={renderTask}
             />
-
         </TouchableOpacity>
     );
 };
+
+
 
 export default ListCard;

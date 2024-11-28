@@ -27,6 +27,26 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginTop: 5,
     },
+    taskContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 5,
+    },
+    checkBoxContainer: {
+        margin: 0,
+        padding: 0,
+    },
+    taskTitle: {
+        flex: 1,
+        fontSize: 14,
+        marginLeft: 10,
+    },
+    taskCompleted: {
+        textDecorationLine: 'line-through',
+        color: '#aaa',
+    },
 });
+
+
 
 export default styles;
