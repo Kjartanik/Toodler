@@ -72,12 +72,14 @@ const Lists = ({ navigation, route }) => {
     
 
     const renderFooter = () => (
-        <TouchableOpacity
-            style={styles.addButton}
-            onPress={() => navigation.navigate('AddList', { addList: handleAddList })}
-        >
-            <Icon name="add" size={30} color="black" /> {/* Plus icon */}
-        </TouchableOpacity>
+        <View>
+            <TouchableOpacity
+                style={styles.addButton}
+                onPress={() => navigation.navigate('AddList', { addList: handleAddList })}
+            >
+                <Icon name="add" size={30} color="black" /> {/* Plus icon */}
+            </TouchableOpacity>
+        </View>
     );
 
     return (

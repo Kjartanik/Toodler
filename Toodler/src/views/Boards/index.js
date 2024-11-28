@@ -59,7 +59,7 @@ const Boards = ({ navigation }) => {
                 style={globalStyles.button}
                 onPress={navigateToAddBoard}
             >
-                <Text style={globalStyles.buttonText}>Add Board</Text>
+                <Text style={globalStyles.buttonText}>Add Board</Text> {}
             </TouchableOpacity>
         </View>
     );
