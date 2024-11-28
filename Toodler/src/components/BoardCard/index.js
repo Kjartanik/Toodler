@@ -6,15 +6,13 @@ import styles from './styles'
 const BoardCard = ({ board, onDelete, onModify, onPress, hideActions = false, showTrashIcon = true }) => {
     return (
         <TouchableOpacity
-            key={board.id}
             style={styles.card}
             onPress={onPress} // Navigate to Lists
         >
             <View style={styles.cardHeader}>
                 <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
             </View>
-            {}
-            <Text style={styles.description}>Description: {board.description}</Text>
+            <Text style={styles.description}>Description: {board.description || 'No description'}</Text>
             <View style={styles.iconContainer}>
                 {!hideActions && (
                     <TouchableOpacity
@@ -33,8 +31,7 @@ const BoardCard = ({ board, onDelete, onModify, onPress, hideActions = false, sh
                     </TouchableOpacity>
                 )}
             </View>
-            {}
-            <Text style={styles.title}>{board.name}</Text>
+            <Text style={styles.title}>{board.name || 'Untitled'}</Text>
         </TouchableOpacity>
     );
 };
