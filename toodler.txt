@@ -11,14 +11,14 @@ Boards - 25%
 
 Board - 25%
 - list all lists of Board - BASIC KOMIÐ
-- create new list
-- delete list
-- modify list
+- create new list - BASIC KOMIÐ
+- delete list - BASIC KOMIÐ
+- modify list - BASIC KOMIÐ
 
 Task - 30%
 - list all tasks of a list - BASIC KOMIÐ
-- create new task
-- delete task
+- create new task - BASIC KOMIÐ
+- delete task - BASIC KOMIÐ
 - modify task
 - move task from one list to another 
 
