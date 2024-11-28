@@ -37,14 +37,15 @@ const ListCard = ({ list, tasks, onDelete, onModify, onPress }) => {
 
             {/* List of tasks */}
             <FlatList
-                data={tasks}
-                keyExtractor={(task) => task.id.toString()}
-                renderItem={({ item: task }) => (
-                    <Text style={styles.task}>
-                        {task.name} - {task.isFinished ? 'done' : 'not done'}
-                    </Text>
-                )}
-            />
+    data={tasks}
+    keyExtractor={(task) => task.id.toString()}
+    renderItem={({ item: task }) => (
+        <Text style={styles.task}>
+            {`${task.name} - ${task.isFinished ? 'done' : 'not done'}`}
+        </Text>
+    )}
+/>
+
         </TouchableOpacity>
     );
 };
