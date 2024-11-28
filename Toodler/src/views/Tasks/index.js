@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, FlatList, TouchableOpacity, StyleSheet, Text, TextInput, Image } from 'react-native';
+import { View, FlatList, TouchableOpacity, StyleSheet, Text, TextInput, Image, Alert } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons'; 
+import ListForm from '../../components/ListForm';
 import { getBoardById, getTasksForList, addTaskToList, updateTask, deleteTask } from '../../services/dataService';
 import styles from './styles';
 
@@ -67,6 +68,35 @@ const Tasks = ({ route }) => {
         }
     };
 
+    const handleSave = (taskData) => {
+        const updatedTask = {
+            id: taskId,
+            ...taskData,
+        };
+
+        const savedTask = updateTask(taskId,updatedTask);
+
+        if (savedTask) {
+            modifyTask(savedTask);
+        navigation.goBack();
+        }
+        else {
+            Alert.alert('Error', 'Failed to update task');
+        }
+    };
+
+    const handleModifyTask = (task) => {
+        return (
+            <ListForm
+                onChangeText={handleSave}
+                initialData= {{
+                    name: task?.name || '',
+                }}
+            />
+        );
+        
+    };
+
     // Render a single task
     const renderTask = ({ item: task }) => (
         <View style={styles.taskContainer}>
@@ -82,7 +112,7 @@ const Tasks = ({ route }) => {
                     <Icon name="delete" size={24} color="pink" />
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={() => alert('Modify task functionality here.')}
+                    onPress={() => handleModifyTask(task)} 
                     style={styles.icon}
                 >
                     <Icon name="edit" size={24} color="pink" />
