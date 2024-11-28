@@ -73,48 +73,16 @@ const Tasks = ({ route }) => {
     };
 
     const renderTask = ({ item: task }) => (
-        <View style={styles.taskContainer}>
-            <CheckBox
-                checked={task.isFinished}
-                onPress={() => toggleTaskCompletion(task.id, task.isFinished)}
-                containerStyle={styles.checkBoxContainer}
-                textStyle={task.isFinished && styles.taskCompleted}
-            />
-            {editingTaskId === task.id ? (
-                <TextInput
-                    style={styles.taskTitleInput}
-                    value={editingTaskName}
-                    onChangeText={setEditingTaskName}
-                    onEndEditing={() => saveTaskTitle(task.id)} // Save on input blur
-                    onSubmitEditing={() => saveTaskTitle(task.id)} // Save on "Enter" or "Done"
-                    autoFocus={true} // Automatically focus the input
-                />
-            ) : (
-                <Text style={styles.taskTitle}>{task.name}</Text>
-            )}
-            <View style={styles.taskIcons}>
-                <TouchableOpacity onPress={() => handleDeleteTask(task.id)} style={styles.icon}>
-                    <Icon name="delete" size={24} color="pink" />
-                </TouchableOpacity>
-                {editingTaskId === task.id ? (
-                    <TouchableOpacity
-                        onPress={() => saveTaskTitle(task.id)}
-                        style={styles.icon}
-                    >
-                        <Icon name="check" size={24} color="pink" />
-                    </TouchableOpacity>
-                ) : (
-                    <TouchableOpacity
-                        onPress={() => startEditingTask(task.id, task.name)}
-                        style={styles.icon}
-                    >
-                        <Icon name="edit" size={24} color="pink" />
-                    </TouchableOpacity>
-                )}
-            </View>
-        </View>
+        <ListCard
+            board={board}
+            list={list}
+            tasks={[task]} // Pass the task as a single-item array
+            onModifyTask={(task) => startEditingTask(task.id, task.name)}
+            onToggleTask={(taskId, isFinished) => toggleTaskCompletion(taskId, isFinished)}
+            onDeleteTask={(taskId) => handleDeleteTask(taskId)}
+        />
     );
-
+    
     const renderFooter = useCallback(() => (
         <View style={styles.taskContainer}>
             <CheckBox

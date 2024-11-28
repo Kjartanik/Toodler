@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // Import the icon
 import styles from './styles'
 
-const BoardCard = ({ board, onDelete, onModify, onPress, hideActions = false, showTrashIcon = true }) => {
+const BoardCard = ({ board, onDelete, onModify, onPress, hideActions = false, showTrashIcon = false }) => {
     return (
         <TouchableOpacity
             style={styles.card}

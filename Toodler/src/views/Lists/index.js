@@ -47,27 +47,42 @@ const Lists = ({ navigation, route }) => {
             )
         );
     };
-    
+
     const renderList = ({ item: list }) => {
         const listTasks = tasks[list.id] || []; // Ensure tasks are fetched for this list
     
         return (
             <ListCard
+                board={board}
                 list={list}
                 tasks={listTasks}
-                onDelete={() => handleDeleteList(list.id)}
-                onModify={() =>
-                    navigation.navigate('ModifyList', {
-                        listId: list.id,
-                        modifyList: handleModifyList,
-                        modifyTasks: (updatedTasks) => handleModifyTasks(list.id, updatedTasks),
-                    })
+                onModifyTask={(task) =>
+                    navigation.navigate('ModifyTask', { task, listId: list.id })
                 }
-                onPress={() => navigation.navigate('Tasks', { list })}
+                onToggleTask={(taskId, isFinished) => {
+                    const updatedTask = updateTask(taskId, { isFinished: !isFinished });
+                    if (updatedTask) {
+                        setTasks((prevTasks) => ({
+                            ...prevTasks,
+                            [list.id]: prevTasks[list.id].map((task) =>
+                                task.id === taskId ? updatedTask : task
+                            ),
+                        }));
+                    }
+                }}
+                onDeleteTask={(taskId) => {
+                    const isDeleted = deleteTask(taskId);
+                    if (isDeleted) {
+                        setTasks((prevTasks) => ({
+                            ...prevTasks,
+                            [list.id]: prevTasks[list.id].filter((task) => task.id !== taskId),
+                        }));
+                    }
+                }}
             />
         );
     };
-    
+        
     
     
 
