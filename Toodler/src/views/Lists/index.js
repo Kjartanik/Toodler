@@ -41,33 +41,33 @@ const Lists = ({ navigation, route }) => {
     };
 
     const handleModifyList = (updatedList) => {
-        setLists((prevLists) => 
-            prevLists.map((list) => 
-                list.id = updatedList.id ? updatedList : list
+        setLists((prevLists) =>
+            prevLists.map((list) =>
+                list.id === updatedList.id ? updatedList : list
             )
-        )
+        );
     };
-
+    
     const renderList = ({ item: list }) => {
-        const listTasks = tasks[list.id] || [];
+        const listTasks = tasks[list.id] || []; // Ensure tasks are fetched for this list
     
         return (
             <ListCard
                 list={list}
                 tasks={listTasks}
                 onDelete={() => handleDeleteList(list.id)}
-                onModify={() => 
-                    navigation.navigate('ModifyList', { 
+                onModify={() =>
+                    navigation.navigate('ModifyList', {
                         listId: list.id,
-                        currentListName: list.name,
-                        currentListColor: list.color,
                         modifyList: handleModifyList,
-                        onNavigateBack: () => navigation.navigate('Lists'),
-                         })}
-                onPress={() => navigation.navigate('Tasks', { list })} // Navigate to Tasks screen
+                        modifyTasks: (updatedTasks) => handleModifyTasks(list.id, updatedTasks),
+                    })
+                }
+                onPress={() => navigation.navigate('Tasks', { list })}
             />
         );
     };
+    
     
     
 
