@@ -15,3 +15,4 @@ Toodler - trello copycat
 # Lint tutorial :-)
 Í terminal:
 npx eslint . --config ./eslint.config.mjs --fix
+ 

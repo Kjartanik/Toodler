@@ -1,5 +1,5 @@
 import React from 'react';
-import BoardForm from '../../components/BoardForm';
+import BoardForm from '../../components/BoardForm/index';
 import styles from './styles';
 
 const AddBoard = ({ navigation, route }) => {

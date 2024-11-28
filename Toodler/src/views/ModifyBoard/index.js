@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator, Alert } from 'react-native';
-import BoardForm from '../../components/BoardForm';
+import BoardForm from '../../components/BoardForm/index';
 import { getBoardById, updateBoard } from '../../services/dataService';
 
 const ModifyBoard = ({ navigation, route }) => {

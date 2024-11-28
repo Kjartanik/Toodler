@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Text, TextInput, Image, Alert } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons'; 
-import ListForm from '../../components/ListForm';
 import { getBoardById, getTasksForList, addTaskToList, updateTask, deleteTask } from '../../services/dataService';
 import styles from './styles';
 

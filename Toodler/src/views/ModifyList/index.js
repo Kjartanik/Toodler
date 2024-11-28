@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator, Alert } from 'react-native';
-import ListForm from '../../components/ListForm';
+import ListForm from '../../components/ListForm/index';
 import { getListById, updateList } from '../../services/dataService';
 
 const ModifyList = ({ navigation, route }) => {

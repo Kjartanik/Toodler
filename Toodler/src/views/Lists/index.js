@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { getListsForBoard, getTasksForList, addListToBoard, deleteList } from '../../services/dataService';
-import BoardCard from '../../components/BoardCard';
-import ListCard from '../../components/ListCard';
+import BoardCard from '../../components/BoardCard/index';
+import ListCard from '../../components/ListCard/index';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // For the plus icon
 
