@@ -2,8 +2,8 @@
 import data from '../resources/data.json';
 
 let nextBoardId = data.boards.length > 0
-? Math.max(...data.boards.map((board) => board.id)) + 1
-: 1; 
+    ? Math.max(...data.boards.map((board) => board.id)) + 1
+    : 1; 
 
 
 // Service function to get all boards
