@@ -61,8 +61,8 @@ const HomeScreen = ({ navigation }) => {
             style={styles.addButton}
             onPress={() => navigation.navigate('AddBoard', { addBoard: handleAddBoard })} 
         >
-            <View>
-                <Text style={styles.container /* Note: Error {Text strings must be rendered within a <Text>} */}> 
+            <View style={styles.icon}>
+                <Text style={styles.text /* Note: Error {Text strings must be rendered within a <Text>} */}> 
                     <Icon name="add" size={30} color="black" /> {/* Plus icon */} 
                 </Text>
             </View>

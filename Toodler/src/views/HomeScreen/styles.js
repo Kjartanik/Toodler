@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: 'pink',
-        padding: 15,
         borderRadius: 5,
         alignItems: 'center',
     },
@@ -25,7 +24,6 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 25,
-        backgroundColor: 'pink', // Background color for the button
     },
 });
 
