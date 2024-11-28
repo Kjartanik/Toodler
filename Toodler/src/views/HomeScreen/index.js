@@ -55,13 +55,17 @@ const HomeScreen = ({ navigation }) => {
         />
 
     );
-
+    
     const renderFooter = () => (
         <TouchableOpacity
             style={styles.addButton}
-            onPress={() => navigation.navigate('AddBoard', { addBoard: handleAddBoard })}
+            onPress={() => navigation.navigate('AddBoard', { addBoard: handleAddBoard })} 
         >
-            <Icon name="add" size={30} color="black" /> {/* Plus icon */}
+            <View>
+                <Text style={styles.container /* Note: Error {Text strings must be rendered within a <Text>} */}> 
+                    <Icon name="add" size={30} color="black" /> {/* Plus icon */} 
+                </Text>
+            </View>
         </TouchableOpacity>
     );
 

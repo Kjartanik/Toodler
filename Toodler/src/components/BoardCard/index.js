@@ -27,7 +27,10 @@ const BoardCard = ({ board, onDelete, onModify, onPress, hideActions = false, sh
                         style={styles.icon} 
                         onPress={onDelete}
                     >
-                        <Icon name="delete" size={24} color="pink" /> {/* Trashcan icon */}
+                        <Text style={styles.description} /* <Text> added to avoid rendering error */>
+                            <Icon name="delete" size={24} color="pink" /> {/* Trashcan icon */}
+                        </Text>
+
                     </TouchableOpacity>
                 )}
             </View>

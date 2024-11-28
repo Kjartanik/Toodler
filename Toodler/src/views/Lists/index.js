@@ -77,7 +77,9 @@ const Lists = ({ navigation, route }) => {
                 style={styles.addButton}
                 onPress={() => navigation.navigate('AddList', { addList: handleAddList })}
             >
-                <Icon name="add" size={30} color="black" /> {/* Plus icon */}
+                <Text style={styles.container}>
+                    <Icon name="add" size={30} color="black" /> {/* Plus icon */}
+                </Text>
             </TouchableOpacity>
         </View>
     );
