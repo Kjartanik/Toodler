@@ -1,80 +1,114 @@
-import React, { useState, useEffect } from 'react';
-import { View, FlatList, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
-import BoardCard from '../../components/BoardCard';
-import { addBoard, deleteBoard, getBoardById, updateBoard, updateTask } from '../../services/dataService';
-import globalStyles from '../../styles/globalStyles';
-import data from '../../resources/data.json';
-import { getListsForBoard, getTasksForList } from '../../services/dataService';
-import { CheckBox } from 'react-native-elements'; // Use CheckBox from react-native-elements
-import styles from './styles'
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, FlatList, TouchableOpacity, StyleSheet, Text, TextInput, Image } from 'react-native';
+import { CheckBox } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/MaterialIcons'; 
+import { getBoardById, getTasksForList, addTaskToList, updateTask, deleteTask } from '../../services/dataService';
+import styles from './styles';
 
-
-
-const Tasks = ({ navigation, route }) => {
-    const { list } = route.params; // Get the board object from navigation parameters
-    const [tasks, setTasks] = useState([]); // State to store lists
+const Tasks = ({ route }) => {
+    const { list } = route.params;
+    const [tasks, setTasks] = useState([]);
+    const [newTaskName, setNewTaskName] = useState('');
     const board = getBoardById(list.boardId);
 
-    // Render the board details
-    const renderBoard = () => (
-        <View style={styles.boardHeader}>
-            <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
-            <Text style={styles.boardTitle}>{board.name}</Text>
-            <Text style={styles.boardDescription}>{board.description}</Text>
-        </View>
-    );
-
-    const renderList = () => (
-        
-        <View style={styles.listContainer}>
-            <Text style={[styles.listTitle, { backgroundColor: list.color }]}>{list.name}</Text>
-
-        </View>
-    );
-
-    // Toggle the `isFinished` state for a task
-    const toggleTaskCompletion = (taskId, currentStatus) => {
-        // Update the task in the dataService
-        const updatedTask = updateTask(taskId, { isFinished: !currentStatus });
-        if (updatedTask) {
-            // Update the state
-            setTasks(prevTasks =>
-                prevTasks.map(task => (task.id === taskId ? updatedTask : task))
-            );
-        }
-    };
-    
-    const renderTask = ({ item: task }) => (
-        <CheckBox
-            title={task.name}
-            checked={task.isFinished}
-            onPress={() => toggleTaskCompletion(task.id, task.isFinished)}
-            containerStyle={styles.taskContainer}
-            textStyle={task.isFinished && styles.taskCompleted}
-        />
-    );
-    
-
-    // Render tasks for list
+    // Fetch tasks for the list when the component mounts
     useEffect(() => {
-        const fetchedTasks = getTasksForList(list.id)
+        const fetchedTasks = getTasksForList(list.id);
         setTasks(fetchedTasks);
     }, [list.id]);
 
+    // Add a new task
+    const handleAddTask = () => {
+        if (newTaskName.trim() === '') {
+            alert('Please enter a task name.');
+            return;
+        }
+
+        const newTask = { name: newTaskName, isFinished: false };
+        const updatedTask = addTaskToList(list.id, newTask);
+        setTasks((prevTasks) => [...prevTasks, updatedTask]);
+        setNewTaskName(''); // Clear the input field
+    };
+
+    // Render footer with the add container (memoized to prevent re-creation)
+    const renderFooter = useCallback(() => (
+        <View style={styles.taskContainer}>
+            <CheckBox
+                checked={false} // Non-functional checkbox for consistency
+                containerStyle={styles.checkBoxContainer}
+            />
+            <TextInput
+                style={styles.taskTitle}
+                placeholder="Enter new task name"
+                value={newTaskName}
+                onChangeText={setNewTaskName} // Properly update state
+            />
+            <TouchableOpacity style={styles.addCircleButton} onPress={handleAddTask}>
+                <Icon name="add" size={24} color="white" />
+            </TouchableOpacity>
+        </View>
+    ), [newTaskName]); // Depend on `newTaskName` to avoid unnecessary re-renders
+
+    // Toggle task completion
+    const toggleTaskCompletion = (taskId, currentStatus) => {
+        const updatedTask = updateTask(taskId, { isFinished: !currentStatus });
+        if (updatedTask) {
+            setTasks((prevTasks) =>
+                prevTasks.map((task) => (task.id === taskId ? updatedTask : task))
+            );
+        }
+    };
+
+    // Delete a task
+    const handleDeleteTask = (taskId) => {
+        const isDeleted = deleteTask(taskId);
+        if (isDeleted) {
+            setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+        }
+    };
+
+    // Render a single task
+    const renderTask = ({ item: task }) => (
+        <View style={styles.taskContainer}>
+            <CheckBox
+                checked={task.isFinished}
+                onPress={() => toggleTaskCompletion(task.id, task.isFinished)}
+                containerStyle={styles.checkBoxContainer}
+                textStyle={task.isFinished && styles.taskCompleted}
+            />
+            <Text style={styles.taskTitle}>{task.name}</Text>
+            <View style={styles.taskIcons}>
+                <TouchableOpacity onPress={() => handleDeleteTask(task.id)} style={styles.icon}>
+                    <Icon name="delete" size={24} color="pink" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => alert('Modify task functionality here.')}
+                    style={styles.icon}
+                >
+                    <Icon name="edit" size={24} color="pink" />
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+
     return (
         <View style={styles.container}>
+            {/* Board and List Header */}
             <View style={styles.boardHeader}>
                 <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
                 <Text style={styles.boardTitle}>{board.name}</Text>
                 <Text style={styles.boardDescription}>{board.description}</Text>
             </View>
-            <View style={styles.listContainer}>
-                <Text style={[styles.listTitle, { backgroundColor: list.color }]}>{list.name}</Text>
+            <View style={[styles.listContainer, { borderColor: list.color }]}>
+                <Text style={styles.listTitle}>{list.name}</Text>
             </View>
+
+            {/* Tasks List */}
             <FlatList
                 data={tasks}
                 keyExtractor={(task) => task.id.toString()}
                 renderItem={renderTask}
+                ListFooterComponent={renderFooter} // Footer component with add container
             />
         </View>
     );

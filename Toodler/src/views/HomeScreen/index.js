@@ -3,6 +3,8 @@ import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { getBoards, addBoard, deleteBoard } from '../../services/dataService.js';
 import BoardCard from '../../components/BoardCard';
 import styles from './styles';
+import Icon from 'react-native-vector-icons/MaterialIcons'; // For the plus icon
+
 
 const HomeScreen = ({ navigation }) => {
     const [boards, setBoards] = useState([]);
@@ -54,21 +56,25 @@ const HomeScreen = ({ navigation }) => {
 
     );
 
+    const renderFooter = () => (
+        <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => navigation.navigate('AddBoard', { addBoard: handleAddBoard })}
+        >
+            <Icon name="add" size={30} color="black" /> {/* Plus icon */}
+        </TouchableOpacity>
+    );
+
+
     return (
         <View style={styles.container}>
             <FlatList
                 data={boards}
                 keyExtractor={(board) => board.id.toString()}
                 renderItem={renderBoard}
+                ListFooterComponent={renderFooter} // Add the "+" button below the last board
             />
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate('AddBoard', { addBoard: handleAddBoard })}
-            >
-                <Text style={styles.buttonText}>Add Board</Text>
-            </TouchableOpacity>
         </View>
     );
 };
-
 export default HomeScreen;

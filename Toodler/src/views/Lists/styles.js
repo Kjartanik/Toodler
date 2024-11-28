@@ -25,12 +25,14 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         backgroundColor: '#f9f9f9',
+        borderWidth: 2, // Add border width
+        borderColor: 'transparent', // Default; dynamically set in the component
     },
     listTitle: {
         fontSize: 18,
         fontWeight: 'bold',
         padding: 10,
-        color: '#fff',
+        color: 'black',
     },
     task: {
         fontSize: 16,
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 5,
         padding: 10,
-        width: 100,
+        width: '30%',
         backgroundColor: 'pink',
         borderRadius: 5,
         alignItems: 'center',
@@ -53,7 +55,34 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
+    deleteButton: {
+        marginTop: 5,
+        padding: 10,
+        width: '30%',
+        backgroundColor: 'red',
+        borderRadius: 5,
+        alignItems: 'center',
+        alignSelf: 'center',
+    },
+    addButton: {
+        marginTop: 10,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        backgroundColor: 'pink', // Background color for the button
+    },
+    iconContainer: {
+        position: 'absolute', // Position icons in the top-right corner
+        top: 10,
+        right: 10,
+        flexDirection: 'row',
+    },
+    icon: {
+        marginLeft: 10, // Spacing between icons
+    },
 });
-
 
 export default styles;

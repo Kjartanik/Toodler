@@ -10,8 +10,8 @@ const Stack = createStackNavigator();
 
 const AppRoutes = () => (
     <Stack.Navigator>
-        <Stack.Screen name="Boards" component={Boards} />
-        <Stack.Screen name="AddBoard" component={AddBoard} />
+        <Stack.Screen name="Boards" component={Boards} options={{title: 'Boards!'}}/>
+        <Stack.Screen name="AddBoard" component={AddBoard} options={{title: 'Create new board'}}/>
         <Stack.Screen name="ModifyBoard" component={ModifyBoard} />
         <Stack.Screen name="DeleteBoard" component={DeleteBoard} />
         <Stack.Screen name="ListsAndTasks" component={ListsAndTasks} />

@@ -1,6 +1,11 @@
 // Assuming data.json is located in the src/resources folder
 import data from '../resources/data.json';
 
+let nextBoardId = data.boards.length > 0
+? Math.max(...data.boards.map((board) => board.id)) + 1
+: 1; 
+
+
 // Service function to get all boards
 export const getBoards = () => {
     return data.boards;
@@ -26,8 +31,8 @@ export const getListById = (listId) => {
 }
 
 export const addBoard = (newBoard) => {
-    const newId = data.boards.length > 0 ? data.boards[data.boards.length - 1].id + 1 : 1;
-    const board = { ...newBoard, id: newId };
+    const board = { ...newBoard, id: nextBoardId }; // Use the current value of nextBoardId
+    nextBoardId += 1;
     data.boards.push(board);
     return board;
 };

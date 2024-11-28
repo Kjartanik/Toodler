@@ -34,18 +34,23 @@ const BoardForm = ({title, onSubmit, onCancel, initialData = {} }) => {
             alert('Image selection was canceled or failed.');
         }
     };
+    const [loading, setLoading] = useState(false);
 
     const handleSave = () => {
+        if (loading) return; // Prevent further actions if already saving
         if (boardName.trim() === '') {
             alert('Please provide a board name!');
             return;
         }
+        setLoading(true); // Set loading to true
+    
         onSubmit({
             name: boardName,
             description: boardDescription,
             thumbnailPhoto,
         });
     };
+    
 
     return (
         <View style={styles.container}>
@@ -70,12 +75,13 @@ const BoardForm = ({title, onSubmit, onCancel, initialData = {} }) => {
             {thumbnailPhoto && (
                 <Image source={{ uri: thumbnailPhoto }} style={styles.thumbnailPreview} />
             )}
-            <TouchableOpacity style={styles.button} onPress={handleSave}>
+            {/* <TouchableOpacity style={styles.button} onPress={handleSave}>
                 <Text style={styles.buttonText}>Save</Text>
+            </TouchableOpacity> */}
+            <TouchableOpacity style={styles.button} onPress={handleSave} disabled={loading}>
+                <Text style={styles.buttonText}>{loading ? 'Saving...' : 'Save'}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
-                <Text style={styles.cancelButtonText}>Cancel</Text>
-            </TouchableOpacity>
+
         </View>
     );
 };
