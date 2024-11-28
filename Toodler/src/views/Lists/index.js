@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { getListsForBoard, getTasksForList, addListToBoard, deleteList } from '../../services/dataService';
 import BoardCard from '../../components/BoardCard';
+import ListCard from '../../components/ListCard';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // For the plus icon
 
@@ -38,46 +39,33 @@ const Lists = ({ navigation, route }) => {
             alert('Failed to delete the list. Please try again.');
         }
     };
+
+    const handleModifyList = (updatedList) => {
+        setLists((prevLists) => 
+            prevLists.map((list) => 
+                list.id = updatedList.id ? updatedList : list
+            )
+        )
+    };
+
     const renderList = ({ item: list }) => {
         const listTasks = tasks[list.id] || [];
     
         return (
-            <TouchableOpacity
+            <ListCard
+                list={list}
+                tasks={listTasks}
+                onDelete={() => handleDeleteList(list.id)}
+                onModify={() => 
+                    navigation.navigate('ModifyList', { 
+                        listId: list.id,
+                        currentListName: list.name,
+                        currentListColor: list.color,
+                        modifyList: handleModifyList,
+                        onNavigateBack: () => navigation.navigate('Lists'),
+                         })}
                 onPress={() => navigation.navigate('Tasks', { list })} // Navigate to Tasks screen
-                style={[styles.listContainer, { borderColor: list.color }]} // Add border color dynamically
-            >
-                {/* Icons in the top-right corner */}
-                <View style={styles.iconContainer}>
-                    <TouchableOpacity
-                        onPress={() => handleDeleteList(list.id)}
-                        style={styles.icon}
-                    >
-                        <Icon name="delete" size={24} color="pink" />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('ModifyList', { list })}
-                        style={styles.icon}
-                    >
-                        <Icon name="edit" size={24} color="pink" />
-                    </TouchableOpacity>
-                </View>
-    
-                {/* List title */}
-                <Text style={styles.listTitle}>
-                    {list.name}
-                </Text>
-    
-                {/* List of tasks */}
-                <FlatList
-                    data={listTasks}
-                    keyExtractor={(task) => task.id.toString()}
-                    renderItem={({ item: task }) => (
-                        <Text style={styles.task}>
-                            {task.name} - {task.isFinished ? 'done' : 'not done'}
-                        </Text>
-                    )}
-                />
-            </TouchableOpacity>
+            />
         );
     };
     
