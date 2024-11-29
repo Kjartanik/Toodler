@@ -28,7 +28,7 @@ const ListCard = ({ list, tasks, onModify, onDelete, onToggleTask, onPress, prog
                 <Text style={styles.listTitle}>{list.name}</Text> 
                 <Text>
                     <Progress.Bar progress={progress} width={200} height={7.5} color={'pink'} />
-                     {(Math.floor(progress * 100)).toString()}% done
+                       {(Math.floor(progress * 100)).toString()}% done
                 </Text>
 
                 {!hideIcons && ( // Conditionally render the trashcan icon
