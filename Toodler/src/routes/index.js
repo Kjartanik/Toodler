@@ -12,7 +12,6 @@ import ModifyList from '../views/ModifyList/index';
 import LoginScreen from '../views/LogIn/index';
 import SignUpScreen from '../views/SignUp/index';
 import { AuthContext } from '../context/AuthContext';
-
 import CustomHeader from '../components/CustomHeader';
 import MoveTask from '../views/MoveTask/index';
 
