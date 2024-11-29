@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
 import UserService from '../../services/UserService';
+import styles from './styles'; 
 
 const SignUpScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
