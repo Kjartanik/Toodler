@@ -2,25 +2,28 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, FlatList, TouchableOpacity, TextInput, Text, Alert } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { getBoardById, getTasksForList, addTaskToList, updateTask, deleteTask } from '../../services/dataService';
+import { getBoardById, getTasksForList, addTaskToList, updateTask, deleteTask, updateBoard } from '../../services/dataService';
 import styles from './styles';
 
 const Tasks = ({ route }) => {
-    const { list } = route.params; // Get list from navigation params
+    const { list } = route.params;
     const [tasks, setTasks] = useState([]);
     const [newTaskName, setNewTaskName] = useState('');
     const [editingTaskId, setEditingTaskId] = useState(null);
     const [editingTaskName, setEditingTaskName] = useState('');
-    const board = getBoardById(list.boardId); // Fetch board details
+    const [editingBoardName, setEditingBoardName] = useState(null);
+    const [boardName, setBoardName] = useState('');
+    const board = getBoardById(list.boardId);
 
     useEffect(() => {
         const fetchedTasks = getTasksForList(list.id);
         setTasks(fetchedTasks);
-    }, [list.id]);
+        setBoardName(board.name);
+    }, [list.id, board.name]);
 
     const handleAddTask = () => {
         if (newTaskName.trim() === '') {
-            alert('Please enter a task name.');
+            Alert.alert('Error', 'Please enter a task name.');
             return;
         }
         const newTask = { name: newTaskName, isFinished: false };
@@ -45,7 +48,7 @@ const Tasks = ({ route }) => {
 
     const saveTaskTitle = (taskId) => {
         if (editingTaskName.trim() === '') {
-            alert('Task name cannot be empty.');
+            Alert.alert('Error', 'Task name cannot be empty.');
             return;
         }
         const updatedTask = updateTask(taskId, { name: editingTaskName });
@@ -56,7 +59,7 @@ const Tasks = ({ route }) => {
             setEditingTaskId(null);
             setEditingTaskName('');
         } else {
-            alert('Failed to update task.');
+            Alert.alert('Error', 'Failed to update task.');
         }
     };
 
@@ -64,6 +67,24 @@ const Tasks = ({ route }) => {
         const isDeleted = deleteTask(taskId);
         if (isDeleted) {
             setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+        }
+    };
+
+    const startEditingBoard = () => {
+        setEditingBoardName(boardName);
+    };
+
+    const saveBoardName = () => {
+        if (editingBoardName.trim() === '') {
+            Alert.alert('Error', 'Board name cannot be empty.');
+            return;
+        }
+        const updatedBoard = updateBoard(board.id, { name: editingBoardName });
+        if (updatedBoard) {
+            setBoardName(updatedBoard.name);
+            setEditingBoardName(null);
+        } else {
+            Alert.alert('Error', 'Failed to update board.');
         }
     };
 
@@ -118,6 +139,7 @@ const Tasks = ({ route }) => {
 
     return (
         <View style={styles.container}>
+            
             <View style={[styles.listContainer, { borderColor: list.color || '#000' }]}>
                 <Text style={styles.listTitle}>{list.name}</Text>
             </View>
