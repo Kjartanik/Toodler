@@ -28,13 +28,13 @@ Task - 30%
 
 Extras - 20%                            - ATH
 - share board 
-- copy list (copy lista yfir í annað board)
+- copy list (færa lista í annað board)
 - add deadline to task
 - add deadline to list
 - add deadline to board 
 - add priority (A,B,C) to task 
 - order list 
-- percentage done in list (isFinished)
+- percentage done in list (isFinished) (progress)
 - user (ID, name, profilePhoto)
 
 
