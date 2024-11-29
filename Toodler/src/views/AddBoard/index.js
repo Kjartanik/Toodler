@@ -5,14 +5,17 @@ import styles from './styles';
 const AddBoard = ({ navigation, route }) => {
     const { addBoard } = route.params;
 
-    const [isSaving, setIsSaving] = useState(false); // Use state to manage saving status
+    const [isSaving, setIsSaving] = useState(false); 
 
     const handleSave = (boardData) => {
-        if (isSaving) return; // Prevent multiple triggers
-        setIsSaving(true); // Set saving flag to true
+        console.log('Adding board in AddBoard.js')
+        if (isSaving) return; 
+        setIsSaving(true);
 
-        addBoard(boardData); // Add the board using the provided function
-        navigation.goBack(); // Navigate back to the previous screen
+        addBoard(boardData);
+        console.log('before go back')
+        navigation.goBack();
+        console.log('second status saved');
 
         setIsSaving(false);
     };

@@ -38,6 +38,7 @@ const BoardForm = ({title, onSubmit, onCancel, initialData = {} }) => {
     const [loading, setLoading] = useState(false);
 
     const handleSave = () => {
+        console.log('handleSave in Board form')
         if (loading) return; // Prevent further actions if already saving
         if (boardName.trim() === '') {
             alert('Please provide a board name!');
@@ -50,6 +51,8 @@ const BoardForm = ({title, onSubmit, onCancel, initialData = {} }) => {
             description: boardDescription,
             thumbnailPhoto,
         });
+        setTimeout(()=> {console.log('20 seconds have passed')}, 20000)
+        console.log('HandleSave in Board form done.')
     };
     
 

@@ -18,8 +18,10 @@ const HomeScreen = ({ navigation }) => {
 
     // Handle adding a new board
     const handleAddBoard = (newBoard) => {
+        console.log('Handling addBoard')
         const addedBoard = addBoard(newBoard); // Use addBoard from dataService
         setBoards((prevBoards) => [...prevBoards, addedBoard]); // Update local state with the new board
+        console.log('Handling(these ballz) done')
     };
 
     // Handle deleting a board

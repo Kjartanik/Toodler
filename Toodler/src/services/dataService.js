@@ -31,11 +31,19 @@ export const getListById = (listId) => {
 }
 
 export const addBoard = (newBoard) => {
-    const board = { ...newBoard, id: nextBoardId }; // Use the current value of nextBoardId
+    const isDuplicate = data.boards.some((board) => board.id === newBoard.id);
+    if (isDuplicate) {
+        console.warn('Board already exists:', newBoard.id); // Log warning
+        return null;
+    }
+
+    const board = { ...newBoard, id: nextBoardId };
     nextBoardId += 1;
     data.boards.push(board);
-    return board;
+    console.log('dataservice portion entered')
+    return board; 
 };
+
 
 // Service function to delete a board
 export const deleteBoard = (boardId) => {
