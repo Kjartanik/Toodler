@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         padding: 10,
         borderRadius: 10,
-        borderWidth: 2, // Add border width
+        borderWidth: 2,
         backgroundColor: '#fff',
-        borderColor: 'transparent', // Default; dynamically set in the component
+        borderColor: 'transparent', 
     },
     listTitle: {
         fontSize: 18,
@@ -66,6 +66,18 @@ const styles = StyleSheet.create({
     taskCompleted: {
         textDecorationLine: 'line-through',
         color: '#888',
+    },
+    addTaskContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        padding: 10,
+        marginVertical: 5,
+        marginTop: -30,
+        marginBottom: 100,
+        paddingBottom: 100,
     },
     // addCircleButton: {
     //     width: 40,

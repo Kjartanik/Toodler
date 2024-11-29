@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, FlatList, TouchableOpacity, TextInput, Text, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Platform, KeyboardAvoidingView, FlatList, TouchableOpacity, TextInput, Text, Alert } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getBoardById, getTasksForList, addTaskToList, updateTask, deleteTask, updateBoard, moveTaskToAnotherList, calculateProgress } from '../../services/dataService';
@@ -126,37 +126,49 @@ const Tasks = ({ navigation, route }) => {
         </View>
     );
 
+
+    const renderFooter = () => (
+        <View style={styles.taskContainer}>
+            <CheckBox
+                checked={false}
+                containerStyle={styles.checkBoxContainer}
+                checkedColor='pink'
+            />
+            <TextInput
+                style={styles.taskTitle}
+                placeholder="Enter new task name"
+                value={newTaskName}
+                onChangeText={(text) => setNewTaskName(text)}
+            />
+            
+            <TouchableOpacity style={styles.addCircleButton} onPress={handleAddTask}>
+                <Icon name="add" size={24} color="pink" />
+            </TouchableOpacity>
+        </View>
+    );
+
     return (
-        <View style={styles.container}>
-            <View style={[styles.listContainer, { borderColor: list.color || '#000' }]}>
+        <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : 0}
+    >            <View style={[styles.listContainer, { borderColor: list.color || '#000' }]}>
                 <Text style={styles.listTitle}>{list.name}</Text>
                 <Text>
                     <Progress.Bar progress={progress} width={150} height={10} color={'pink'} /> {(Math.floor(progress * 100)).toString()}% done
                 </Text>
             </View>
+            <View style={styles.taskContainer}>
             <FlatList
                 data={tasks.filter((task) => task && task.id)}
                 keyExtractor={(task) => task.id.toString()}
                 renderItem={renderTask}
             />
-            {/* Footer */}
-            <View style={styles.taskContainer}>
-                <CheckBox
-                    checked={false}
-                    containerStyle={styles.checkBoxContainer}
-                    checkedColor='pink'
-                />
-                <TextInput
-                    style={styles.taskTitle}
-                    placeholder="Enter new task name"
-                    value={newTaskName}
-                    onChangeText={(text) => setNewTaskName(text)}
-                />
-                <TouchableOpacity style={styles.addCircleButton} onPress={handleAddTask}>
-                    <Icon name="add" size={24} color="pink" />
-                </TouchableOpacity>
             </View>
-        </View>
+            <View style={styles.addTaskContainer}>
+                {renderFooter()};
+            </View>
+        </KeyboardAvoidingView>
     );
 };
 
