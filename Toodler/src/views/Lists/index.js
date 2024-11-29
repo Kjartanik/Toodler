@@ -5,23 +5,28 @@ import ListCard from '../../components/ListCard/index';
 import BoardCard from '../../components/BoardCard/index'; // Import BoardCard component
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useFocusEffect } from '@react-navigation/native';
+
 
 const Lists = ({ navigation, route }) => {
     const { board } = route.params; // Get board details from navigation
     const [lists, setLists] = useState([]);
     const [tasks, setTasks] = useState({}); // Map of listId to tasks array
 
-    // Fetch lists and tasks for the board when the component mounts
-    useEffect(() => {
-        const fetchedLists = getListsForBoard(board.id) || []; // Ensure valid lists array
-        setLists(fetchedLists);
-
-        const fetchedTasks = {};
-        fetchedLists.forEach((list) => {
-            fetchedTasks[list.id] = getTasksForList(list.id) || []; // Ensure tasks array
-        });
-        setTasks(fetchedTasks);
-    }, [board.id]);
+    useFocusEffect(
+        React.useCallback(() => {
+            const fetchedLists = getListsForBoard(board.id) || [];
+            setLists(fetchedLists);
+    
+            const fetchedTasks = {};
+            fetchedLists.forEach((list) => {
+                fetchedTasks[list.id] = getTasksForList(list.id) || [];
+            });
+            setTasks(fetchedTasks);
+    
+        }, [board.id])
+    );
+    
 
     // Toggle task completion
     const handleToggleTask = (listId, taskId, isFinished) => {
