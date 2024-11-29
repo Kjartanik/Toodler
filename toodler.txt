@@ -20,8 +20,8 @@ Board - 25%
 - modify list                           - KOMIÐ 
 
 Task - 30% 
-- list all tasks of a list              - ATH           - þegar við bætum við lista/breytum check boxinu inni í Tasks og förum svo til baka í lists þá er það ekki saveað þar!!!!
-- create new task                       - ATH           - sama og fyrir ofan!!!
+- list all tasks of a list              - KOMIÐ          
+- create new task                       - KOMIÐ           
 - delete task                           - KOMIÐ
 - modify task                           - BASIC KOMIÐ   - ruglingslegt að það þurfi að ýta á blýant og þá getur maður breytt því það sést ekki á textanum, pottþétt mínus 
 - move task from one list to another    - KOMIÐ 
