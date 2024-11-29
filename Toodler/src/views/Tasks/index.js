@@ -105,12 +105,17 @@ const Tasks = ({ navigation, route }) => {
 
     const renderFooter = useCallback(() => (
         <View style={styles.taskContainer}>
-            <CheckBox checked={false} containerStyle={styles.checkBoxContainer} />
+              <CheckBox
+                checked={false}
+                containerStyle={styles.checkBoxContainer}
+                checkedColor='pink'
+            />
             <TextInput
                 style={styles.taskTitle}
                 placeholder="Enter new task name"
                 value={newTaskName}
                 onChangeText={setNewTaskName}
+
             />
             <TouchableOpacity style={styles.addCircleButton} onPress={handleAddTask}>
                 <Icon name="add" size={24} color="pink" />
@@ -124,6 +129,7 @@ const Tasks = ({ navigation, route }) => {
                 checked={task.isFinished}
                 onPress={() => toggleTaskCompletion(task.id, task.isFinished)}
                 containerStyle={styles.checkBoxContainer}
+                checkedColor={'pink'}
             />
             {editingTaskId === task.id ? (
                 <TextInput
