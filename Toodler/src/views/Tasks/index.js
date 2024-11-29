@@ -16,10 +16,15 @@ const Tasks = ({ navigation, route }) => {
     const board = getBoardById(list.boardId);
 
     useEffect(() => {
-        const fetchedTasks = getTasksForList(list.id);
-        setTasks(fetchedTasks);
-        setBoardName(board.name);
-    }, [list.id, board.name]);
+        const unsubscribe = navigation.addListener('focus', () => {
+            const fetchedTasks = getTasksForList(list.id);
+            console.log('Re-fetched tasks on navigation focus:', fetchedTasks);
+            setTasks(fetchedTasks || []); 
+        });
+    
+        return unsubscribe; 
+    }, [navigation, list.id]);
+    
     
     const handleAddTask = () => {
         if (newTaskName.trim() === '') {
@@ -48,12 +53,11 @@ const Tasks = ({ navigation, route }) => {
 
     const handleMoveTask = (taskId, listId) => {
         setTasks((prevTasks) =>
-            prevTasks.map((task) =>
-                task.id !== taskId
-            )
+            prevTasks.filter((task) => task.id !== taskId) // Remove the moved task
         );
-        moveTaskToAnotherList(taskId, listId)
+        moveTaskToAnotherList(taskId, listId);
     };
+    
 
     const saveTaskTitle = (taskId) => {
         if (editingTaskName.trim() === '') {
@@ -165,11 +169,12 @@ const Tasks = ({ navigation, route }) => {
                 <Text style={styles.listTitle}>{list.name}</Text>
             </View>
             <FlatList
-                data={tasks}
-                keyExtractor={(task) => task.id.toString()}
+                data={tasks.filter((task) => task && task.id)} 
+                keyExtractor={(task) => task.id.toString()} 
                 renderItem={renderTask}
                 ListFooterComponent={renderFooter}
             />
+
         </View>
     );
 };
