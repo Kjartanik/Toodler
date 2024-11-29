@@ -17,7 +17,7 @@ Board - 25%
 - list all lists of Board               - KOMIÐ
 - create new list                       - KOMIÐ   
 - delete list                           - KOMIÐ
-- modify list                           - KOMIÐ  
+- modify list                           - KOMIÐ 
 
 Task - 30% 
 - list all tasks of a list              - ATH           - þegar við bætum við lista/breytum check boxinu inni í Tasks og förum svo til baka í lists þá er það ekki saveað þar!!!!
@@ -34,7 +34,7 @@ Extras - 20%                            - ATH
 - add deadline to board 
 - add priority (A,B,C) to task 
 - order list 
-- percentage done in list (progress)
+- percentage done in list (progress)    - KOMIÐ
 - choose image from camera roll         - KOMIÐ
 - choose color from list of colors      - KOMIÐ
 - log in                                - KOMIÐ
