@@ -12,7 +12,11 @@ import ModifyList from '../views/ModifyList/index';
 import LoginScreen from '../views/LogIn/index';
 import SignUpScreen from '../views/SignUp/index';
 import { AuthContext } from '../context/AuthContext';
+<<<<<<< Updated upstream
 import CustomHeader from '../components/CustomHeader';
+=======
+import MoveTask from '../views/MoveTask/index';
+>>>>>>> Stashed changes
 
 const Stack = createStackNavigator();
 const RootStack = createStackNavigator();
@@ -39,6 +43,7 @@ const MainAppFlow = () => (
         <Stack.Screen name="Tasks" component={Tasks} options={{ title: 'Task List' }} />
         <Stack.Screen name="AddList" component={AddList} options={{ title: 'Add New List' }} />
         <Stack.Screen name="ModifyList" component={ModifyList} options={{ title: 'Modify List' }} />
+        <Stack.Screen name="MoveTask" component={MoveTask} options={{ title: 'Move Task' }} />
     </Stack.Navigator>
 );
 

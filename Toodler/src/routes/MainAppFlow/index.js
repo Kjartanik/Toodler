@@ -9,6 +9,7 @@ import Tasks from '../../views/Tasks/index';
 import AddList from '../../views/AddList/index';
 import ModifyList from '../../views/ModifyList/index';
 import CustomHeader from '../../components/CustomHeader';
+import MoveTask from '../../views/MoveTask/index'
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,7 @@ const MainAppFlow = () => (
         <Stack.Screen name="Tasks" component={Tasks} options={{ title: 'Tasks' }} />
         <Stack.Screen name="AddList" component={AddList} options={{ title: 'Create New List' }} />
         <Stack.Screen name="ModifyList" component={ModifyList} options={{ title: 'Change List' }} />
+        <Stack.Screen name="MoveTask" component={MoveTask} options={{ title: 'Move Task' }} />
     </Stack.Navigator>
 );
 
