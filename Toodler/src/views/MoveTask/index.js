@@ -23,6 +23,7 @@ const MoveTask = ({ navigation, route}) => {
                         moveTask(taskId, list.id); 
                         navigation.goBack(); 
                     }}
+                    hideIcons={true}
                 />
         );
     };
