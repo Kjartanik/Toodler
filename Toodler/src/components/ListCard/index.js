@@ -30,8 +30,7 @@ const ListCard = ({ list, tasks, onModify, onDelete, onToggleTask, onPress, prog
                 {!hideIcons && ( // Conditionally render the trashcan icon
                 <View>
                     <Text>
-                        <Progress.Bar progress={progress} width={200} height={10} color={'pink'} />
-                          {(Math.floor(progress * 100)).toString()}% done
+                        <Progress.Bar progress={progress} width={150} height={10} color={'pink'} />  {(Math.floor(progress * 100)).toString()}% done
                     </Text>
                         <View style={styles.iconContainer}>
                         <TouchableOpacity onPress={onModify} style={styles.icon}>
