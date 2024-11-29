@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, FlatList, TouchableOpacity, TextInput, Text, Alert } from 'react-native';
-import { CheckBox } from 'react-native-elements';
+import { Button, CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { getBoardById, getTasksForList, addTaskToList, updateTask, deleteTask, updateBoard } from '../../services/dataService';
+import { getBoardById, getTasksForList, addTaskToList, updateTask, deleteTask, updateBoard, moveTaskToAnotherList } from '../../services/dataService';
 import styles from './styles';
 
-const Tasks = ({ route }) => {
+const Tasks = ({ navigation, route }) => {
     const { list } = route.params;
     const [tasks, setTasks] = useState([]);
     const [newTaskName, setNewTaskName] = useState('');
@@ -44,6 +44,15 @@ const Tasks = ({ route }) => {
     const startEditingTask = (taskId, currentName) => {
         setEditingTaskId(taskId);
         setEditingTaskName(currentName);
+    };
+
+    const handleMoveTask = (taskId, listId) => {
+        setTasks((prevTasks) =>
+            prevTasks.map((task) =>
+                task.id !== taskId
+            )
+        );
+        moveTaskToAnotherList(taskId, listId)
     };
 
     const saveTaskTitle = (taskId) => {
@@ -132,6 +141,18 @@ const Tasks = ({ route }) => {
                     onPress={() => handleDeleteTask(task.id)}
                 >
                     <Icon name="delete" size={24} color="pink" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.icon}
+                    onPress={() => navigation.navigate(
+                        'MoveTask', 
+                        {taskId: task.id, 
+                        moveTask: handleMoveTask, 
+                        boardId: board.id}
+                        )
+                    }
+                >
+                    <Icon name='arrow-outward' size={24} color='pink' />
                 </TouchableOpacity>
             </View>
         </View>
