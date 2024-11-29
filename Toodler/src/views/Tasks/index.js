@@ -2,8 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, FlatList, TouchableOpacity, TextInput, Text, Alert } from 'react-native';
 import { Button, CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { getBoardById, getTasksForList, addTaskToList, updateTask, deleteTask, updateBoard, moveTaskToAnotherList } from '../../services/dataService';
+import { getBoardById, getTasksForList, addTaskToList, updateTask, deleteTask, updateBoard, moveTaskToAnotherList, calculateProgress } from '../../services/dataService';
 import styles from './styles';
+import * as Progress from 'react-native-progress';
 
 const Tasks = ({ navigation, route }) => {
     const { list } = route.params;
@@ -14,6 +15,7 @@ const Tasks = ({ navigation, route }) => {
     const [editingBoardName, setEditingBoardName] = useState(null);
     const [boardName, setBoardName] = useState('');
     const board = getBoardById(list.boardId);
+    const progress = calculateProgress(list.id)
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
@@ -167,6 +169,10 @@ const Tasks = ({ navigation, route }) => {
             
             <View style={[styles.listContainer, { borderColor: list.color || '#000' }]}>
                 <Text style={styles.listTitle}>{list.name}</Text>
+                <Text>
+                    <Progress.Bar progress={progress} width={150} height={10} color={'pink'} />  {(Math.floor(progress * 100)).toString()}% done
+                </Text>
+
             </View>
             <FlatList
                 data={tasks.filter((task) => task && task.id)} 
