@@ -8,16 +8,16 @@ BASIC KOMIÐ = virkar en hægt að gera betra, mögulega mínus ef ekki lagað
 ATH - someone fix that shit ASAP!
 
 Boards - 25%
-- list all Boards                       - BASIC KOMIÐ   - smá tómt svæði í miðjunni, kannski hægt að sýna hversu margir listar eru inni í eða svoleiðis?
+- list all Boards                       - KOMIÐ  
 - create new Board                      - BASIC KOMIÐ   - select image og save image ættu ekki að vera í eins stíl
 - delete Board                          - KOMIÐ
 - modify Board                          - BASIC KOMIÐ   - sama og í create new board, kannski gott að hafa í stað change image þá ýta bara á myndina
 
 Board - 25%
 - list all lists of Board               - KOMIÐ
-- create new list                       - BASIC KOMIÐ   - litirnir eru ekki vel skipulagðir
+- create new list                       - KOMIÐ   
 - delete list                           - KOMIÐ
-- modify list                           - BASIC KOMIÐ   - sama og í create new list
+- modify list                           - KOMIÐ  
 
 Task - 30% 
 - list all tasks of a list              - ATH           - þegar við bætum við lista/breytum check boxinu inni í Tasks og förum svo til baka í lists þá er það ekki saveað þar!!!!
