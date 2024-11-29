@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../views/HomeScreen/index';
@@ -9,9 +9,9 @@ import Lists from '../views/Lists/index';
 import Tasks from '../views/Tasks/index';
 import AddList from '../views/AddList/index';
 import ModifyList from '../views/ModifyList/index';
-import CustomHeader from '../components/CustomHeader';
 import LoginScreen from '../views/LogIn/index';
 import SignUpScreen from '../views/SignUp/index';
+import { AuthContext } from '../context/AuthContext';
 
 const Stack = createStackNavigator();
 const RootStack = createStackNavigator();
@@ -19,64 +19,43 @@ const RootStack = createStackNavigator();
 const MainAppFlow = () => (
     <Stack.Navigator
         initialRouteName="HomeScreen"
-        screenOptions={({ navigation }) => ({
-            header: (props) => (
-                <CustomHeader
-                    title={props.options.title}
-                    navigation={navigation}
-                    canGoBack={navigation.canGoBack()}
-                />
-            ),
-        })}
+        screenOptions={{
+            headerShown: true,
+        }}
     >
         <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ title: 'My Boards' }} />
-        <Stack.Screen name="ModifyBoard" component={ModifyBoard} options={{ title: 'Change Board' }} />
-        <Stack.Screen name="Boards" component={Boards} options={{ title: 'Boards' }} />
-        <Stack.Screen name="AddBoard" component={AddBoard} options={{ title: 'Create New Board' }} />
-        <Stack.Screen name="Lists" component={Lists} options={{ title: 'Lists' }} />
-        <Stack.Screen name="Tasks" component={Tasks} options={{ title: 'Tasks' }} />
-        <Stack.Screen name="AddList" component={AddList} options={{ title: 'Create New List' }} />
-        <Stack.Screen name="ModifyList" component={ModifyList} options={{ title: 'Change List' }} />
+        <Stack.Screen name="ModifyBoard" component={ModifyBoard} options={{ title: 'Modify Board' }} />
+        <Stack.Screen name="Boards" component={Boards} options={{ title: 'Boards Overview' }} />
+        <Stack.Screen name="AddBoard" component={AddBoard} options={{ title: 'Add Board' }} />
+        <Stack.Screen name="Lists" component={Lists} options={{ title: 'Lists View' }} />
+        <Stack.Screen name="Tasks" component={Tasks} options={{ title: 'Task List' }} />
+        <Stack.Screen name="AddList" component={AddList} options={{ title: 'Add New List' }} />
+        <Stack.Screen name="ModifyList" component={ModifyList} options={{ title: 'Modify List' }} />
     </Stack.Navigator>
 );
 
-const AuthenticationFlow = ({ setIsSignedIn }) => (
+const AuthenticationFlow = () => (
     <Stack.Navigator
-    initialRouteName="LoginScreen"
-    screenOptions={({ navigation }) => ({
-        header: (props) => (
-            <CustomHeader
-                title={props.options.title}
-                navigation={navigation}
-                canGoBack={navigation.canGoBack()}
-            />
-        ),
-    })}
->
-        <Stack.Screen name="LoginScreen" >
-            {(props) => <LoginScreen {...props} setIsSignedIn={setIsSignedIn} />}
-        </Stack.Screen>
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen}  />
+        initialRouteName="LoginScreen"
+        screenOptions={{
+            headerShown: true,
+        }}
+    >
+        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ title: 'Login' }} />
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{ title: 'Sign Up' }} />
     </Stack.Navigator>
 );
 
 const Routes = () => {
-    const [isSignedIn, setIsSignedIn] = useState(false);
+    const { state } = useContext(AuthContext);
 
     return (
         <NavigationContainer>
             <RootStack.Navigator screenOptions={{ headerShown: false }}>
-                {isSignedIn ? (
+                {state.userToken ? (
                     <RootStack.Screen name="MainApp" component={MainAppFlow} />
                 ) : (
-                    <RootStack.Screen name="Auth">
-                        {(props) => (
-                            <AuthenticationFlow
-                                {...props}
-                                setIsSignedIn={setIsSignedIn}
-                            />
-                        )}
-                    </RootStack.Screen>
+                    <RootStack.Screen name="Auth" component={AuthenticationFlow} />
                 )}
             </RootStack.Navigator>
         </NavigationContainer>

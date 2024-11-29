@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, FlatList, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { Text, View, FlatList, TouchableOpacity, Button } from 'react-native';
 import { getBoards, addBoard, deleteBoard } from '../../services/dataService.js';
 import BoardCard from '../../components/BoardCard/index';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons'; 
-import UserService from '../../services/UserService'; 
+import { AuthContext } from '../../context/AuthContext';
 
 const HomeScreen = ({ navigation }) => {
     const [boards, setBoards] = useState([]);
+    const { authContext } = useContext(AuthContext); // Access the AuthContext
 
     // Fetch boards when the component mounts
     useEffect(() => {
@@ -69,7 +70,6 @@ const HomeScreen = ({ navigation }) => {
         </TouchableOpacity>
     );
 
-
     return (
         <View style={styles.container}>
             <FlatList
@@ -78,6 +78,8 @@ const HomeScreen = ({ navigation }) => {
                 renderItem={renderBoard}
                 ListFooterComponent={renderFooter} // Add the "+" button below the last board
             />
+            {/* Add a Sign Out button */}
+            <Button title="Sign Out" onPress={() => authContext.signOut()} />
         </View>
     );
 };
