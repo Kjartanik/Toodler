@@ -69,10 +69,7 @@ const Lists = ({ navigation, route }) => {
                 list={list}
                 tasks={listTasks}
                 onModify={() =>
-                    navigation.navigate('ModifyList', {
-                        listId: list.id,
-                        modifyList: handleModifyList,
-                    })
+                    navigation.navigate('ModifyList', {listId: list.id,modifyList: handleModifyList,})
                 }
                 onDelete={() => handleDeleteList(list.id)}
                 onToggleTask={(taskId, isFinished) => handleToggleTask(list.id, taskId, isFinished)}

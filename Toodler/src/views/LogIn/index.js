@@ -7,12 +7,22 @@ const LoginScreen = ({ navigation, setIsSignedIn }) => {
     const [password, setPassword] = useState('');
 
     const handleLogin = () => {
-        const storedUsername = UserService.getItem('username');
-        const storedPassword = UserService.getItem('password');
+        // get all users from UserService
+        const users = UserService.getAllUsers();
 
-        if (username === storedUsername && password === storedPassword) {
-            setIsSignedIn(true);
-        } else {
+        // Find the user that matches the entered input
+        const user = Object.values(users).find(
+            (storedUser) => storedUser.username === username && storedUser.password === password
+        );
+
+        if (user) {
+            //if the enterd user info maches the user, then sign in and move to the homescreen
+            UserService.setCurrentUser(user); 
+            setIsSignedIn(true); 
+            navigation.navigate('HomeScreen'); 
+        } 
+        //if the enterd user info dosent mach then let user know that it isint correct
+        else {
             Alert.alert('Invalid credentials', 'Please check your username and password');
         }
     };

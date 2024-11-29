@@ -4,7 +4,7 @@ import AuthenticationFlow from './AuthenticationFlow/index';
 import MainAppFlow from './MainAppFlow/index';
 
 const Routes = () => {
-    const [isSignedIn, setIsSignedIn] = useState(false); // Tracks if user is logged in
+    const [isSignedIn, setIsSignedIn] = useState(false); 
 
     return (
         <NavigationContainer>

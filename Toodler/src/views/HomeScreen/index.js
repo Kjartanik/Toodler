@@ -3,8 +3,8 @@ import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { getBoards, addBoard, deleteBoard } from '../../services/dataService.js';
 import BoardCard from '../../components/BoardCard/index';
 import styles from './styles';
-import Icon from 'react-native-vector-icons/MaterialIcons'; // For the plus icon
-
+import Icon from 'react-native-vector-icons/MaterialIcons'; 
+import UserService from '../../services/UserService'; 
 
 const HomeScreen = ({ navigation }) => {
     const [boards, setBoards] = useState([]);
@@ -52,20 +52,18 @@ const HomeScreen = ({ navigation }) => {
             }
             onPress={() => navigation.navigate('Lists', { board })}
             hideActions={false} // Buttons will be displayed
-            showTrashIcon ={true}
-
+            showTrashIcon={true}
         />
-
     );
-    
+
     const renderFooter = () => (
         <TouchableOpacity
             style={styles.addButton}
-            onPress={() => navigation.navigate('AddBoard', { addBoard: handleAddBoard })} 
+            onPress={() => navigation.navigate('AddBoard', { addBoard: handleAddBoard })}
         >
             <View style={styles.iconContainer}>
-                <Text style={styles.text /* Note: Error {Text strings must be rendered within a <Text>} */}> 
-                    <Icon style={styles.icon} name="add" size={30} color="pink" /> {/* Plus icon */} 
+                <Text style={styles.text}>
+                    <Icon style={styles.icon} name="add" size={30} color="pink" /> {/* Plus icon */}
                 </Text>
             </View>
         </TouchableOpacity>
@@ -83,4 +81,5 @@ const HomeScreen = ({ navigation }) => {
         </View>
     );
 };
+
 export default HomeScreen;
