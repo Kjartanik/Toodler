@@ -24,7 +24,7 @@ Task - 30%
 - create new task                       - ATH           - sama og fyrir ofan!!!
 - delete task                           - KOMIÐ
 - modify task                           - BASIC KOMIÐ   - ruglingslegt að það þurfi að ýta á blýant og þá getur maður breytt því það sést ekki á textanum, pottþétt mínus 
-- move task from one list to another    - ATH 
+- move task from one list to another    - KOMIÐ 
 
 Extras - 20%                            - ATH
 - share board 
