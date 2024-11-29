@@ -28,7 +28,7 @@ const CustomHeader = ({ title, navigation, canGoBack }) => {
 
                     {/* Company Name */}
                     <View style={styles.logoWrapper}>
-                        <Text style={styles.companyName}>Toodle</Text>
+                        <Text style={styles.companyName}>Log out</Text>
                     </View>
                 </View>
             </LinearGradient>
