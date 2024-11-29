@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         color: '#000',
+        marginBottom: 20,
     },
     taskContainer: {
         flexDirection: 'row',
@@ -79,14 +80,11 @@ const styles = StyleSheet.create({
         marginBottom: 100,
         paddingBottom: 100,
     },
-    // addCircleButton: {
-    //     width: 40,
-    //     height: 40,
-    //     borderRadius: 20,
-    //     backgroundColor: 'pink',
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    // },
+    editTaskTitle: {
+        fontSize: 15,
+        flex: 1,
+        color: '#c5c5c7',
+    },
 });
 
 export default styles;

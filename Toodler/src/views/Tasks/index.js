@@ -92,7 +92,7 @@ const Tasks = ({ navigation, route }) => {
             />
             {editingTaskId === task.id ? (
                 <TextInput
-                    style={styles.taskTitle}
+                    style={styles.editTaskTitle}
                     value={editingTaskName}
                     onChangeText={(text) => setEditingTaskName(text)}
                     onSubmitEditing={() => saveTaskTitle(task.id)}
@@ -101,31 +101,52 @@ const Tasks = ({ navigation, route }) => {
                 <Text style={styles.taskTitle}>{task.name}</Text>
             )}
             <View style={styles.taskIcons}>
-                <TouchableOpacity
-                    style={styles.icon}
-                    onPress={() => startEditingTask(task.id, task.name)}
-                >
-                    <Icon name="edit" size={24} color="pink" />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.icon}
-                    onPress={() => handleDeleteTask(task.id)}
-                >
-                    <Icon name="delete" size={24} color="pink" />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.icon}
-                    onPress={() => navigation.navigate(
-                        'MoveTask',
-                        { taskId: task.id, moveTask: handleMoveTask, boardId: board.id }
-                    )}
-                >
-                    <Icon name='arrow-outward' size={24} color='pink' />
-                </TouchableOpacity>
+                {editingTaskId === task.id ? (
+                    <TouchableOpacity
+                        style={styles.icon}
+                        onPress={() => saveTaskTitle(task.id)}
+                    >
+                        <Text>
+                            <Icon name="check" size={24} color="pink" />
+                        </Text>
+                    </TouchableOpacity>
+                ) : (
+                    <>
+                        <TouchableOpacity
+                            style={styles.icon}
+                            onPress={() => startEditingTask(task.id, task.name)}
+                        >
+                            <Text>
+                                <Icon name="edit" size={24} color="pink" />
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.icon}
+                            onPress={() => handleDeleteTask(task.id)}
+                        >
+                            <Text>
+                                <Icon name="delete" size={24} color="pink" />
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.icon}
+                            onPress={() =>
+                                navigation.navigate('MoveTask', {
+                                    taskId: task.id,
+                                    moveTask: handleMoveTask,
+                                    boardId: board.id,
+                                })
+                            }
+                        >
+                            <Text>
+                                <Icon name="arrow-outward" size={24} color="pink" />
+                            </Text>
+                        </TouchableOpacity>
+                    </>
+                )}
             </View>
         </View>
     );
-
 
     const renderFooter = () => (
         <View style={styles.taskContainer}>
@@ -142,7 +163,9 @@ const Tasks = ({ navigation, route }) => {
             />
             
             <TouchableOpacity style={styles.addCircleButton} onPress={handleAddTask}>
-                <Icon name="add" size={24} color="pink" />
+                <Text>
+                    <Icon name="add" size={24} color="pink" />
+                </Text>
             </TouchableOpacity>
         </View>
     );
@@ -152,22 +175,23 @@ const Tasks = ({ navigation, route }) => {
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : 0}
-    >            <View style={[styles.listContainer, { borderColor: list.color || '#000' }]}>
-                <Text style={styles.listTitle}>{list.name}</Text>
-                <Text>
-                    <Progress.Bar progress={progress} width={150} height={10} color={'pink'} /> {(Math.floor(progress * 100)).toString()}% done
-                </Text>
-            </View>
-            <View style={styles.taskContainer}>
-            <FlatList
-                data={tasks.filter((task) => task && task.id)}
-                keyExtractor={(task) => task.id.toString()}
-                renderItem={renderTask}
-            />
-            </View>
-            <View style={styles.addTaskContainer}>
-                {renderFooter()};
-            </View>
+        >            
+        <View style={[styles.listContainer, { borderColor: list.color || '#000' }]}>
+            <Text style={styles.listTitle}>{list.name}</Text>
+            <Text>
+                <Progress.Bar progress={progress} width={150} height={10} color={'pink'} /> {(Math.floor(progress * 100)).toString()}% done
+            </Text>
+        </View>
+        <View style={styles.taskContainer}>
+        <FlatList
+            data={tasks.filter((task) => task && task.id)}
+            keyExtractor={(task) => task.id.toString()}
+            renderItem={renderTask}
+        />
+        </View>
+        <View style={styles.addTaskContainer}>
+            {renderFooter()};
+        </View>
         </KeyboardAvoidingView>
     );
 };
