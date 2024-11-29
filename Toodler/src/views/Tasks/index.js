@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, FlatList, TouchableOpacity, TextInput, Text, Alert } from 'react-native';
-import { Button, CheckBox } from 'react-native-elements';
+import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getBoardById, getTasksForList, addTaskToList, updateTask, deleteTask, updateBoard, moveTaskToAnotherList, calculateProgress } from '../../services/dataService';
 import styles from './styles';
@@ -15,19 +15,17 @@ const Tasks = ({ navigation, route }) => {
     const [editingBoardName, setEditingBoardName] = useState(null);
     const [boardName, setBoardName] = useState('');
     const board = getBoardById(list.boardId);
-    const progress = calculateProgress(list.id)
+    const progress = calculateProgress(list.id);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             const fetchedTasks = getTasksForList(list.id);
-            console.log('Re-fetched tasks on navigation focus:', fetchedTasks);
-            setTasks(fetchedTasks || []); 
+            setTasks(fetchedTasks || []);
         });
-    
-        return unsubscribe; 
+
+        return unsubscribe;
     }, [navigation, list.id]);
-    
-    
+
     const handleAddTask = () => {
         if (newTaskName.trim() === '') {
             Alert.alert('Error', 'Please enter a task name.');
@@ -53,14 +51,6 @@ const Tasks = ({ navigation, route }) => {
         setEditingTaskName(currentName);
     };
 
-    const handleMoveTask = (taskId, listId) => {
-        setTasks((prevTasks) =>
-            prevTasks.filter((task) => task.id !== taskId) 
-        );
-        moveTaskToAnotherList(taskId, listId);
-    };
-    
-
     const saveTaskTitle = (taskId) => {
         if (editingTaskName.trim() === '') {
             Alert.alert('Error', 'Task name cannot be empty.');
@@ -85,43 +75,12 @@ const Tasks = ({ navigation, route }) => {
         }
     };
 
-    const startEditingBoard = () => {
-        setEditingBoardName(boardName);
+    const handleMoveTask = (taskId, listId) => {
+        setTasks((prevTasks) =>
+            prevTasks.filter((task) => task.id !== taskId)
+        );
+        moveTaskToAnotherList(taskId, listId);
     };
-
-    const saveBoardName = () => {
-        if (editingBoardName.trim() === '') {
-            Alert.alert('Error', 'Board name cannot be empty.');
-            return;
-        }
-        const updatedBoard = updateBoard(board.id, { name: editingBoardName });
-        if (updatedBoard) {
-            setBoardName(updatedBoard.name);
-            setEditingBoardName(null);
-        } else {
-            Alert.alert('Error', 'Failed to update board.');
-        }
-    };
-
-    const renderFooter = useCallback(() => (
-        <View style={styles.taskContainer}>
-              <CheckBox
-                checked={false}
-                containerStyle={styles.checkBoxContainer}
-                checkedColor='pink'
-            />
-            <TextInput
-                style={styles.taskTitle}
-                placeholder="Enter new task name"
-                value={newTaskName}
-                onChangeText={setNewTaskName}
-
-            />
-            <TouchableOpacity style={styles.addCircleButton} onPress={handleAddTask}>
-                <Icon name="add" size={24} color="pink" />
-            </TouchableOpacity>
-        </View>
-    ), [newTaskName]);
 
     const renderTask = ({ item: task }) => (
         <View style={styles.taskContainer}>
@@ -135,7 +94,7 @@ const Tasks = ({ navigation, route }) => {
                 <TextInput
                     style={styles.taskTitle}
                     value={editingTaskName}
-                    onChangeText={setEditingTaskName}
+                    onChangeText={(text) => setEditingTaskName(text)}
                     onSubmitEditing={() => saveTaskTitle(task.id)}
                 />
             ) : (
@@ -157,12 +116,9 @@ const Tasks = ({ navigation, route }) => {
                 <TouchableOpacity
                     style={styles.icon}
                     onPress={() => navigation.navigate(
-                        'MoveTask', 
-                        {taskId: task.id, 
-                        moveTask: handleMoveTask, 
-                        boardId: board.id}
-                        )
-                    }
+                        'MoveTask',
+                        { taskId: task.id, moveTask: handleMoveTask, boardId: board.id }
+                    )}
                 >
                     <Icon name='arrow-outward' size={24} color='pink' />
                 </TouchableOpacity>
@@ -172,21 +128,34 @@ const Tasks = ({ navigation, route }) => {
 
     return (
         <View style={styles.container}>
-            
             <View style={[styles.listContainer, { borderColor: list.color || '#000' }]}>
                 <Text style={styles.listTitle}>{list.name}</Text>
                 <Text>
-                    <Progress.Bar progress={progress} width={150} height={10} color={'pink'} />  {(Math.floor(progress * 100)).toString()}% done
+                    <Progress.Bar progress={progress} width={150} height={10} color={'pink'} /> {(Math.floor(progress * 100)).toString()}% done
                 </Text>
-
             </View>
             <FlatList
-                data={tasks.filter((task) => task && task.id)} 
-                keyExtractor={(task) => task.id.toString()} 
+                data={tasks.filter((task) => task && task.id)}
+                keyExtractor={(task) => task.id.toString()}
                 renderItem={renderTask}
-                ListFooterComponent={renderFooter}
             />
-
+            {/* Footer */}
+            <View style={styles.taskContainer}>
+                <CheckBox
+                    checked={false}
+                    containerStyle={styles.checkBoxContainer}
+                    checkedColor='pink'
+                />
+                <TextInput
+                    style={styles.taskTitle}
+                    placeholder="Enter new task name"
+                    value={newTaskName}
+                    onChangeText={(text) => setNewTaskName(text)}
+                />
+                <TouchableOpacity style={styles.addCircleButton} onPress={handleAddTask}>
+                    <Icon name="add" size={24} color="pink" />
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
