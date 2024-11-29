@@ -20,7 +20,7 @@ const Tasks = ({ navigation, route }) => {
         setTasks(fetchedTasks);
         setBoardName(board.name);
     }, [list.id, board.name]);
-
+    
     const handleAddTask = () => {
         if (newTaskName.trim() === '') {
             Alert.alert('Error', 'Please enter a task name.');
