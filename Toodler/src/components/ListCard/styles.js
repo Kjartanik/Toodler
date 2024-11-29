@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
         position: 'absolute', // Position icons in the top-right corner
         right: 5,
         flexDirection: 'row',
+        top: -30,
     },
     icon: {
         marginLeft: 10, // Spacing between icons

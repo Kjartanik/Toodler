@@ -12,6 +12,7 @@ const ListCard = ({ list, tasks, onModify, onDelete, onToggleTask, onPress, prog
                 checked={task.isFinished}
                 onPress={() => onToggleTask(task.id, task.isFinished)}
                 containerStyle={styles.checkBoxContainer}
+                checkedColor='pink'
             />
             <Text style={[styles.taskTitle, task.isFinished && styles.taskCompleted]}>
                 {task.name}
