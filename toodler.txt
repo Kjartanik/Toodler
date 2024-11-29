@@ -28,14 +28,16 @@ Task - 30%
 
 Extras - 20%                            - ATH
 - share board 
-- copy list (færa lista í annað board)
+- copy list (færa lista í board)
 - add deadline to task
 - add deadline to list
 - add deadline to board 
 - add priority (A,B,C) to task 
 - order list 
-- percentage done in list (isFinished) (progress)
-- user (ID, name, profilePhoto)
+- percentage done in list (progress)
+- choose image from camera roll         - KOMIÐ
+- choose color from list of colors      - KOMIÐ
+- log in                                - KOMIÐ
 
 
 
