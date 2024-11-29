@@ -3,26 +3,30 @@ trello.com !!! alveg eins og við þurfum að gera nema það er ekki til í app
 
 KRÖFUR:
 
+KOMIÐ = perrrrfect
+BASIC KOMIÐ = virkar en hægt að gera betra, mögulega mínus ef ekki lagað
+ATH - someone fix that shit ASAP!
+
 Boards - 25%
-- list all Boards - BASIC KOMIÐ
-- create new - Board BASIC KOMIÐ
-- delete Board - BASIC KOMIÐ
-- modify Board - BASIC KOMIÐ
+- list all Boards                       - BASIC KOMIÐ   - smá tómt svæði í miðjunni, kannski hægt að sýna hversu margir listar eru inni í eða svoleiðis?
+- create new Board                      - BASIC KOMIÐ   - select image og save image ættu ekki að vera í eins stíl
+- delete Board                          - KOMIÐ
+- modify Board                          - BASIC KOMIÐ   - sama og í create new board, kannski gott að hafa í stað change image þá ýta bara á myndina
 
 Board - 25%
-- list all lists of Board - BASIC KOMIÐ
-- create new list - BASIC KOMIÐ
-- delete list - BASIC KOMIÐ
-- modify list - BASIC KOMIÐ
+- list all lists of Board               - KOMIÐ
+- create new list                       - BASIC KOMIÐ   - litirnir eru ekki vel skipulagðir
+- delete list                           - KOMIÐ
+- modify list                           - BASIC KOMIÐ   - sama og í create new list
 
-Task - 30%
-- list all tasks of a list - BASIC KOMIÐ
-- create new task - BASIC KOMIÐ
-- delete task - BASIC KOMIÐ
-- modify task
-- move task from one list to another 
+Task - 30% 
+- list all tasks of a list              - ATH           - þegar við bætum við lista/breytum check boxinu inni í Tasks og förum svo til baka í lists þá er það ekki saveað þar!!!!
+- create new task                       - ATH           - sama og fyrir ofan!!!
+- delete task                           - KOMIÐ
+- modify task                           - BASIC KOMIÐ   - ruglingslegt að það þurfi að ýta á blýant og þá getur maður breytt því það sést ekki á textanum, pottþétt mínus 
+- move task from one list to another    - ATH 
 
-Extras - 20%
+Extras - 20%                            - ATH
 - share board 
 - copy list (copy lista yfir í annað board)
 - add deadline to task

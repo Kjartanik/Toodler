@@ -15,7 +15,7 @@ const ListForm = ({ onSubmit, onCancel, initialData = {} }) => {
 
     useEffect(() => {
         setListName(initialData.name || '');
-        setListColor(initialData.color || '');
+        setListColor(initialData.color || 'pink');
     }, [initialData]);
 
     const handleSave = () => {
@@ -23,10 +23,7 @@ const ListForm = ({ onSubmit, onCancel, initialData = {} }) => {
             alert('Please provide a list name!');
             return;
         }
-        if (!listColor) {
-            alert('Please select a color!');
-            return;
-        }
+
         onSubmit({
             name: listName,
             color: listColor,
