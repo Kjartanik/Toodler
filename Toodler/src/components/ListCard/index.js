@@ -26,7 +26,10 @@ const ListCard = ({ list, tasks, onModify, onDelete, onToggleTask, onPress, prog
         >
             <View style={styles.header}>
                 <Text style={styles.listTitle}>{list.name}</Text> 
-                <Text><Progress.Bar progress={progress} width={200} height={7.5} color={'pink'} /> {(Math.floor(progress * 100)).toString()}% done</Text>
+                <Text>
+                    <Progress.Bar progress={progress} width={200} height={7.5} color={'pink'} />
+                     {(Math.floor(progress * 100)).toString()}% done
+                </Text>
                 <View style={styles.iconContainer}>
                     <TouchableOpacity onPress={onModify} style={styles.icon}>
                         <Text style={styles.description}>
