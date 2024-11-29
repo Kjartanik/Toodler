@@ -7,22 +7,31 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { AuthContext } from '../../context/AuthContext';
 
 const HomeScreen = ({ navigation }) => {
+    console.log('Homescreen')
     const [boards, setBoards] = useState([]);
     const { authContext } = useContext(AuthContext); // Access the AuthContext
 
     // Fetch boards when the component mounts
     useEffect(() => {
         const fetchedBoards = getBoards(); // Fetch boards from dataService
+        console.log('Fetched boards:', fetchedBoards);
         setBoards(fetchedBoards);
-    }, []);
+      }, []); // Only runs on mount
+      
 
     // Handle adding a new board
     const handleAddBoard = (newBoard) => {
-        console.log('Handling addBoard')
-        const addedBoard = addBoard(newBoard); // Use addBoard from dataService
-        setBoards((prevBoards) => [...prevBoards, addedBoard]); // Update local state with the new board
-        console.log('Handling(these ballz) done')
-    };
+        const addedBoard = addBoard(newBoard);
+        setBoards((prevBoards) => {
+          const isDuplicate = prevBoards.some((board) => board.id === addedBoard.id);
+          if (isDuplicate) {
+            console.warn('Duplicate board detected:', addedBoard.id);
+            return prevBoards; // No state update if duplicate
+          }
+          return [...prevBoards, addedBoard];
+        });
+      };
+      
 
     // Handle deleting a board
     const handleDeleteBoard = (boardId) => {
