@@ -1,22 +1,21 @@
-import React from 'react';
+import React, { useState} from 'react';
 import BoardForm from '../../components/BoardForm/index';
 import styles from './styles';
 
 const AddBoard = ({ navigation, route }) => {
     const { addBoard } = route.params;
 
-    let isSaving = false;
+    const [isSaving, setIsSaving] = useState(false); // Use state to manage saving status
 
     const handleSave = (boardData) => {
         if (isSaving) return; // Prevent multiple triggers
-        isSaving = true;
+        setIsSaving(true); // Set saving flag to true
 
         addBoard(boardData); // Add the board using the provided function
-        navigation.goBack();
+        navigation.goBack(); // Navigate back to the previous screen
 
-        isSaving = false; // Reset the flag after navigation
+        setIsSaving(false);
     };
-
 
     return (
         <BoardForm
