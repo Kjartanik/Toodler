@@ -5,7 +5,7 @@ import { CheckBox } from 'react-native-elements';
 import styles from './styles';
 import * as Progress from 'react-native-progress'
 
-const ListCard = ({ list, tasks, onModify, onDelete, onToggleTask, onPress, progress }) => {
+const ListCard = ({ list, tasks, onModify, onDelete, onToggleTask, onPress, progress, hideIcons }) => {
     const renderTask = ({ item: task }) => (
         <View style={styles.taskContainer}>
             <CheckBox
@@ -30,7 +30,9 @@ const ListCard = ({ list, tasks, onModify, onDelete, onToggleTask, onPress, prog
                     <Progress.Bar progress={progress} width={200} height={7.5} color={'pink'} />
                      {(Math.floor(progress * 100)).toString()}% done
                 </Text>
-                <View style={styles.iconContainer}>
+
+                {!hideIcons && ( // Conditionally render the trashcan icon
+                    <View style={styles.iconContainer}>
                     <TouchableOpacity onPress={onModify} style={styles.icon}>
                         <Text style={styles.description}>
                         <Icon name="edit" size={24} color="pink" />
@@ -43,6 +45,8 @@ const ListCard = ({ list, tasks, onModify, onDelete, onToggleTask, onPress, prog
 
                     </TouchableOpacity>
                 </View>
+                )}
+                
             </View>
             <FlatList
                 data={tasks}
