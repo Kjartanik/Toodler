@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import UserService from '../../services/UserService';
 import styles from './styles'; 
 
@@ -42,7 +42,9 @@ const SignUpScreen = ({ navigation }) => {
                 onChangeText={setPassword}
                 secureTextEntry
             />
-            <Button title="Sign Up" onPress={handleSignUp} />
+            <TouchableOpacity title="Sign up" onPress={handleSignUp} style={styles.button}>
+                <Text style={styles.buttonText}>Sign up</Text>
+            </TouchableOpacity>
         </View>
     );
 };

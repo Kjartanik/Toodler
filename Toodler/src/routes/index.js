@@ -41,11 +41,22 @@ const MainAppFlow = () => (
 );
 
 const AuthenticationFlow = ({ setIsSignedIn }) => (
-    <Stack.Navigator>
-        <Stack.Screen name="LoginScreen">
+    <Stack.Navigator
+    initialRouteName="LoginScreen"
+    screenOptions={({ navigation }) => ({
+        header: (props) => (
+            <CustomHeader
+                title={props.options.title}
+                navigation={navigation}
+                canGoBack={navigation.canGoBack()}
+            />
+        ),
+    })}
+>
+        <Stack.Screen name="LoginScreen" >
             {(props) => <LoginScreen {...props} setIsSignedIn={setIsSignedIn} />}
         </Stack.Screen>
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen}  />
     </Stack.Navigator>
 );
 

@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
+        backgroundColor: 'white',
     },
     title: {
         fontSize: 24,
@@ -38,7 +39,6 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 5,
         alignItems: 'center',
-        marginVertical: 10,
         width: '30%',
         marginTop: 50,
     },
@@ -46,12 +46,10 @@ const styles = StyleSheet.create({
     buttonText: {
         fontWeight: 'bold',
         fontSize: 16,
-        color: 'white',
+        color: 'black',
     },
     text: {
-        marginTop: 20,
         fontSize: 14,
-
     },
 
 });
