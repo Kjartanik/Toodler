@@ -55,7 +55,7 @@ const Tasks = ({ navigation, route }) => {
 
     const handleMoveTask = (taskId, listId) => {
         setTasks((prevTasks) =>
-            prevTasks.filter((task) => task.id !== taskId) // Remove the moved task
+            prevTasks.filter((task) => task.id !== taskId) 
         );
         moveTaskToAnotherList(taskId, listId);
     };
