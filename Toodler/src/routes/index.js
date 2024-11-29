@@ -12,6 +12,7 @@ import ModifyList from '../views/ModifyList/index';
 import LoginScreen from '../views/LogIn/index';
 import SignUpScreen from '../views/SignUp/index';
 import { AuthContext } from '../context/AuthContext';
+import CustomHeader from '../components/CustomHeader';
 
 const Stack = createStackNavigator();
 const RootStack = createStackNavigator();
@@ -19,9 +20,16 @@ const RootStack = createStackNavigator();
 const MainAppFlow = () => (
     <Stack.Navigator
         initialRouteName="HomeScreen"
-        screenOptions={{
-            headerShown: true,
-        }}
+        screenOptions={({ navigation }) => ({
+            header: (props) => (
+                <CustomHeader
+                    title={props.options.title}
+                    navigation={navigation}
+                    canGoBack={navigation.canGoBack()}
+                    displaySignOut={true}
+                />
+            ),
+        })}
     >
         <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ title: 'My Boards' }} />
         <Stack.Screen name="ModifyBoard" component={ModifyBoard} options={{ title: 'Modify Board' }} />
@@ -35,14 +43,21 @@ const MainAppFlow = () => (
 );
 
 const AuthenticationFlow = () => (
-    <Stack.Navigator
-        initialRouteName="LoginScreen"
-        screenOptions={{
-            headerShown: true,
-        }}
-    >
-        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ title: 'Login' }} />
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{ title: 'Sign Up' }} />
+   <Stack.Navigator
+    initialRouteName="LoginScreen"
+    screenOptions={({ navigation }) => ({
+        header: (props) => (
+            <CustomHeader
+                title={props.options.title}
+                navigation={navigation}
+                canGoBack={navigation.canGoBack()}
+                displaySignOut={false}
+            />
+        ),
+    })}
+>
+        <Stack.Screen name="LoginScreen" component={LoginScreen}  />
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen}  />
     </Stack.Navigator>
 );
 

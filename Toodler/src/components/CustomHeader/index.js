@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // For the back button icon
 import styles from './styles';
+import { AuthContext } from '../../context/AuthContext';
 
-const CustomHeader = ({ title, navigation, canGoBack }) => {
+
+const CustomHeader = ({ title, navigation, canGoBack, displaySignOut }) => {
+    const { authContext } = useContext(AuthContext); // Access the AuthContext
+
     return (
         <SafeAreaView style={styles.safeArea}>
             <LinearGradient
@@ -18,18 +22,25 @@ const CustomHeader = ({ title, navigation, canGoBack }) => {
                             <Icon name="arrow-back" size={24} color="black" />
                         </TouchableOpacity>
                     ) : (
-                        <View style={styles.placeholder} /> // Placeholder for alignment
+                        <View style={styles.placeholderBack} /> // Placeholder for alignment
                     )}
 
                     {/* Page Title */}
                     <View style={styles.titleWrapper}>
                         <Text style={styles.title}>{title}</Text>
                     </View>
+                    
+                    <View style={styles.signOutWrapper}>
+                    {displaySignOut ? (
+                        <TouchableOpacity style={styles.signOutWrapper} onPress={() => authContext.signOut()}>
+                        <Text style={styles.signOut}>Sign out</Text>
+                    </TouchableOpacity>
+                    )
+                    : ( <View style={styles.placeholderSignOut}/>)
 
-                    {/* Company Name */}
-                    <View style={styles.logoWrapper}>
-                        <Text style={styles.companyName}>Toodler</Text>
+                    }
                     </View>
+                    
                 </View>
             </LinearGradient>
         </SafeAreaView>

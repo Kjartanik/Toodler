@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         padding: 5,
         marginRight: '5%',
     },
-    placeholder: {
+    placeholderBack: {
         width: '19%', // Same width as the back button to maintain alignment
     },
     titleWrapper: {
@@ -32,15 +32,20 @@ const styles = StyleSheet.create({
         color: 'black',
         textShadowOffset: { width: 1, height: 1 },
         textShadowRadius: 4,
+        left: 5,
     },
-    logoWrapper: {
+    signOutWrapper: {
         marginRight: 10,
     },
-    companyName: {
-        fontSize: 18,
+    signOut: {
+        fontSize: 14,
         fontWeight: 'bold',
         color: 'black',
     },
+    placeholderSignOut: {
+        width: '19%',
+    }
+
 });
 
 export default styles;
