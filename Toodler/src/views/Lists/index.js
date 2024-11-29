@@ -1,45 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { getListsForBoard, getTasksForList, addListToBoard, deleteList, updateTask } from '../../services/dataService';
-import BoardCard from '../../components/BoardCard/index';
 import ListCard from '../../components/ListCard/index';
+import BoardCard from '../../components/BoardCard/index'; // Import BoardCard component
 import styles from './styles';
-import Icon from 'react-native-vector-icons/MaterialIcons'; // For the plus icon
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Lists = ({ navigation, route }) => {
-    const { board } = route.params;
+    const { board } = route.params; // Get board details from navigation
     const [lists, setLists] = useState([]);
-    const [tasks, setTasks] = useState({});
+    const [tasks, setTasks] = useState({}); // Map of listId to tasks array
 
     // Fetch lists and tasks for the board when the component mounts
     useEffect(() => {
-        const fetchedLists = getListsForBoard(board.id);
+        const fetchedLists = getListsForBoard(board.id) || []; // Ensure valid lists array
         setLists(fetchedLists);
 
         const fetchedTasks = {};
         fetchedLists.forEach((list) => {
-            fetchedTasks[list.id] = getTasksForList(list.id);
+            fetchedTasks[list.id] = getTasksForList(list.id) || []; // Ensure tasks array
         });
         setTasks(fetchedTasks);
     }, [board.id]);
 
-    // Handle adding a new list
-    const handleAddList = (newList) => {
-        const updatedList = addListToBoard(board.id, newList); // Add the new list to the board in dataService
-        setLists((prevLists) => [...prevLists, updatedList]); // Update the local state
-    };
-
-    // Handle deleting a list
-    const handleDeleteList = (listId) => {
-        const isDeleted = deleteList(listId);
-        if (isDeleted) {
-            setLists((prevLists) => prevLists.filter((list) => list.id !== listId));
-        } else {
-            alert('Failed to delete the list. Please try again.');
+    // Toggle task completion
+    const handleToggleTask = (listId, taskId, isFinished) => {
+        const updatedTask = updateTask(taskId, { isFinished: !isFinished });
+        if (updatedTask) {
+            setTasks((prevTasks) => ({
+                ...prevTasks,
+                [listId]: prevTasks[listId].map((task) =>
+                    task.id === taskId ? updatedTask : task
+                ),
+            }));
         }
     };
 
+    // Modify list details
     const handleModifyList = (updatedList) => {
         setLists((prevLists) =>
             prevLists.map((list) =>
@@ -48,72 +45,76 @@ const Lists = ({ navigation, route }) => {
         );
     };
 
+    // Delete a list
+    const handleDeleteList = (listId) => {
+        const isDeleted = deleteList(listId);
+        if (isDeleted) {
+            setLists((prevLists) => prevLists.filter((list) => list.id !== listId));
+            setTasks((prevTasks) => {
+                const newTasks = { ...prevTasks };
+                delete newTasks[listId];
+                return newTasks;
+            });
+        } else {
+            alert('Failed to delete the list. Please try again.');
+        }
+    };
+
+    // Render a single list and its tasks
     const renderList = ({ item: list }) => {
-        const listTasks = tasks[list.id] || []; // Ensure tasks are fetched for this list
-    
+        const listTasks = tasks[list.id] || []; // Get tasks for this list
+
         return (
             <ListCard
-                board={board}
                 list={list}
                 tasks={listTasks}
-                onModifyTask={(task) =>
-                    navigation.navigate('ModifyTask', { task, listId: list.id })
+                onModify={() =>
+                    navigation.navigate('ModifyList', {
+                        listId: list.id,
+                        modifyList: handleModifyList,
+                    })
                 }
-                onToggleTask={(taskId, isFinished) => {
-                    const updatedTask = updateTask(taskId, { isFinished: !isFinished });
-                    if (updatedTask) {
-                        setTasks((prevTasks) => ({
-                            ...prevTasks,
-                            [list.id]: prevTasks[list.id].map((task) =>
-                                task.id === taskId ? updatedTask : task
-                            ),
-                        }));
-                    }
-                }}
-                onDeleteTask={(taskId) => {
-                    const isDeleted = deleteTask(taskId);
-                    if (isDeleted) {
-                        setTasks((prevTasks) => ({
-                            ...prevTasks,
-                            [list.id]: prevTasks[list.id].filter((task) => task.id !== taskId),
-                        }));
-                    }
-                }}
+                onDelete={() => handleDeleteList(list.id)}
+                onToggleTask={(taskId, isFinished) => handleToggleTask(list.id, taskId, isFinished)}
+                onPress={() =>
+                    navigation.navigate('Tasks', { list }) // Navigate to the tasks page
+                }
             />
         );
     };
-        
-    
-    
+
+
 
     const renderFooter = () => (
-        <View>
-            <TouchableOpacity
-                style={styles.addButton}
-                onPress={() => navigation.navigate('AddList', { addList: handleAddList })}
-            >
-                <Text style={styles.container}>
-                    <Icon name="add" size={30} color="black" /> {/* Plus icon */}
+        <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => navigation.navigate('AddList', { addList: (newList) => {
+                const addedList = addListToBoard(board.id, newList);
+                setLists((prevLists) => [...prevLists, addedList]);
+            }})}
+        >
+            <View style={styles.iconContainer}>
+                <Text style={styles.description /* Note: Error {Text strings must be rendered within a <Text>} */}> 
+                    <Icon name="add" size={30} color="pink" /> {/* Plus icon */} 
                 </Text>
-            </TouchableOpacity>
-        </View>
+            </View>
+        </TouchableOpacity>
     );
 
     return (
         <View style={styles.container}>
+            {/* Render BoardCard at the top */}
             <BoardCard
                 board={board}
-                hideActions={true}
+                hideActions={true} // Disable actions (add/modify/delete) for the board
             />
             <FlatList
                 data={lists}
                 keyExtractor={(list) => list.id.toString()}
                 renderItem={renderList}
-                ListFooterComponent={renderFooter}
+                ListFooterComponent={renderFooter} // Add new list button
             />
-            
         </View>
-
     );
 };
 

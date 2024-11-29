@@ -1,59 +1,32 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, FlatList, TouchableOpacity, StyleSheet, Text, TextInput, Image, Alert } from 'react-native';
+import { View, FlatList, TouchableOpacity, TextInput, Text, Alert } from 'react-native';
 import { CheckBox } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/MaterialIcons'; 
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getBoardById, getTasksForList, addTaskToList, updateTask, deleteTask } from '../../services/dataService';
 import styles from './styles';
 
 const Tasks = ({ route }) => {
-    const { list } = route.params;
+    const { list } = route.params; // Get list from navigation params
     const [tasks, setTasks] = useState([]);
     const [newTaskName, setNewTaskName] = useState('');
-    const board = getBoardById(list.boardId);
+    const [editingTaskId, setEditingTaskId] = useState(null);
+    const [editingTaskName, setEditingTaskName] = useState('');
+    const board = getBoardById(list.boardId); // Fetch board details
 
-    const [editingTaskId, setEditingTaskId] = useState(null); // Track the task being edited
-    const [editingTaskName, setEditingTaskName] = useState(''); // Track the new name during editing
-
-    // Fetch tasks for the list when the component mounts
     useEffect(() => {
         const fetchedTasks = getTasksForList(list.id);
         setTasks(fetchedTasks);
     }, [list.id]);
 
-    // Add a new task
     const handleAddTask = () => {
         if (newTaskName.trim() === '') {
             alert('Please enter a task name.');
             return;
         }
-
         const newTask = { name: newTaskName, isFinished: false };
         const updatedTask = addTaskToList(list.id, newTask);
         setTasks((prevTasks) => [...prevTasks, updatedTask]);
-        setNewTaskName(''); // Clear the input field
-    };
-
-    const startEditingTask = (taskId, currentName) => {
-        setEditingTaskId(taskId); // Set the task being edited
-        setEditingTaskName(currentName); // Initialize the input field with the current task name
-    };
-
-    const saveTaskTitle = (taskId) => {
-        if (editingTaskName.trim() === '') {
-            alert('Task name cannot be empty.');
-            return;
-        }
-
-        const updatedTask = updateTask(taskId, { name: editingTaskName });
-        if (updatedTask) {
-            setTasks((prevTasks) =>
-                prevTasks.map((task) => (task.id === taskId ? updatedTask : task))
-            );
-            setEditingTaskId(null); // Exit editing mode
-            setEditingTaskName(''); // Clear the input field
-        } else {
-            alert('Failed to update task.');
-        }
+        setNewTaskName('');
     };
 
     const toggleTaskCompletion = (taskId, currentStatus) => {
@@ -65,6 +38,28 @@ const Tasks = ({ route }) => {
         }
     };
 
+    const startEditingTask = (taskId, currentName) => {
+        setEditingTaskId(taskId);
+        setEditingTaskName(currentName);
+    };
+
+    const saveTaskTitle = (taskId) => {
+        if (editingTaskName.trim() === '') {
+            alert('Task name cannot be empty.');
+            return;
+        }
+        const updatedTask = updateTask(taskId, { name: editingTaskName });
+        if (updatedTask) {
+            setTasks((prevTasks) =>
+                prevTasks.map((task) => (task.id === taskId ? updatedTask : task))
+            );
+            setEditingTaskId(null);
+            setEditingTaskName('');
+        } else {
+            alert('Failed to update task.');
+        }
+    };
+
     const handleDeleteTask = (taskId) => {
         const isDeleted = deleteTask(taskId);
         if (isDeleted) {
@@ -72,48 +67,60 @@ const Tasks = ({ route }) => {
         }
     };
 
-    const renderTask = ({ item: task }) => (
-        <ListCard
-            board={board}
-            list={list}
-            tasks={[task]} // Pass the task as a single-item array
-            onModifyTask={(task) => startEditingTask(task.id, task.name)}
-            onToggleTask={(taskId, isFinished) => toggleTaskCompletion(taskId, isFinished)}
-            onDeleteTask={(taskId) => handleDeleteTask(taskId)}
-        />
-    );
-    
     const renderFooter = useCallback(() => (
         <View style={styles.taskContainer}>
-            <CheckBox
-                checked={false} // Non-functional checkbox for consistency
-                containerStyle={styles.checkBoxContainer}
-            />
+            <CheckBox checked={false} containerStyle={styles.checkBoxContainer} />
             <TextInput
                 style={styles.taskTitle}
                 placeholder="Enter new task name"
                 value={newTaskName}
-                onChangeText={setNewTaskName} // Properly update state
+                onChangeText={setNewTaskName}
             />
             <TouchableOpacity style={styles.addCircleButton} onPress={handleAddTask}>
-                <Icon name="add" size={24} color="white" />
+                <Icon name="add" size={24} color="pink" />
             </TouchableOpacity>
         </View>
     ), [newTaskName]);
 
+    const renderTask = ({ item: task }) => (
+        <View style={styles.taskContainer}>
+            <CheckBox
+                checked={task.isFinished}
+                onPress={() => toggleTaskCompletion(task.id, task.isFinished)}
+                containerStyle={styles.checkBoxContainer}
+            />
+            {editingTaskId === task.id ? (
+                <TextInput
+                    style={styles.taskTitle}
+                    value={editingTaskName}
+                    onChangeText={setEditingTaskName}
+                    onSubmitEditing={() => saveTaskTitle(task.id)}
+                />
+            ) : (
+                <Text style={styles.taskTitle}>{task.name}</Text>
+            )}
+            <View style={styles.taskIcons}>
+                <TouchableOpacity
+                    style={styles.icon}
+                    onPress={() => startEditingTask(task.id, task.name)}
+                >
+                    <Icon name="edit" size={24} color="pink" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.icon}
+                    onPress={() => handleDeleteTask(task.id)}
+                >
+                    <Icon name="delete" size={24} color="pink" />
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+
     return (
         <View style={styles.container}>
-            {/* Board and List Header */}
-            <View style={styles.boardHeader}>
-                <Image source={{ uri: board.thumbnailPhoto }} style={styles.image} />
-                <Text style={styles.boardTitle}>{board.name}</Text>
-                <Text style={styles.boardDescription}>{board.description}</Text>
-            </View>
-            <View style={[styles.listContainer, { borderColor: list.color }]}>
+            <View style={[styles.listContainer, { borderColor: list.color || '#000' }]}>
                 <Text style={styles.listTitle}>{list.name}</Text>
             </View>
-
-            {/* Tasks List */}
             <FlatList
                 data={tasks}
                 keyExtractor={(task) => task.id.toString()}

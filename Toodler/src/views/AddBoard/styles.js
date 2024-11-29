@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontWeight: 'bold',
         fontSize: 16,
-        color: '#000',
+        color: 'white',
     },
     cancelButton: {
         backgroundColor: '#ccc',

@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontWeight: 'bold',
         fontSize: 16,
-        color: '#000',
+        color: '',
     },
     cancelButton: {
         backgroundColor: '#ccc',

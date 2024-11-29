@@ -67,14 +67,14 @@ const styles = StyleSheet.create({
         textDecorationLine: 'line-through',
         color: '#888',
     },
-    addCircleButton: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        backgroundColor: 'pink',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+    // addCircleButton: {
+    //     width: 40,
+    //     height: 40,
+    //     borderRadius: 20,
+    //     backgroundColor: 'pink',
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    // },
 });
 
 export default styles;

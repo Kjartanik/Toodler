@@ -16,15 +16,23 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#000',
     },
-    addButton: {
+    icon: {
+        margin: 5,
+    },
+    iconContainer: {
         marginTop: 10,
         alignSelf: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 50,
-        height: 50,
-        borderRadius: 25,
     },
+    // addButton: {
+    //     marginTop: 10,
+    //     alignSelf: 'center',
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     width: 48,
+    //     height: 48,
+    //     borderRadius: 24,
+    //     backgroundColor: 'pink', 
+    // },
 });
 
 export default styles;

@@ -52,6 +52,8 @@ const HomeScreen = ({ navigation }) => {
             }
             onPress={() => navigation.navigate('Lists', { board })}
             hideActions={false} // Buttons will be displayed
+            showTrashIcon ={true}
+
         />
 
     );
@@ -61,9 +63,9 @@ const HomeScreen = ({ navigation }) => {
             style={styles.addButton}
             onPress={() => navigation.navigate('AddBoard', { addBoard: handleAddBoard })} 
         >
-            <View style={styles.icon}>
+            <View style={styles.iconContainer}>
                 <Text style={styles.text /* Note: Error {Text strings must be rendered within a <Text>} */}> 
-                    <Icon name="add" size={30} color="black" /> {/* Plus icon */} 
+                    <Icon style={styles.icon} name="add" size={30} color="pink" /> {/* Plus icon */} 
                 </Text>
             </View>
         </TouchableOpacity>

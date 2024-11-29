@@ -64,22 +64,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
     },
-    addButton: {
+    iconContainer: {
         marginTop: 10,
         alignSelf: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        backgroundColor: 'pink', // Background color for the button
     },
-    iconContainer: {
-        position: 'absolute', // Position icons in the top-right corner
-        top: 10,
-        right: 10,
-        flexDirection: 'row',
-    },
+    // addButton: {
+    //     marginTop: 10,
+    //     alignSelf: 'center',
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     width: 50,
+    //     height: 50,
+    //     borderRadius: 25,
+    //     backgroundColor: 'pink', // Background color for the button
+    // },
     icon: {
         marginLeft: 10, // Spacing between icons
     },

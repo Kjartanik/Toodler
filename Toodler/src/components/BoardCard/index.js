@@ -19,7 +19,9 @@ const BoardCard = ({ board, onDelete, onModify, onPress, hideActions = false, sh
                         style={styles.icon}
                         onPress={onModify} // Call modify action
                     >
+                        <Text style={styles.description}>
                         <Icon name="edit" size={24} color="pink" />
+                        </Text>
                     </TouchableOpacity>
                 )}
                 {showTrashIcon && ( // Conditionally render the trashcan icon

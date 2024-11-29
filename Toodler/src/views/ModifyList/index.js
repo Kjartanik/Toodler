@@ -18,25 +18,24 @@ const ModifyList = ({ navigation, route }) => {
         }
         setLoading(false);
     }, [listId]);
+    
 
-    const handleSave = (listData, updatedTasks) => {
+    const handleSave = (listData) => {
         const updatedList = {
             id: listId,
             ...listData,
         };
     
-        const savedList = updateList(listId, updatedList);
+        const savedList = updateList(listId, updatedList); // Update list in dataService
     
         if (savedList) {
             modifyList(savedList); // Notify parent screen
-            if (updatedTasks) {
-                modifyTasks(updatedTasks); // Update tasks for the specific list
-            }
-            navigation.goBack(); // Navigate back
+            navigation.goBack();
         } else {
             Alert.alert('Error', 'Failed to update list');
         }
     };
+    
     
 
     if (loading) {
