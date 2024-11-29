@@ -17,11 +17,13 @@ const MoveTask = ({ navigation, route}) => {
 
     const renderList = ({ item: list }) => {
         return (
-            <ListCard
-                list={list}
-                onPress={() => moveTask(taskId, list.id)
-                }
-            />
+        <ListCard
+                    list={list}
+                    onPress={() => {
+                        moveTask(taskId, list.id); 
+                        navigation.goBack(); 
+                    }}
+                />
         );
     };
 
