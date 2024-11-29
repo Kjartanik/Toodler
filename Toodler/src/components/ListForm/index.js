@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TextInput, TouchableOpacity, ScrollView, Text } from 'react-native';
 import styles from './styles';
 
-const ListForm = ({ title, onSubmit, onCancel, initialData = {} }) => {
+const ListForm = ({ onSubmit, onCancel, initialData = {} }) => {
     const [listName, setListName] = useState('');
     const [listColor, setListColor] = useState('');
+    const colors = [
+        'white',
+        '#FFD1DC', '#FFCCCB', '#FFABAB', '#FFC3A0', '#A4C8F0','#FFE4B5', 
+        '#FDFD96', '#CBF3F0', '#B2F9FC', '#B8E1FF', 
+        'purple', 'orange', '#90EE90', '#FF00FF', '#0000CD',
+        '#FF4500', '#8B4513', 'black', 'red', 'beige', 'green', 'gold', 'silver'
+    ];
 
     useEffect(() => {
-        // Load initial data into form fields
         setListName(initialData.name || '');
         setListColor(initialData.color || '');
     }, [initialData]);
@@ -17,7 +23,10 @@ const ListForm = ({ title, onSubmit, onCancel, initialData = {} }) => {
             alert('Please provide a list name!');
             return;
         }
-
+        if (!listColor) {
+            alert('Please select a color!');
+            return;
+        }
         onSubmit({
             name: listName,
             color: listColor,
@@ -26,25 +35,30 @@ const ListForm = ({ title, onSubmit, onCancel, initialData = {} }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{title}</Text>
             <TextInput
                 style={styles.input}
                 placeholder="List Name"
                 value={listName}
                 onChangeText={setListName}
             />
-            <TextInput
-                style={styles.input}
-                placeholder="List Color (e.g., #ff0000)"
-                value={listColor}
-                onChangeText={setListColor}
-            />
-            <TouchableOpacity style={styles.button} onPress={handleSave}>
-                <Text style={styles.buttonText}>Save</Text>
+            <Text style={styles.label}>Select a Color:</Text>
+            <View style={styles.colorGrid}>
+                {colors.map((color) => (
+                    <TouchableOpacity
+                        key={color}
+                        style={[
+                            styles.colorOption,
+                            { backgroundColor: color },
+                            color === listColor && styles.selectedColorOption,
+                        ]}
+                        onPress={() => setListColor(color)}
+                    />
+                ))}
+            </View>
+            <TouchableOpacity style={styles.primaryButton} onPress={handleSave}>
+                <Text style={styles.primaryButtonText}>Save</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
-                <Text style={styles.cancelButtonText}>Cancel</Text>
-            </TouchableOpacity>
+            
         </View>
     );
 };

@@ -1,29 +1,29 @@
 import React from 'react';
 import ListForm from '../../components/ListForm';
 import { addListToBoard } from '../../services/dataService';
-import styles from './styles';
 
 const AddList = ({ navigation, route }) => {
-    const { addList } = route.params;
+    const { addList, boardId } = route.params;
 
     const handleSave = (listData) => {
         const newList = {
             ...listData,
-            id: Date.now(), // Generate a unique ID for the new list
+            id: Date.now(),
+            boardId,
         };
-        addList(newList); // Call the addList function passed via route params
-        navigation.goBack(); // Navigate back to the Lists screen
+        addListToBoard(boardId, newList);
+        addList(newList);
+        navigation.goBack();
     };
 
     return (
         <ListForm
             onSubmit={handleSave}
             onCancel={() => navigation.goBack()}
-            initialData={{ name: '', color: '#00ff00' }}
+            initialData={{ name: '', color: '' }}
             title="Create New List"
         />
     );
 };
 
 export default AddList;
-
