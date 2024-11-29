@@ -3,8 +3,9 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { CheckBox } from 'react-native-elements';
 import styles from './styles';
+import * as Progress from 'react-native-progress'
 
-const ListCard = ({ list, tasks, onModify, onDelete, onToggleTask, onPress }) => {
+const ListCard = ({ list, tasks, onModify, onDelete, onToggleTask, onPress, progress }) => {
     const renderTask = ({ item: task }) => (
         <View style={styles.taskContainer}>
             <CheckBox
@@ -24,7 +25,8 @@ const ListCard = ({ list, tasks, onModify, onDelete, onToggleTask, onPress }) =>
             onPress={onPress}
         >
             <View style={styles.header}>
-                <Text style={styles.listTitle}>{list.name}</Text>
+                <Text style={styles.listTitle}>{list.name}</Text> 
+                <Progress.Bar progress={progress} width={200} color={'pink'} />
                 <View style={styles.iconContainer}>
                     <TouchableOpacity onPress={onModify} style={styles.icon}>
                         <Text style={styles.description}>

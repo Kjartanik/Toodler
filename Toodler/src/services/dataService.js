@@ -128,3 +128,14 @@ export const moveTaskToAnotherList = (taskId, newListId) => {
     }
     return null;
 };
+
+export const calculateProgress = (listId) => {
+    tasks = getTasksForList(listId);
+    totalTasks = tasks.length;
+    if (totalTasks === 0) {
+        return 0;
+    }
+    completedTasks = tasks.filter(task => task.isFinished).length;
+    percent = (completedTasks / totalTasks);
+    return percent;
+}

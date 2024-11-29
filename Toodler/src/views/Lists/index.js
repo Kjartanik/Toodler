@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, FlatList, TouchableOpacity } from 'react-native';
-import { getListsForBoard, getTasksForList, addListToBoard, deleteList, updateTask } from '../../services/dataService';
+import { getListsForBoard, getTasksForList, addListToBoard, deleteList, updateTask, calculateProgress } from '../../services/dataService';
 import ListCard from '../../components/ListCard/index';
 import BoardCard from '../../components/BoardCard/index'; // Import BoardCard component
 import styles from './styles';
@@ -44,7 +44,6 @@ const Lists = ({ navigation, route }) => {
             )
         );
     };
-
     // Delete a list
     const handleDeleteList = (listId) => {
         const isDeleted = deleteList(listId);
@@ -76,6 +75,7 @@ const Lists = ({ navigation, route }) => {
                 onPress={() =>
                     navigation.navigate('Tasks', { list }) // Navigate to the tasks page
                 }
+                progress={calculateProgress(list.id)}
             />
         );
     };
