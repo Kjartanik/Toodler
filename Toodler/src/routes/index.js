@@ -20,7 +20,7 @@ const RootStack = createStackNavigator();
 
 const MainAppFlow = () => (
     <Stack.Navigator
-        initialRouteName="HomeScreen"
+        initialRouteName='HomeScreen'
         screenOptions={({ navigation }) => ({
             header: (props) => (
                 <CustomHeader
@@ -32,15 +32,15 @@ const MainAppFlow = () => (
             ),
         })}
     >
-        <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ title: 'My Boards' }} />
-        <Stack.Screen name="ModifyBoard" component={ModifyBoard} options={{ title: 'Modify Board' }} />
-        <Stack.Screen name="Boards" component={Boards} options={{ title: 'Boards Overview' }} />
-        <Stack.Screen name="AddBoard" component={AddBoard} options={{ title: 'Add Board' }} />
-        <Stack.Screen name="Lists" component={Lists} options={{ title: 'Lists View' }} />
-        <Stack.Screen name="Tasks" component={Tasks} options={{ title: 'Task List' }} />
-        <Stack.Screen name="AddList" component={AddList} options={{ title: 'Add New List' }} />
-        <Stack.Screen name="ModifyList" component={ModifyList} options={{ title: 'Modify List' }} />
-        <Stack.Screen name="MoveTask" component={MoveTask} options={{ title: 'Move Task' }} />
+        <Stack.Screen name='HomeScreen' component={HomeScreen} options={{ title: 'My Boards' }} />
+        <Stack.Screen name='ModifyBoard' component={ModifyBoard} options={{ title: 'Modify Board' }} />
+        <Stack.Screen name='Boards' component={Boards} options={{ title: 'Boards Overview' }} />
+        <Stack.Screen name='AddBoard' component={AddBoard} options={{ title: 'Add Board' }} />
+        <Stack.Screen name='Lists' component={Lists} options={{ title: 'Lists View' }} />
+        <Stack.Screen name='Tasks' component={Tasks} options={{ title: 'Task List' }} />
+        <Stack.Screen name='AddList' component={AddList} options={{ title: 'Add New List' }} />
+        <Stack.Screen name='ModifyList' component={ModifyList} options={{ title: 'Modify List' }} />
+        <Stack.Screen name='MoveTask' component={MoveTask} options={{ title: 'Move Task' }} />
     </Stack.Navigator>
 );
 

@@ -37,9 +37,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginLeft: 10,
     },
-    // taskCompleted: {
-    //     color: '#aaa',
-    // },
     description: {
         marginTop: 5,
         fontSize: 10,

@@ -126,7 +126,6 @@ export const updateTask = (taskId, updatedFields) => {
     return null; // Return null if task not found
 };
 
-
 // Service function to move a task to another list
 export const moveTaskToAnotherList = (taskId, newListId) => {
     const taskIndex = data.tasks.findIndex(task => task.id === taskId);
@@ -137,6 +136,7 @@ export const moveTaskToAnotherList = (taskId, newListId) => {
     return null;
 };
 
+// Calculate the proportion of finished tasks of a list
 export const calculateProgress = (listId) => {
     tasks = getTasksForList(listId);
     totalTasks = tasks.length;

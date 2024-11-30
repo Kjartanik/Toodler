@@ -19,7 +19,7 @@ const CustomHeader = ({ title, navigation, canGoBack, displaySignOut }) => {
                     {/* Back Button (only visible if canGoBack is true) */}
                     {canGoBack ? (
                         <TouchableOpacity onPress={navigation.goBack} style={styles.backButton}>
-                            <Icon name="arrow-back" size={24} color="black" />
+                            <Icon name='arrow-back' size={24} color='black' />
                         </TouchableOpacity>
                     ) : (
                         <View style={styles.placeholderBack} /> // Placeholder for alignment
@@ -37,7 +37,6 @@ const CustomHeader = ({ title, navigation, canGoBack, displaySignOut }) => {
                             </TouchableOpacity>
                         )
                             : ( <View style={styles.placeholderSignOut}/>)
-
                         }
                     </View>
                     

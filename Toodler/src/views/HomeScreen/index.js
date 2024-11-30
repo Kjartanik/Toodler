@@ -7,14 +7,12 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { AuthContext } from '../../context/AuthContext';
 
 const HomeScreen = ({ navigation }) => {
-    console.log('Homescreen')
     const [boards, setBoards] = useState([]);
     const { authContext } = useContext(AuthContext); // Access the AuthContext
 
     // Fetch boards when the component mounts
     useEffect(() => {
         const fetchedBoards = getBoards(); // Fetch boards from dataService
-        console.log('Fetched boards:', fetchedBoards);
         setBoards(fetchedBoards);
     }, []); // Only runs on mount
       
@@ -35,10 +33,11 @@ const HomeScreen = ({ navigation }) => {
 
     // Handle deleting a board
     const handleDeleteBoard = (boardId) => {
-        deleteBoard(boardId); // Call deleteBoard from dataService
+        deleteBoard(boardId); // Call deleteBoard from DataService
         setBoards((prevBoards) => prevBoards.filter((board) => board.id !== boardId)); // Remove board from local state
     };
 
+    // Handle modifying a board
     const handleModifyBoard = (updatedBoard) => {
         setBoards((prevBoards) =>
             prevBoards.map((board) =>
@@ -75,7 +74,7 @@ const HomeScreen = ({ navigation }) => {
         >
             <View style={styles.iconContainer}>
                 <Text style={styles.text}>
-                    <Icon style={styles.icon} name="add" size={30} color="pink" /> {/* Plus icon */}
+                    <Icon style={styles.icon} name='add' size={30} color='pink' /> {/* Plus icon */}
                 </Text>
             </View>
         </TouchableOpacity>

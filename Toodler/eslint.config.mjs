@@ -5,29 +5,27 @@ import pluginReact from 'eslint-plugin-react';
 /** @type {import('eslint').Linter.Config[]} */
 export default [
     {files: ['**/*.{js,mjs,cjs,jsx}']},
-    {settings: {
-        react: {
-            version: 'detect',
+    {
+        settings: {
+            react: {
+                version: 'detect',
+            },
         },
     },
+    {
+        languageOptions: {
+            globals: globals.browser,
+        },
     },
-  
-    {languageOptions: { globals: globals.browser }},
+    pluginReact.configs.flat.recommended, // Apply recommended React config first
     {
         rules: {
             'indent': ['error', 4, {
-                SwitchCase: 1, // Indent switch cases by one level
-                FunctionDeclaration: {
-                    parameters: 1, // Indent function parameters by 1 level
-                    body: 1, // Indent function body by 1 extra level
-                },
-                FunctionExpression: {
-                    parameters: 1, // Indent function parameters by 1 level
-                    body: 1, // Indent function body by 1 extra level
-                },
+                SwitchCase: 1,
+                FunctionDeclaration: { parameters: 1, body: 1 },
+                FunctionExpression: { parameters: 1, body: 1 },
             }],
-            'quotes': ['error', 'single', {avoidEscape: true}],
+            'quotes': ['error', 'single', { avoidEscape: true }], // Re-declare quotes rule
         },
     },
-    pluginReact.configs.flat.recommended,
 ];

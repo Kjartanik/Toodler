@@ -34,7 +34,7 @@ const ListForm = ({ onSubmit, onCancel, initialData = {} }) => {
         <View style={styles.container}>
             <TextInput
                 style={styles.input}
-                placeholder="List Name"
+                placeholder='List Name'
                 value={listName}
                 onChangeText={setListName}
             />

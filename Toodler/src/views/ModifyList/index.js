@@ -18,7 +18,6 @@ const ModifyList = ({ navigation, route }) => {
         }
         setLoading(false);
     }, [listId]);
-    
 
     const handleSave = (listData) => {
         const updatedList = {
@@ -35,20 +34,18 @@ const ModifyList = ({ navigation, route }) => {
             Alert.alert('Error', 'Failed to update list');
         }
     };
-    
-    
 
     if (loading) {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size="large" color="#0000ff" />
+                <ActivityIndicator size='large' color='#0000ff' />
             </View>
         );
     }
 
     return (
         <ListForm
-            title="Modify List"
+            title='Modify List'
             onSubmit={handleSave}
             onCancel={() => navigation.goBack()}
             initialData={{

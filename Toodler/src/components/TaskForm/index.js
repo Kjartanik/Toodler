@@ -22,7 +22,7 @@ const TaskForm = ({ title, initialData = {}, onSubmit, onCancel }) => {
             <Text style={styles.title}>{title}</Text>
             <TextInput
                 style={styles.input}
-                placeholder="Task Name"
+                placeholder='Task Name'
                 value={taskName}
                 onChangeText={setTaskName}
             />

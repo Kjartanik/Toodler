@@ -26,28 +26,26 @@ const SignUpScreen = ({ navigation }) => {
     };
 
     return (
-
         <View style={styles.container}>
             <Text style={styles.title}>Sign Up</Text>
             <TextInput
                 style={styles.input}
-                placeholder="Username"
+                placeholder='Username'
                 value={username}
                 onChangeText={setUsername}
             />
             <TextInput
                 style={styles.input}
-                placeholder="Password"
+                placeholder='Password'
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
             />
-            <TouchableOpacity title="Sign up" onPress={handleSignUp} style={styles.button}>
+            <TouchableOpacity title='Sign up' onPress={handleSignUp} style={styles.button}>
                 <Text style={styles.buttonText}>Sign up</Text>
             </TouchableOpacity>
         </View>
     );
 };
-
 
 export default SignUpScreen;

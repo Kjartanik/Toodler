@@ -22,13 +22,13 @@ const ListCard = ({ list, tasks, onModify, onDelete, onToggleTask, onPress, prog
 
     return (
         <TouchableOpacity
-            style={[styles.card, { borderColor: list.color || '#000' }]} // Default to black if no color is specified
+            style={[styles.card, { borderColor: list.color || '#000' }]} // Default if no color is specified
             onPress={onPress}
         >
             <View style={styles.header}>
                 <Text style={styles.listTitle}>{list.name}</Text> 
 
-                {!hideIcons && ( // Conditionally render the trashcan icon
+                {!hideIcons && ( /* Trash Icon */
                     <View>
                         <Text>
                             <Progress.Bar progress={progress} width={150} height={10} color={'pink'} />  {(Math.floor(progress * 100)).toString()}% done
@@ -36,12 +36,12 @@ const ListCard = ({ list, tasks, onModify, onDelete, onToggleTask, onPress, prog
                         <View style={styles.iconContainer}>
                             <TouchableOpacity onPress={onModify} style={styles.icon}>
                                 <Text style={styles.description}>
-                                    <Icon name="edit" size={24} color="pink" />
+                                    <Icon name='edit' size={24} color='pink' />
                                 </Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={onDelete} style={styles.icon}>
                                 <Text style={styles.description}>
-                                    <Icon name="delete" size={24} color="pink" />
+                                    <Icon name='delete' size={24} color='pink' />
                                 </Text>
 
                             </TouchableOpacity>

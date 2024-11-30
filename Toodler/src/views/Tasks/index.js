@@ -107,7 +107,7 @@ const Tasks = ({ navigation, route }) => {
                         onPress={() => saveTaskTitle(task.id)}
                     >
                         <Text>
-                            <Icon name="check" size={24} color="pink" />
+                            <Icon name='check' size={24} color='pink' />
                         </Text>
                     </TouchableOpacity>
                 ) : (
@@ -117,7 +117,7 @@ const Tasks = ({ navigation, route }) => {
                             onPress={() => startEditingTask(task.id, task.name)}
                         >
                             <Text>
-                                <Icon name="edit" size={24} color="pink" />
+                                <Icon name='edit' size={24} color='pink' />
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -125,7 +125,7 @@ const Tasks = ({ navigation, route }) => {
                             onPress={() => handleDeleteTask(task.id)}
                         >
                             <Text>
-                                <Icon name="delete" size={24} color="pink" />
+                                <Icon name='delete' size={24} color='pink' />
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -139,7 +139,7 @@ const Tasks = ({ navigation, route }) => {
                             }
                         >
                             <Text>
-                                <Icon name="arrow-outward" size={24} color="pink" />
+                                <Icon name='arrow-outward' size={24} color='pink' />
                             </Text>
                         </TouchableOpacity>
                     </>
@@ -157,14 +157,13 @@ const Tasks = ({ navigation, route }) => {
             />
             <TextInput
                 style={styles.taskTitle}
-                placeholder="Enter new task name"
+                placeholder='Enter new task name'
                 value={newTaskName}
                 onChangeText={(text) => setNewTaskName(text)}
             />
-            
             <TouchableOpacity style={styles.addCircleButton} onPress={handleAddTask}>
                 <Text>
-                    <Icon name="add" size={24} color="pink" />
+                    <Icon name='add' size={24} color='pink' />
                 </Text>
             </TouchableOpacity>
         </View>

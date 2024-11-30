@@ -20,17 +20,17 @@ const BoardCard = ({ board, onDelete, onModify, onPress, hideActions = false, sh
                         onPress={onModify} // Call modify action
                     >
                         <Text style={styles.description}>
-                            <Icon name="edit" size={24} color="pink" />
+                            <Icon name='edit' size={24} color='pink' />
                         </Text>
                     </TouchableOpacity>
                 )}
-                {showTrashIcon && ( // Conditionally render the trashcan icon
+                {showTrashIcon && (
                     <TouchableOpacity 
                         style={styles.icon} 
                         onPress={onDelete}
                     >
                         <Text style={styles.description} /* <Text> added to avoid rendering error */>
-                            <Icon name="delete" size={24} color="pink" /> {/* Trashcan icon */}
+                            <Icon name='delete' size={24} color='pink' /> {/* Trashcan icon */}
                         </Text>
 
                     </TouchableOpacity>

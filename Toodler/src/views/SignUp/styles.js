@@ -1,7 +1,4 @@
-
-
 import { StyleSheet } from 'react-native';
-
 
 const styles = StyleSheet.create({
     container: {
@@ -39,4 +36,5 @@ const styles = StyleSheet.create({
         color: 'black',
     },
 });
+
 export default styles;

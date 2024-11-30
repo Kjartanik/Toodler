@@ -5,7 +5,6 @@ import { getListById, updateList, getListsForBoard } from '../../services/dataSe
 import styles from './styles';
 import ListCard from '../../components/ListCard/index';
 
-
 const MoveTask = ({ navigation, route}) => {
     const { taskId, moveTask, boardId } = route.params;
     const [lists, setLists] = useState([])

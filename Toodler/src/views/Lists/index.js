@@ -7,7 +7,6 @@ import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useFocusEffect } from '@react-navigation/native';
 
-
 const Lists = ({ navigation, route }) => {
     const { board } = route.params; // Get board details from navigation
     const [lists, setLists] = useState([]);
@@ -26,7 +25,6 @@ const Lists = ({ navigation, route }) => {
     
         }, [board.id])
     );
-    
 
     // Toggle task completion
     const handleToggleTask = (listId, taskId, isFinished) => {
@@ -49,6 +47,7 @@ const Lists = ({ navigation, route }) => {
             )
         );
     };
+
     // Delete a list
     const handleDeleteList = (listId) => {
         const isDeleted = deleteList(listId);
@@ -85,8 +84,6 @@ const Lists = ({ navigation, route }) => {
         );
     };
 
-
-
     const renderFooter = () => (
         <TouchableOpacity
             style={styles.addButton}
@@ -97,7 +94,7 @@ const Lists = ({ navigation, route }) => {
         >
             <View style={styles.iconContainer}>
                 <Text style={styles.description /* Note: Error {Text strings must be rendered within a <Text>} */}> 
-                    <Icon name="add" size={30} color="pink" /> {/* Plus icon */} 
+                    <Icon name='add' size={30} color='pink' /> {/* Plus icon */} 
                 </Text>
             </View>
         </TouchableOpacity>

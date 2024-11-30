@@ -68,16 +68,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
         alignSelf: 'center',
     },
-    // addButton: {
-    //     marginTop: 10,
-    //     alignSelf: 'center',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     width: 50,
-    //     height: 50,
-    //     borderRadius: 25,
-    //     backgroundColor: 'pink', // Background color for the button
-    // },
     icon: {
         marginLeft: 10, // Spacing between icons
     },

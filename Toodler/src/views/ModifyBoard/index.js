@@ -38,14 +38,14 @@ const ModifyBoard = ({ navigation, route }) => {
     if (loading) {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size="large" color="#0000ff" />
+                <ActivityIndicator size='large' color='#0000ff' />
             </View>
         );
     }
 
     return (
         <BoardForm
-            title="Modify Board"
+            title='Modify Board'
             onSubmit={handleSave}
             onCancel={() => navigation.goBack()}
             initialData={{

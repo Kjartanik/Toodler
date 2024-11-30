@@ -23,16 +23,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
         alignSelf: 'center',
     },
-    // addButton: {
-    //     marginTop: 10,
-    //     alignSelf: 'center',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     width: 48,
-    //     height: 48,
-    //     borderRadius: 24,
-    //     backgroundColor: 'pink', 
-    // },
 });
 
 export default styles;

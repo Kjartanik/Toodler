@@ -21,7 +21,7 @@ const AddList = ({ navigation, route }) => {
             onSubmit={handleSave}
             onCancel={() => navigation.goBack()}
             initialData={{ name: '', color: '' }}
-            title="Create New List"
+            title='Create New List'
         />
     );
 };
