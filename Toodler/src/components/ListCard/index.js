@@ -29,24 +29,24 @@ const ListCard = ({ list, tasks, onModify, onDelete, onToggleTask, onPress, prog
                 <Text style={styles.listTitle}>{list.name}</Text> 
 
                 {!hideIcons && ( // Conditionally render the trashcan icon
-                <View>
-                    <Text>
-                        <Progress.Bar progress={progress} width={150} height={10} color={'pink'} />  {(Math.floor(progress * 100)).toString()}% done
-                    </Text>
+                    <View>
+                        <Text>
+                            <Progress.Bar progress={progress} width={150} height={10} color={'pink'} />  {(Math.floor(progress * 100)).toString()}% done
+                        </Text>
                         <View style={styles.iconContainer}>
-                        <TouchableOpacity onPress={onModify} style={styles.icon}>
-                            <Text style={styles.description}>
-                            <Icon name="edit" size={24} color="pink" />
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={onDelete} style={styles.icon}>
-                            <Text style={styles.description}>
-                            <Icon name="delete" size={24} color="pink" />
-                            </Text>
+                            <TouchableOpacity onPress={onModify} style={styles.icon}>
+                                <Text style={styles.description}>
+                                    <Icon name="edit" size={24} color="pink" />
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={onDelete} style={styles.icon}>
+                                <Text style={styles.description}>
+                                    <Icon name="delete" size={24} color="pink" />
+                                </Text>
 
-                        </TouchableOpacity>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
                 )}
                 
             </View>

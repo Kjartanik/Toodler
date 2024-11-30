@@ -172,26 +172,26 @@ const Tasks = ({ navigation, route }) => {
 
     return (
         <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : 0}
+            style={styles.container}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : 0}
         >            
-        <View style={[styles.listContainer, { borderColor: list.color || '#000' }]}>
-            <Text style={styles.listTitle}>{list.name}</Text>
-            <Text>
-                <Progress.Bar progress={progress} width={150} height={10} color={'pink'} /> {(Math.floor(progress * 100)).toString()}% done
-            </Text>
-        </View>
-        <View style={styles.taskContainer}>
-        <FlatList
-            data={tasks.filter((task) => task && task.id)}
-            keyExtractor={(task) => task.id.toString()}
-            renderItem={renderTask}
-        />
-        </View>
-        <View style={styles.addTaskContainer}>
-            {renderFooter()};
-        </View>
+            <View style={[styles.listContainer, { borderColor: list.color || '#000' }]}>
+                <Text style={styles.listTitle}>{list.name}</Text>
+                <Text>
+                    <Progress.Bar progress={progress} width={150} height={10} color={'pink'} /> {(Math.floor(progress * 100)).toString()}% done
+                </Text>
+            </View>
+            <View style={styles.taskContainer}>
+                <FlatList
+                    data={tasks.filter((task) => task && task.id)}
+                    keyExtractor={(task) => task.id.toString()}
+                    renderItem={renderTask}
+                />
+            </View>
+            <View style={styles.addTaskContainer}>
+                {renderFooter()};
+            </View>
         </KeyboardAvoidingView>
     );
 };

@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f9f9f9',
         borderRadius: 10,
         borderWidth: 2,
-        borderColor:  "#dddddd",
+        borderColor:  '#dddddd',
     },
     cardHeader: {
         flexDirection: 'row',

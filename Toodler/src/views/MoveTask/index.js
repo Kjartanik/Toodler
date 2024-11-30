@@ -17,24 +17,24 @@ const MoveTask = ({ navigation, route}) => {
 
     const renderList = ({ item: list }) => {
         return (
-        <ListCard
-                    list={list}
-                    onPress={() => {
-                        moveTask(taskId, list.id); 
-                        navigation.goBack(); 
-                    }}
-                    hideIcons={true}
-                />
+            <ListCard
+                list={list}
+                onPress={() => {
+                    moveTask(taskId, list.id); 
+                    navigation.goBack(); 
+                }}
+                hideIcons={true}
+            />
         );
     };
 
     return (<View style={styles.container}>
-            <FlatList
-                data={lists}
-                keyExtractor={(list) => list.id.toString()}
-                renderItem={renderList}
-            />
-        </View>);
+        <FlatList
+            data={lists}
+            keyExtractor={(list) => list.id.toString()}
+            renderItem={renderList}
+        />
+    </View>);
 };
 
 export default MoveTask;

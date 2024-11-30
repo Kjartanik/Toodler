@@ -16,21 +16,21 @@ const HomeScreen = ({ navigation }) => {
         const fetchedBoards = getBoards(); // Fetch boards from dataService
         console.log('Fetched boards:', fetchedBoards);
         setBoards(fetchedBoards);
-      }, []); // Only runs on mount
+    }, []); // Only runs on mount
       
 
     // Handle adding a new board
     const handleAddBoard = (newBoard) => {
         const addedBoard = addBoard(newBoard);
         setBoards((prevBoards) => {
-          const isDuplicate = prevBoards.some((board) => board.id === addedBoard.id);
-          if (isDuplicate) {
-            console.warn('Duplicate board detected:', addedBoard.id);
-            return prevBoards; // No state update if duplicate
-          }
-          return [...prevBoards, addedBoard];
+            const isDuplicate = prevBoards.some((board) => board.id === addedBoard.id);
+            if (isDuplicate) {
+                console.warn('Duplicate board detected:', addedBoard.id);
+                return prevBoards; // No state update if duplicate
+            }
+            return [...prevBoards, addedBoard];
         });
-      };
+    };
       
 
     // Handle deleting a board

@@ -20,7 +20,7 @@ const BoardCard = ({ board, onDelete, onModify, onPress, hideActions = false, sh
                         onPress={onModify} // Call modify action
                     >
                         <Text style={styles.description}>
-                        <Icon name="edit" size={24} color="pink" />
+                            <Icon name="edit" size={24} color="pink" />
                         </Text>
                     </TouchableOpacity>
                 )}

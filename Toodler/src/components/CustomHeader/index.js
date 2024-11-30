@@ -31,14 +31,14 @@ const CustomHeader = ({ title, navigation, canGoBack, displaySignOut }) => {
                     </View>
                     
                     <View style={styles.signOutWrapper}>
-                    {displaySignOut ? (
-                        <TouchableOpacity style={styles.signOutWrapper} onPress={() => authContext.signOut()}>
-                        <Text style={styles.signOut}>Sign out</Text>
-                    </TouchableOpacity>
-                    )
-                    : ( <View style={styles.placeholderSignOut}/>)
+                        {displaySignOut ? (
+                            <TouchableOpacity style={styles.signOutWrapper} onPress={() => authContext.signOut()}>
+                                <Text style={styles.signOut}>Sign out</Text>
+                            </TouchableOpacity>
+                        )
+                            : ( <View style={styles.placeholderSignOut}/>)
 
-                    }
+                        }
                     </View>
                     
                 </View>
